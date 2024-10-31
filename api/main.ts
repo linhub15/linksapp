@@ -1,11 +1,11 @@
 import { Hono } from "hono";
-import { users } from "./db.ts";
+import { result } from "./db.ts";
 
 
 const app = new Hono();
 
 app.get("/", (c) => {
-  return c.json(users);
+  return c.json(result);
 });
 
 Deno.serve(app.fetch);

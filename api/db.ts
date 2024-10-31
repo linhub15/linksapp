@@ -1,9 +1,14 @@
-import { createClient } from "@libsql/client";
 import "@std/dotenv/load";
+import { drizzle } from "drizzle-orm/libsql";
+import { users } from "./db/schema.ts";
 
-export const turso = createClient({
-  url: Deno.env.get("TURSO_DATABASE_URL") ?? "missing TURSO_DATABASE_URL",
-  authToken: Deno.env.get("TURSO_AUTH_TOKEN"),
+export const db = drizzle({
+  connection: {
+    url: Deno.env.get("TURSO_DATABASE_URL") ?? "missing TURSO_DATABASE_URL",
+    authToken: Deno.env.get("TURSO_AUTH_TOKEN"),
+  },
+  casing: "snake_case",
+  
 });
 
-export const users = await turso.execute("SELECT * FROM users");
+export const result = await db.select().from(users);

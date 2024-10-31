@@ -4,7 +4,8 @@
     "jsr:@hono/hono@^4.6.8": "4.6.8",
     "jsr:@std/dotenv@~0.225.2": "0.225.2",
     "npm:@libsql/client@0.14": "0.14.0",
-    "npm:create-hono@latest": "0.14.2"
+    "npm:create-hono@latest": "0.14.2",
+    "npm:drizzle-orm@0.36": "0.36.0_@libsql+client@0.14.0"
   },
   "jsr": {
     "@hono/hono@4.6.8": {
@@ -95,6 +96,12 @@
     "detect-libc@2.0.2": {
       "integrity": "sha512-UX6sGumvvqSaXgdKGUsgZWqcUyIXZ/vZTrlRT/iobiKhGL0zL4d3osHj3uqllWJK+i+sixDS/3COVEOFbupFyw=="
     },
+    "drizzle-orm@0.36.0_@libsql+client@0.14.0": {
+      "integrity": "sha512-6BETYPdKSR7cDHC0ZfqZk2VrKJ8n/Rfd3ajFPsAbc69gi87nwZ6oBA2wUGMELHA0tQE4kUKN0Ds00LUZQ6Z69A==",
+      "dependencies": [
+        "@libsql/client"
+      ]
+    },
     "fetch-blob@3.2.0": {
       "integrity": "sha512-7yAQpD2UMJzLi1Dqv7qFYnPbaPx7ZfFK6PiIxQ4PfkGPyNyl2Ugx+a/umUonmKqjhM4DnfbMvdX6otXq83soQQ==",
       "dependencies": [
@@ -153,7 +160,8 @@
     "dependencies": [
       "jsr:@hono/hono@^4.6.8",
       "jsr:@std/dotenv@~0.225.2",
-      "npm:@libsql/client@0.14"
+      "npm:@libsql/client@0.14",
+      "npm:drizzle-orm@0.36"
     ]
   }
 }
