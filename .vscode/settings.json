@@ -1,4 +1,5 @@
 {
   "deno.enable": true,
-  "typescript.preferences.preferTypeOnlyAutoImports": true
+  "typescript.preferences.preferTypeOnlyAutoImports": true,
+  "editor.tabSize": 2
 }

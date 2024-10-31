@@ -9,11 +9,16 @@
   },
   "nodeModulesDir": "auto",
   "imports": {
+    "@asteasolutions/zod-to-openapi": "npm:@asteasolutions/zod-to-openapi@^7.2.0",
+    "@hono/zod-openapi": "npm:@hono/zod-openapi@^0.16.4",
     "@libsql/client": "npm:@libsql/client@^0.14.0",
+    "@scalar/hono-api-reference": "npm:@scalar/hono-api-reference@^0.5.158",
     "@std/assert": "jsr:@std/assert@^1.0.6",
     "@std/dotenv": "jsr:@std/dotenv@^0.225.2",
     "drizzle-kit": "npm:drizzle-kit@^0.27.0",
     "drizzle-orm": "npm:drizzle-orm@^0.36.0",
-    "hono": "jsr:@hono/hono@^4.6.8"
+    "drizzle-zod": "npm:drizzle-zod@^0.5.1",
+    "hono": "jsr:@hono/hono@^4.6.8",
+    "zod": "npm:zod@^3.23.8"
   }
 }

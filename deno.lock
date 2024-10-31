@@ -5,12 +5,17 @@
     "jsr:@std/assert@^1.0.6": "1.0.6",
     "jsr:@std/dotenv@~0.225.2": "0.225.2",
     "jsr:@std/internal@^1.0.4": "1.0.4",
+    "npm:@asteasolutions/zod-to-openapi@^7.2.0": "7.2.0_zod@3.23.8",
+    "npm:@hono/zod-openapi@~0.16.4": "0.16.4_hono@4.6.8_zod@3.23.8",
     "npm:@libsql/client@0.14": "0.14.0",
+    "npm:@scalar/hono-api-reference@~0.5.158": "0.5.158_hono@4.6.8",
     "npm:@types/node@*": "22.5.4",
     "npm:create-hono@latest": "0.14.2",
     "npm:drizzle-kit@*": "0.27.0_esbuild@0.19.12",
     "npm:drizzle-kit@0.27": "0.27.0_esbuild@0.19.12",
-    "npm:drizzle-orm@0.36": "0.36.0_@libsql+client@0.14.0"
+    "npm:drizzle-orm@0.36": "0.36.0_@libsql+client@0.14.0",
+    "npm:drizzle-zod@~0.5.1": "0.5.1_drizzle-orm@0.36.0__@libsql+client@0.14.0_zod@3.23.8_@libsql+client@0.14.0",
+    "npm:zod@^3.23.8": "3.23.8"
   },
   "jsr": {
     "@hono/hono@4.6.8": {
@@ -30,6 +35,13 @@
     }
   },
   "npm": {
+    "@asteasolutions/zod-to-openapi@7.2.0_zod@3.23.8": {
+      "integrity": "sha512-Va+Fq1QzKkSgmiYINSp3cASFhMsbdRH/kmCk2feijhC+yNjGoC056CRqihrVFhR8MY8HOZHdlYm2Ns2lmszCiw==",
+      "dependencies": [
+        "openapi3-ts",
+        "zod"
+      ]
+    },
     "@drizzle-team/brocli@0.10.2": {
       "integrity": "sha512-z33Il7l5dKjUgGULTqBsQBQwckHh5AbIuxhdsIxDDiZAzBOrZO6q9ogcWC65kU382AfynTfgNumVcNIjuIua6w=="
     },
@@ -182,6 +194,22 @@
     "@esbuild/win32-x64@0.19.12": {
       "integrity": "sha512-T1QyPSDCyMXaO3pzBkF96E8xMkiRYbUEZADd29SyPGabqxMViNoii+NcK7eWJAEoU6RZyEm5lVSIjTmcdoB9HA=="
     },
+    "@hono/zod-openapi@0.16.4_hono@4.6.8_zod@3.23.8": {
+      "integrity": "sha512-mnF6GthBaKex0D5PsY/4lYNtkaGJNE38bjeUI//EUqq7Ee4TNm2su35IUiFH4HcmJp5fWYMLyOJOpjnkClzEGw==",
+      "dependencies": [
+        "@asteasolutions/zod-to-openapi",
+        "@hono/zod-validator",
+        "hono",
+        "zod"
+      ]
+    },
+    "@hono/zod-validator@0.3.0_hono@4.6.8_zod@3.23.8": {
+      "integrity": "sha512-7XcTk3yYyk6ldrO/VuqsroE7stvDZxHJQcpATRAyha8rUxJNBPV3+6waDrARfgEqxOVlzIadm3/6sE/dPseXgQ==",
+      "dependencies": [
+        "hono",
+        "zod"
+      ]
+    },
     "@libsql/client@0.14.0": {
       "integrity": "sha512-/9HEKfn6fwXB5aTEEoMeFh4CtG0ZzbncBb1e++OCdVpgKZ/xyMsIVYXm0w7Pv4RUel803vE6LwniB3PqD72R0Q==",
       "dependencies": [
@@ -241,6 +269,23 @@
     "@neon-rs/load@0.0.4": {
       "integrity": "sha512-kTPhdZyTQxB+2wpiRcFWrDcejc4JI6tkPuS7UZCG4l6Zvc5kU/gGQ/ozvHTh1XR5tS+UlfAfGuPajjzQjCiHCw=="
     },
+    "@scalar/hono-api-reference@0.5.158_hono@4.6.8": {
+      "integrity": "sha512-2P7l/ivuC/RWpAKddLtkqIZ89TA5/QlpfEBrdpH9/yjn4NpR5XkbtT+/8uZVELCyjfUMpGcaNXrxuJERFJ3sxA==",
+      "dependencies": [
+        "@scalar/types",
+        "hono"
+      ]
+    },
+    "@scalar/openapi-types@0.1.4": {
+      "integrity": "sha512-+wRXgmqzgDnj8Dxqf4OOPMPo4or/LRd1Bsy4pnrIW0yBt8rKSdtBb+jH/aRnhgDDmKVjWxJ+KFk7WlSKvZwNTw=="
+    },
+    "@scalar/types@0.0.18": {
+      "integrity": "sha512-gfJB/e9Rq/vjsiWlNwBkaIAZVb9v5guHQB5uVoVFcU0gdAuXni0KVxFxl3gGTu2zhBdB+DkixjyPcNzpqwksmA==",
+      "dependencies": [
+        "@scalar/openapi-types",
+        "@unhead/schema"
+      ]
+    },
     "@types/node@22.5.4": {
       "integrity": "sha512-FDuKUJQm/ju9fT/SeX/6+gBzoPzlVCzfzmGkwKvRHQVxi4BntVbyIwf6a4Xn62mrvndLiml6z/UBXIdEVjQLXg==",
       "dependencies": [
@@ -251,6 +296,13 @@
       "integrity": "sha512-3tPRkv1EtkDpzlgyKyI8pGsGZAGPEaXeu0DOj5DI25Ja91bdAYddYHbADRYVrZMRbfW+1l5YwXVDKohDJNQxkQ==",
       "dependencies": [
         "@types/node"
+      ]
+    },
+    "@unhead/schema@1.11.10": {
+      "integrity": "sha512-lXh7cm5XtFaw3gc+ZVXTSfIHXiBpAywbjtEiOsz5TR4GxOjj2rtfOAl4C3Difk1yupP6L2otYmOZdn/i8EXSJg==",
+      "dependencies": [
+        "hookable",
+        "zhead"
       ]
     },
     "buffer-from@1.1.2": {
@@ -284,6 +336,13 @@
       "integrity": "sha512-6BETYPdKSR7cDHC0ZfqZk2VrKJ8n/Rfd3ajFPsAbc69gi87nwZ6oBA2wUGMELHA0tQE4kUKN0Ds00LUZQ6Z69A==",
       "dependencies": [
         "@libsql/client"
+      ]
+    },
+    "drizzle-zod@0.5.1_drizzle-orm@0.36.0__@libsql+client@0.14.0_zod@3.23.8_@libsql+client@0.14.0": {
+      "integrity": "sha512-C/8bvzUH/zSnVfwdSibOgFjLhtDtbKYmkbPbUCq46QZyZCH6kODIMSOgZ8R7rVjoI+tCj3k06MRJMDqsIeoS4A==",
+      "dependencies": [
+        "drizzle-orm",
+        "zod"
       ]
     },
     "esbuild-register@3.6.0_esbuild@0.19.12": {
@@ -367,6 +426,12 @@
         "resolve-pkg-maps"
       ]
     },
+    "hono@4.6.8": {
+      "integrity": "sha512-f+2Ec9JAzabT61pglDiLJcF/DjiSefZkjCn9bzm1cYLGkD5ExJ3Jnv93ax9h0bn7UPLHF81KktoyjdQfWI2n1Q=="
+    },
+    "hookable@5.5.3": {
+      "integrity": "sha512-Yc+BQe8SvoXH1643Qez1zqLRmbA5rCL+sSmk6TVos0LWVfNIB7PGncdlId77WzLGSIB5KaWgTaNTs2lNVEI6VQ=="
+    },
     "js-base64@3.7.7": {
       "integrity": "sha512-7rCnleh0z2CkXhH67J8K1Ytz0b2Y+yxTPL+/KOJoa20hfnVQ/3/T6W/KflYI4bRHRagNeXeU2bkNGI3v1oS/lw=="
     },
@@ -398,6 +463,12 @@
         "formdata-polyfill"
       ]
     },
+    "openapi3-ts@4.4.0": {
+      "integrity": "sha512-9asTNB9IkKEzWMcHmVZE7Ts3kC9G7AFHfs8i7caD8HbI76gEjdkId4z/AkP83xdZsH7PLAnnbl47qZkXuxpArw==",
+      "dependencies": [
+        "yaml"
+      ]
+    },
     "promise-limit@2.7.0": {
       "integrity": "sha512-7nJ6v5lnJsXwGprnGXga4wx6d1POjvi5Qmf1ivTRxTjH4Z/9Czja/UCMLVmB9N93GeWOU93XaFaEt6jbuoagNw=="
     },
@@ -422,6 +493,15 @@
     },
     "ws@8.18.0": {
       "integrity": "sha512-8VbfWfHLbbwu3+N6OKsOMpBdT4kXPDDB9cJk2bJ6mh9ucxdlnNvH1e+roYkKmN9Nxw2yjz7VzeO9oOz2zJ04Pw=="
+    },
+    "yaml@2.6.0": {
+      "integrity": "sha512-a6ae//JvKDEra2kdi1qzCyrJW/WZCgFi8ydDV+eXExl95t+5R+ijnqHJbz9tmMh8FUjx3iv2fCQ4dclAQlO2UQ=="
+    },
+    "zhead@2.2.4": {
+      "integrity": "sha512-8F0OI5dpWIA5IGG5NHUg9staDwz/ZPxZtvGVf01j7vHqSyZ0raHY+78atOVxRqb73AotX22uV1pXt3gYSstGag=="
+    },
+    "zod@3.23.8": {
+      "integrity": "sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g=="
     }
   },
   "redirects": {
@@ -468,9 +548,14 @@
       "jsr:@hono/hono@^4.6.8",
       "jsr:@std/assert@^1.0.6",
       "jsr:@std/dotenv@~0.225.2",
+      "npm:@asteasolutions/zod-to-openapi@^7.2.0",
+      "npm:@hono/zod-openapi@~0.16.4",
       "npm:@libsql/client@0.14",
+      "npm:@scalar/hono-api-reference@~0.5.158",
       "npm:drizzle-kit@0.27",
-      "npm:drizzle-orm@0.36"
+      "npm:drizzle-orm@0.36",
+      "npm:drizzle-zod@~0.5.1",
+      "npm:zod@^3.23.8"
     ]
   }
 }
