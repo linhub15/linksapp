@@ -1,4 +1,3 @@
-import "@std/dotenv/load";
 import { drizzle } from "drizzle-orm/libsql";
 import { users } from "./db/schema.ts";
 
