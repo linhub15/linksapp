@@ -16,4 +16,5 @@ export default defineConfig({
     url: process.env.TURSO_DATABASE_URL || "missing",
     authToken: process.env.TURSO_AUTH_TOKEN || "missing",
   },
+  casing: "snake_case",
 });

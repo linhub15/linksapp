@@ -7,7 +7,6 @@ export const db = drizzle({
     authToken: Deno.env.get("TURSO_AUTH_TOKEN"),
   },
   casing: "snake_case",
-  
 });
 
 export const result = await db.select().from(users);
