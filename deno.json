@@ -1,0 +1,17 @@
+{
+  "workspace": [
+    "api"
+  ],
+  "tasks": {
+    "api": "deno task --cwd api dev"
+  },
+  "imports": {
+    "@libsql/client": "npm:@libsql/client@^0.14.0",
+    "@std/dotenv": "jsr:@std/dotenv@^0.225.2",
+    "hono": "jsr:@hono/hono@^4.6.8"
+  },
+  "compilerOptions": {
+    "jsx": "precompile",
+    "jsxImportSource": "hono/jsx"
+  }
+}
