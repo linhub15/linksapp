@@ -1,20 +1,11 @@
-/**
- * This file runs as .cjs because of npm:drizzle-kit.
- * Treat this like it's being run by `node.js`.
- */
-import "dotenv/config";
-import { defineConfig } from "drizzle-kit";
+import type { Config } from "drizzle-kit";
 
-/** To satisfy Deno typing errors */
-// @deno-types="npm:@types/node"
-import process from "node:process";
-
-export default defineConfig({
+export default {
   schema: "./db/schema.ts",
   dialect: "turso",
   dbCredentials: {
-    url: process.env.TURSO_DATABASE_URL || "missing",
-    authToken: process.env.TURSO_AUTH_TOKEN || "missing",
+    url: Deno.env.get("TURSO_DATABASE_URL") || "missing",
+    authToken: Deno.env.get("TURSO_AUTH_TOKEN") || "missing",
   },
   casing: "snake_case",
-});
+} satisfies Config;

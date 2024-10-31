@@ -1,6 +1,6 @@
 {
   "tasks": {
     "dev": "deno run --allow-net --allow-read --allow-env main.ts --watch",
-    "db": "deno run --node-modules-dir -A npm:drizzle-kit"
+    "db": "deno run --env-file --node-modules-dir -A npm:drizzle-kit"
   }
 }

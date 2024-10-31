@@ -7,9 +7,7 @@
     "jsr:@std/internal@^1.0.4": "1.0.4",
     "npm:@libsql/client@0.14": "0.14.0",
     "npm:@types/node@*": "22.5.4",
-    "npm:@types/node@^22.8.4": "22.8.4",
     "npm:create-hono@latest": "0.14.2",
-    "npm:dotenv@^16.4.5": "16.4.5",
     "npm:drizzle-kit@*": "0.27.0_esbuild@0.19.12",
     "npm:drizzle-kit@0.27": "0.27.0_esbuild@0.19.12",
     "npm:drizzle-orm@0.36": "0.36.0_@libsql+client@0.14.0"
@@ -249,16 +247,10 @@
         "undici-types"
       ]
     },
-    "@types/node@22.8.4": {
-      "integrity": "sha512-SpNNxkftTJOPk0oN+y2bIqurEXHTA2AOZ3EJDDKeJ5VzkvvORSvmQXGQarcOzWV1ac7DCaPBEdMDxBsM+d8jWw==",
-      "dependencies": [
-        "undici-types"
-      ]
-    },
     "@types/ws@8.5.12": {
       "integrity": "sha512-3tPRkv1EtkDpzlgyKyI8pGsGZAGPEaXeu0DOj5DI25Ja91bdAYddYHbADRYVrZMRbfW+1l5YwXVDKohDJNQxkQ==",
       "dependencies": [
-        "@types/node@22.5.4"
+        "@types/node"
       ]
     },
     "buffer-from@1.1.2": {
@@ -278,9 +270,6 @@
     },
     "detect-libc@2.0.2": {
       "integrity": "sha512-UX6sGumvvqSaXgdKGUsgZWqcUyIXZ/vZTrlRT/iobiKhGL0zL4d3osHj3uqllWJK+i+sixDS/3COVEOFbupFyw=="
-    },
-    "dotenv@16.4.5": {
-      "integrity": "sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg=="
     },
     "drizzle-kit@0.27.0_esbuild@0.19.12": {
       "integrity": "sha512-vJJCPvKGLFcmOFBELKqcRng3Fc6qTOaKNAqetLEoysD7HjlSlJOWwM54FJlhpqA+cZcIdsL8r9/7v9JIFfs3MA==",
@@ -480,8 +469,6 @@
       "jsr:@std/assert@^1.0.6",
       "jsr:@std/dotenv@~0.225.2",
       "npm:@libsql/client@0.14",
-      "npm:@types/node@^22.8.4",
-      "npm:dotenv@^16.4.5",
       "npm:drizzle-kit@0.27",
       "npm:drizzle-orm@0.36"
     ]
