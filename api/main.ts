@@ -6,23 +6,21 @@ extendZodWithOpenApi(z);
 
 import { OpenAPIHono } from "@hono/zod-openapi";
 import { apiReference } from "@scalar/hono-api-reference";
-import { createLink } from "./actions/create_link.ts";
-import { db, result } from "./db.ts";
+import { linkCreate } from "./actions/link_create.ts";
+import { linkUpdate } from "./actions/link_update.ts";
+import { db } from "./db.ts";
 import { links } from "./db/schema.ts";
 import type { AppEnv } from "./lib/types.ts";
 
 const app = new OpenAPIHono<AppEnv>();
-
-app.get("/", (c) => {
-  return c.json(result);
-});
 
 app.get("/links", async (c) => {
   const data = await db.select().from(links);
   return c.json(data);
 });
 
-app.openapi(createLink.route, createLink.handler);
+app.openapi(linkCreate.route, linkCreate.handler);
+app.openapi(linkUpdate.route, linkUpdate.handler);
 
 app.doc("/openapi", {
   openapi: "3.0.0",
@@ -32,6 +30,6 @@ app.doc("/openapi", {
   },
 });
 
-app.get("/reference", apiReference({ spec: { url: "/openapi" } }));
+app.get("/", apiReference({ spec: { url: "/openapi" } }));
 
 Deno.serve(app.fetch);

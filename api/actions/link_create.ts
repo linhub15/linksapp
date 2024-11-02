@@ -8,7 +8,8 @@ const schema = createInsertSchema(links)
   .pick({
     href: true,
     label: true,
-  }).openapi(
+  })
+  .openapi(
     "CreateLink",
     {
       example: {
@@ -41,14 +42,13 @@ const route = createRoute({
 
 const handler: Handler<typeof route> = async (c) => {
   const body = c.req.valid("json");
-  const link: typeof links.$inferInsert = {
+
+  await db.insert(links).values({
     href: body.href,
     label: body.label,
-  };
-
-  await db.insert(links).values(link);
+  });
 
   return c.text("ok");
 };
 
-export const createLink = { route, handler };
+export const linkCreate = { route, handler };
