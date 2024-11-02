@@ -1,5 +1,4 @@
 import { drizzle } from "drizzle-orm/libsql";
-import { users } from "./db/schema.ts";
 
 export const db = drizzle({
   connection: {
@@ -8,5 +7,3 @@ export const db = drizzle({
   },
   casing: "snake_case",
 });
-
-export const result = await db.select().from(users);
