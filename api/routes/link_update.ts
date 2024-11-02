@@ -1,29 +1,34 @@
 import { createRoute, z } from "@hono/zod-openapi";
+import { eq } from "drizzle-orm";
+
 import { createInsertSchema } from "drizzle-zod";
-import { db } from "../db.ts";
 import { links } from "../db/schema.ts";
 import type { Handler } from "../lib/types.ts";
+import { db } from "../db.ts";
 
 const schema = createInsertSchema(links)
   .pick({
     href: true,
     label: true,
+    newTab: true,
   })
   .openapi(
-    "CreateLink",
+    "LinkUpdate",
     {
       example: {
         href: "https://example.com",
         label: "Example",
+        newTab: false,
       },
     },
   );
 
 const route = createRoute({
-  method: "post",
-  path: "/links",
-  description: "Creates a new link",
+  method: "put",
+  path: "/links/:id",
+  description: "Updates a link",
   request: {
+    params: z.object({ id: z.string().uuid() }),
     body: {
       content: {
         "application/json": { schema },
@@ -33,22 +38,34 @@ const route = createRoute({
   responses: {
     200: {
       content: {
-        "text/plain": { schema: z.string() },
+        "text/plain": { schema: z.literal("ok") },
       },
       description: "ok",
+    },
+    400: {
+      description: "Update failed",
     },
   },
 });
 
 const handler: Handler<typeof route> = async (c) => {
+  const id = c.req.valid("param").id;
   const body = c.req.valid("json");
 
-  await db.insert(links).values({
-    href: body.href,
-    label: body.label,
-  });
+  const response = await db
+    .update(links)
+    .set({
+      href: body.href,
+      label: body.label,
+      newTab: body.newTab,
+    })
+    .where(eq(links.id, id));
 
-  return c.text("ok");
+  if (response.rowsAffected === 1) {
+    return c.text("ok");
+  }
+
+  return c.text("Update failed", 400);
 };
 
-export const linkCreate = { route, handler };
+export const linkUpdate = { route, handler };
