@@ -7,6 +7,23 @@ Uses [Deno 2](https://deno.com/).
 
 ### Buzzwords
 
-- Screaming, Hexagonal, Clean Architecture
+- Hexagonal, Clean Architecture, Screaming Architecture
 - RESTful API
 - DB ORM
+- Monorepo
+
+### Backend Tech
+
+- Hono
+- Zod
+- Drizzle ORM
+- OpenApi
+- Scalar API Docs
+- Turso LibSQL (sqlite)
+
+### Frontend Tech
+
+- Vite + React
+- Tailwind v4
+
+### Devops, CI/CD
