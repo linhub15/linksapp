@@ -1,5 +1,5 @@
 import { OpenAPIHono } from "@hono/zod-openapi";
-import { apiReference } from "@scalar/hono-api-reference";
+import { configureOpenapi } from "../lib/configure_openapi.ts";
 import type { AppEnv } from "../lib/types.ts";
 import { linkCreate } from "./link_create.ts";
 import { linkDelete } from "./link_delete.ts";
@@ -8,14 +8,7 @@ import { linkUpdate } from "./link_update.ts";
 
 export const app = new OpenAPIHono<AppEnv>();
 
-app.doc("/openapi", {
-  openapi: "3.0.0",
-  info: {
-    version: "1.0.0",
-    title: "api",
-  },
-});
-app.get("/", apiReference({ spec: { url: "/openapi" } }));
+configureOpenapi(app);
 
 app.openapi(linkList.route, linkList.handler);
 app.openapi(linkCreate.route, linkCreate.handler);

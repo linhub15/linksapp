@@ -1,4 +1,4 @@
-/** EFFEECT: load .env into process */
+/** EFFECT: load .env into process */
 import "@std/dotenv/load";
 
 /** EFFECT: add .openapi() function to zod */
