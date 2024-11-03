@@ -4,10 +4,13 @@ import { db } from "../db.ts";
 import { links } from "../db/schema.ts";
 import type { Handler } from "../lib/types.ts";
 
-const schema = createInsertSchema(links)
+const schema = createInsertSchema(links, {
+  newTab: z.coerce.boolean().optional(),
+})
   .pick({
     href: true,
     label: true,
+    newTab: true,
   })
   .openapi(
     "LinkCreate",
@@ -46,6 +49,7 @@ const handler: Handler<typeof route> = async (c) => {
   await db.insert(links).values({
     href: body.href,
     label: body.label,
+    newTab: body.newTab,
   });
 
   return c.text("ok");

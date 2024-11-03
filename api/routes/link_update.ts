@@ -6,7 +6,9 @@ import { links } from "../db/schema.ts";
 import type { Handler } from "../lib/types.ts";
 import { db } from "../db.ts";
 
-const schema = createInsertSchema(links)
+const schema = createInsertSchema(links, {
+  newTab: z.coerce.boolean().optional().default(false),
+})
   .pick({
     href: true,
     label: true,
@@ -52,12 +54,14 @@ const handler: Handler<typeof route> = async (c) => {
   const id = c.req.valid("param").id;
   const body = c.req.valid("json");
 
+  console.log(body);
+
   const response = await db
     .update(links)
     .set({
       href: body.href,
       label: body.label,
-      newTab: body.newTab,
+      newTab: !!body.newTab,
     })
     .where(eq(links.id, id));
 

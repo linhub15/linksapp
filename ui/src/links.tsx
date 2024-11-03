@@ -1,11 +1,17 @@
+import { useState } from "react";
+import { LinkForm } from "./features/manage_links/LinkForm.tsx";
 import {
   useCreateLink,
   useDeleteLink,
+  useEditLink,
 } from "./features/manage_links/mutations.ts";
 import { useListLinks } from "./features/manage_links/queries.ts";
 
 export function Links() {
+  const [editId, setEditId] = useState<string | undefined>();
   const deleteLink = useDeleteLink();
+  const createLink = useCreateLink();
+  const editLink = useEditLink();
   const query = useListLinks();
 
   return (
@@ -19,44 +25,38 @@ export function Links() {
           >
             Delete
           </button>
-          <span>
-            {link.label} - {link.href} {link.newTab ? "(opens in new tab)" : ""}
-          </span>
+
+          {editId !== link.id
+            ? (
+              <>
+                <span>
+                  {link.label} - {link.href}{" "}
+                  {link.newTab ? "(opens in new tab)" : ""}
+                </span>
+                <button
+                  className="p-1 bg-green-300"
+                  type="button"
+                  onClick={() => {
+                    setEditId(link.id);
+                  }}
+                >
+                  edit
+                </button>
+              </>
+            )
+            : (
+              <LinkForm
+                value={link}
+                onSubmit={async (data) => {
+                  await editLink.mutateAsync(data);
+                  setEditId(undefined);
+                }}
+                submitText="Save"
+              />
+            )}
         </div>
       ))}
-      <LinkForm />
+      <LinkForm onSubmit={createLink.mutateAsync} submitText="Add"/>
     </div>
-  );
-}
-
-function LinkForm() {
-  const createLink = useCreateLink();
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    console.log(formData);
-    await createLink.mutateAsync(formData);
-  };
-
-  return (
-    <form onSubmit={(e) => handleSubmit(e)}>
-      <label>
-        <span>href</span>
-        <input name="href" type="text" placeholder="url" />
-      </label>
-
-      <label>
-        <span>label</span>
-        <input name="label" type="text" placeholder="url label" />
-      </label>
-
-      <label>
-        <span>open in new tab</span>
-        <input name="newTab" type="checkbox" value="true" />
-      </label>
-
-      <button type="submit">Add</button>
-    </form>
   );
 }
