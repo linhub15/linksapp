@@ -22,7 +22,7 @@ const schema = createInsertSchema(links)
 const route = createRoute({
   method: "post",
   path: "/links",
-  description: "Creates a new link",
+  description: "Create a new link",
   request: {
     body: {
       content: {

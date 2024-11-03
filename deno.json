@@ -9,6 +9,9 @@
     "test": "deno test --allow-net",
     "ui": "deno task --cwd ui dev"
   },
+  "lint": {
+    "exclude": ["node_modules", "ui/.vite"]
+  },
   "imports": {
     "@asteasolutions/zod-to-openapi": "npm:@asteasolutions/zod-to-openapi@^7.2.0",
     "@hono/zod-openapi": "npm:@hono/zod-openapi@^0.16.4",
