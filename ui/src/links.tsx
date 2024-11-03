@@ -1,30 +1,13 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  useCreateLink,
+  useDeleteLink,
+} from "./features/manage_links/mutations.ts";
+import { useListLinks } from "./features/manage_links/queries.ts";
 
 export function Links() {
-  const queryClient = useQueryClient();
-  const deleteLink = useMutation({
-    mutationFn: async (id: string) => {
-      await fetch(`http://localhost:8000/links/${id}`, {
-        method: "DELETE",
-      });
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["links"] });
-    },
-  });
+  const deleteLink = useDeleteLink();
+  const query = useListLinks();
 
-  const query = useQuery({
-    queryKey: ["links"],
-    queryFn: async () => {
-      const response = await fetch("http://localhost:8000/links");
-      return await response.json() as {
-        id: string;
-        href: string;
-        label: string;
-        newTab: boolean;
-      }[];
-    },
-  });
   return (
     <div className="space-y-2">
       {query.data?.map((link) => (
@@ -47,27 +30,13 @@ export function Links() {
 }
 
 function LinkForm() {
-  const queryClient = useQueryClient();
-  const mutation = useMutation({
-    mutationFn: async (data: FormData) => {
-      await fetch("http://localhost:8000/links", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(Object.fromEntries(data)),
-      });
-    },
-    onSuccess: () => {
-      queryClient.refetchQueries({ queryKey: ["links"] });
-    },
-  });
+  const createLink = useCreateLink();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     console.log(formData);
-    await mutation.mutateAsync(formData);
+    await createLink.mutateAsync(formData);
   };
 
   return (
