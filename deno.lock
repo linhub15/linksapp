@@ -10,6 +10,7 @@
     "npm:@libsql/client@0.14": "0.14.0",
     "npm:@scalar/hono-api-reference@~0.5.158": "0.5.158_hono@4.6.8",
     "npm:@tailwindcss/vite@^4.0.0-alpha.31": "4.0.0-alpha.31_vite@5.4.10__@types+node@22.5.4_@types+node@22.5.4_lightningcss@1.27.0",
+    "npm:@tanstack/react-query@^5.59.19": "5.59.19_react@18.3.1",
     "npm:@types/node@*": "22.5.4",
     "npm:@types/react@*": "18.3.12",
     "npm:@vitejs/plugin-react@^4.3.3": "4.3.3_vite@5.4.10__@types+node@22.5.4_@babel+core@7.26.0_@types+node@22.5.4",
@@ -648,6 +649,16 @@
         "vite@5.4.10_@types+node@22.5.4_lightningcss@1.27.0"
       ]
     },
+    "@tanstack/query-core@5.59.17": {
+      "integrity": "sha512-jWdDiif8kaqnRGHNXAa9CnudtxY5v9DUxXhodgqX2Rwzj+1UwStDHEbBd9IA5C7VYAaJ2s+BxFR6PUBs8ERorA=="
+    },
+    "@tanstack/react-query@5.59.19_react@18.3.1": {
+      "integrity": "sha512-xLRfyFyQOFcLltKCds0LijfC6/HQJrrTTnZB8ciyn74LIkVAm++vZJ6eUVG20RmJtdP8REdy7vSOYW4M3//XLA==",
+      "dependencies": [
+        "@tanstack/query-core",
+        "react"
+      ]
+    },
     "@types/babel__core@7.20.5": {
       "integrity": "sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==",
       "dependencies": [
@@ -1221,6 +1232,7 @@
       "npm:@libsql/client@0.14",
       "npm:@scalar/hono-api-reference@~0.5.158",
       "npm:@tailwindcss/vite@^4.0.0-alpha.31",
+      "npm:@tanstack/react-query@^5.59.19",
       "npm:@vitejs/plugin-react@^4.3.3",
       "npm:drizzle-kit@0.27",
       "npm:drizzle-orm@0.36",

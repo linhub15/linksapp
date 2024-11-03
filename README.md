@@ -25,5 +25,6 @@ Uses [Deno 2](https://deno.com/).
 
 - Vite + React
 - Tailwind v4
+- Tanstack Query
 
 ### Devops, CI/CD
