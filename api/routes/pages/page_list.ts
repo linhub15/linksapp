@@ -1,27 +1,27 @@
 import { createRoute, z } from "@hono/zod-openapi";
 import { createSelectSchema } from "drizzle-zod";
-import { links } from "../db/schema.ts";
-import type { Handler } from "../lib/types.ts";
-import { db } from "../db.ts";
+import { pages } from "../../db/schema.ts";
+import type { Handler } from "../../lib/types.ts";
+import { db } from "../../db.ts";
 
-const schema = createSelectSchema(links).openapi("Link");
+const schema = createSelectSchema(pages).openapi("Page");
 
 const route = createRoute({
   method: "get",
-  path: "/links",
+  path: "/pages",
   responses: {
     200: {
       content: {
         "application/json": { schema: z.array(schema) },
       },
-      description: "List all links",
+      description: "List all pages",
     },
   },
 });
 
 const handler: Handler<typeof route> = async (c) => {
-  const data = await db.select().from(links);
+  const data = await db.select().from(pages);
   return c.json(data);
 };
 
-export const linkList = { route, handler };
+export const pageList = { route, handler };

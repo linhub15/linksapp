@@ -1,9 +1,9 @@
 import { createRoute, z } from "@hono/zod-openapi";
 import { eq } from "drizzle-orm";
 
-import type { Handler } from "../lib/types.ts";
-import { db } from "../db.ts";
-import { links } from "../db/schema.ts";
+import type { Handler } from "../../lib/types.ts";
+import { db } from "../../db.ts";
+import { links } from "../../db/schema.ts";
 
 const route = createRoute({
   method: "delete",

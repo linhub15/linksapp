@@ -2,33 +2,28 @@ import { createRoute, z } from "@hono/zod-openapi";
 import { eq } from "drizzle-orm";
 
 import { createInsertSchema } from "drizzle-zod";
-import { links } from "../db/schema.ts";
-import type { Handler } from "../lib/types.ts";
-import { db } from "../db.ts";
+import { pages } from "../../db/schema.ts";
+import type { Handler } from "../../lib/types.ts";
+import { db } from "../../db.ts";
+import { slugify } from "./slugify.ts";
 
-const schema = createInsertSchema(links, {
-  newTab: z.coerce.boolean().optional().default(false),
-})
+const schema = createInsertSchema(pages)
   .pick({
-    href: true,
-    label: true,
-    newTab: true,
+    title: true,
   })
   .openapi(
-    "LinkUpdate",
+    "PageUpdate",
     {
       example: {
-        href: "https://example.com",
-        label: "Example",
-        newTab: false,
+        title: "https://example.com",
       },
     },
   );
 
 const route = createRoute({
   method: "put",
-  path: "/links/:id",
-  description: "Update a link",
+  path: "/pages/:id",
+  description: "Update a page",
   request: {
     params: z.object({ id: z.string().uuid() }),
     body: {
@@ -54,16 +49,13 @@ const handler: Handler<typeof route> = async (c) => {
   const id = c.req.valid("param").id;
   const body = c.req.valid("json");
 
-  console.log(body);
-
   const response = await db
-    .update(links)
+    .update(pages)
     .set({
-      href: body.href,
-      label: body.label,
-      newTab: !!body.newTab,
+      title: body.title,
+      urlSlug: slugify(body.title),
     })
-    .where(eq(links.id, id));
+    .where(eq(pages.id, id));
 
   if (response.rowsAffected === 1) {
     return c.text("ok");
@@ -72,4 +64,4 @@ const handler: Handler<typeof route> = async (c) => {
   return c.text("Update failed", 400);
 };
 
-export const linkUpdate = { route, handler };
+export const pageUpdate = { route, handler };

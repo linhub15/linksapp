@@ -1,8 +1,8 @@
 import { createRoute, z } from "@hono/zod-openapi";
 import { createInsertSchema } from "drizzle-zod";
-import { db } from "../db.ts";
-import { links } from "../db/schema.ts";
-import type { Handler } from "../lib/types.ts";
+import { db } from "../../db.ts";
+import { links } from "../../db/schema.ts";
+import type { Handler } from "../../lib/types.ts";
 
 const schema = createInsertSchema(links, {
   newTab: z.coerce.boolean().optional(),
@@ -11,6 +11,7 @@ const schema = createInsertSchema(links, {
     href: true,
     label: true,
     newTab: true,
+    pageId: true,
   })
   .openapi(
     "LinkCreate",
@@ -18,6 +19,8 @@ const schema = createInsertSchema(links, {
       example: {
         href: "https://example.com",
         label: "Example",
+        newTab: false,
+        pageId: "caa94a8b-6f68-4984-94ba-c52b30f77ae0",
       },
     },
   );
@@ -50,6 +53,7 @@ const handler: Handler<typeof route> = async (c) => {
     href: body.href,
     label: body.label,
     newTab: body.newTab,
+    pageId: body.pageId,
   });
 
   return c.text("ok");
