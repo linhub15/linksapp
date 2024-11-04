@@ -5,6 +5,12 @@ edge technology.
 
 Uses [Deno 2](https://deno.com/).
 
+## Dev
+
+- start the db `deno task db`
+- start the api `deno task api`
+- start the ui `deno task ui`
+
 ### Buzzwords
 
 - Hexagonal, Clean Architecture, Screaming Architecture
@@ -29,3 +35,9 @@ Uses [Deno 2](https://deno.com/).
 - Tanstack Query
 
 ### Devops, CI/CD
+
+## Setup
+
+- Install deno
+- Install turso cli
+- Setup environment variables for `api` with `cp ./api/.env/example ./api/.env`

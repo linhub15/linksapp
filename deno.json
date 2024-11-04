@@ -5,7 +5,8 @@
   ],
   "tasks": {
     "api": "deno task --cwd api dev",
-    "db": "deno task --cwd api db",
+    "db": "turso dev --db-file=db.sqlite",
+    "drizzle": "deno task --cwd api drizzle",
     "test": "deno test --allow-net",
     "ui": "deno task --cwd ui dev"
   },
