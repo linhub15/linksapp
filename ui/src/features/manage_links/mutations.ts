@@ -3,7 +3,10 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 export function useCreateLink() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: FormData) => {
+    mutationFn: async (
+      { data, pageId }: { data: FormData; pageId: string },
+    ) => {
+      data.append("pageId", pageId);
       await fetch("http://localhost:8000/links", {
         method: "POST",
         headers: {

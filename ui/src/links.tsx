@@ -6,6 +6,9 @@ import {
   useEditLink,
 } from "./features/manage_links/mutations.ts";
 import { useListLinks } from "./features/manage_links/queries.ts";
+import { PageForm } from "./features/manage_pages/PageForm.tsx";
+import { useCreatePage } from "./features/manage_pages/mutations.ts";
+import { useListPages } from "./features/manage_pages/queries.ts";
 
 export function Links() {
   const [editId, setEditId] = useState<string | undefined>();
@@ -14,8 +17,15 @@ export function Links() {
   const editLink = useEditLink();
   const query = useListLinks();
 
+  const createPage = useCreatePage();
+  const pageList = useListPages();
+
+  const currentPage = pageList.data?.at(0);
+
   return (
     <div className="space-y-2">
+      <PageForm onSubmit={createPage.mutateAsync} />
+
       {query.data?.map((link) => (
         <div className="space-x-4" key={link.id}>
           <button
@@ -56,7 +66,14 @@ export function Links() {
             )}
         </div>
       ))}
-      <LinkForm onSubmit={createLink.mutateAsync} submitText="Add"/>
+      {currentPage &&
+        (
+          <LinkForm
+            onSubmit={(data) =>
+              createLink.mutateAsync({ data, pageId: currentPage.id })}
+            submitText="Add"
+          />
+        )}
     </div>
   );
 }

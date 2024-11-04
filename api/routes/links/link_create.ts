@@ -5,6 +5,7 @@ import { links } from "../../db/schema.ts";
 import type { Handler } from "../../lib/types.ts";
 
 const schema = createInsertSchema(links, {
+  href: z.string().url(),
   newTab: z.coerce.boolean().optional(),
 })
   .pick({
