@@ -3,8 +3,11 @@
   "specifiers": {
     "jsr:@hono/hono@^4.6.8": "4.6.8",
     "jsr:@std/assert@^1.0.6": "1.0.6",
+    "jsr:@std/crypto@^1.0.3": "1.0.3",
     "jsr:@std/dotenv@~0.225.2": "0.225.2",
+    "jsr:@std/fs@^1.0.5": "1.0.5",
     "jsr:@std/internal@^1.0.4": "1.0.4",
+    "jsr:@std/path@^1.0.7": "1.0.7",
     "npm:@asteasolutions/zod-to-openapi@^7.2.0": "7.2.0_zod@3.23.8",
     "npm:@hono/zod-openapi@~0.16.4": "0.16.4_hono@4.6.8_zod@3.23.8",
     "npm:@libsql/client@0.14": "0.14.0",
@@ -37,11 +40,23 @@
         "jsr:@std/internal"
       ]
     },
+    "@std/crypto@1.0.3": {
+      "integrity": "a2a32f51ddef632d299e3879cd027c630dcd4d1d9a5285d6e6788072f4e51e7f"
+    },
     "@std/dotenv@0.225.2": {
       "integrity": "e2025dce4de6c7bca21dece8baddd4262b09d5187217e231b033e088e0c4dd23"
     },
+    "@std/fs@1.0.5": {
+      "integrity": "41806ad6823d0b5f275f9849a2640d87e4ef67c51ee1b8fb02426f55e02fd44e",
+      "dependencies": [
+        "jsr:@std/path"
+      ]
+    },
     "@std/internal@1.0.4": {
       "integrity": "62e8e4911527e5e4f307741a795c0b0a9e6958d0b3790716ae71ce085f755422"
+    },
+    "@std/path@1.0.7": {
+      "integrity": "76a689e07f0e15dcc6002ec39d0866797e7156629212b28f27179b8a5c3b33a1"
     }
   },
   "npm": {
@@ -1226,7 +1241,9 @@
     "dependencies": [
       "jsr:@hono/hono@^4.6.8",
       "jsr:@std/assert@^1.0.6",
+      "jsr:@std/crypto@^1.0.3",
       "jsr:@std/dotenv@~0.225.2",
+      "jsr:@std/fs@^1.0.5",
       "npm:@asteasolutions/zod-to-openapi@^7.2.0",
       "npm:@hono/zod-openapi@~0.16.4",
       "npm:@libsql/client@0.14",

@@ -2,6 +2,8 @@ import { createRoute, z } from "@hono/zod-openapi";
 import { html } from "hono/html";
 import { db } from "../../db/db.client.ts";
 import type { Handler } from "../../lib/types.ts";
+import { fs } from "../../fs/fs.client.ts";
+import { files } from "../../db/schema.ts";
 
 const route = createRoute({
   method: "post",
@@ -17,9 +19,8 @@ const route = createRoute({
     },
   },
   responses: {
-    200: {
-      description: "Returns content: `text/html`",
-    },
+    200: { description: "Returns content: `text/html`" },
+    500: { description: "Internal Server Error" },
   },
 });
 
@@ -33,6 +34,21 @@ const handler: Handler<typeof route> = async (c) => {
 
   // todo: persist the html into a bucket and persist the path to the db;
   const content = await html`<h1>${page?.title}</h1>`;
+
+  const response = await fs.write({
+    bucket: "html_pages",
+    key: id,
+    body: content,
+  });
+
+  if (!response.ETag) {
+    return c.text("Error writing to bucket", 500);
+  }
+  await db.insert(files).values({
+    bucket: "html_pages",
+    key: id,
+    etag: response.ETag,
+  });
 
   return c.html(content);
 };

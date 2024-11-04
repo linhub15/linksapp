@@ -33,3 +33,10 @@ export const linkRelations = relations(links, ({ one }) => ({
     references: [pages.id],
   }),
 }));
+
+export const files = sqliteTable("files", {
+  bucket: text(),
+  key: text(),
+  etag: text(),
+  createdAt: text().default(sql`(CURRENT_TIMESTAMP)`),
+});
