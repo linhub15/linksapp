@@ -11,6 +11,7 @@ Uses [Deno 2](https://deno.com/).
 - RESTful API
 - DB ORM
 - Monorepo
+- Integration Tests
 
 ### Backend Tech
 

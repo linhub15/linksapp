@@ -4,7 +4,7 @@ import { eq } from "drizzle-orm";
 import { createInsertSchema } from "drizzle-zod";
 import { pages } from "../../db/schema.ts";
 import type { Handler } from "../../lib/types.ts";
-import { db } from "../../db.ts";
+import { db } from "../../db/db.client.ts";
 import { slugify } from "./slugify.ts";
 
 const schema = createInsertSchema(pages)

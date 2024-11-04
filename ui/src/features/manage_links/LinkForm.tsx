@@ -18,7 +18,12 @@ export function LinkForm(props: Props) {
       <input name="id" type="hidden" defaultValue={value?.id} />
       <label>
         <span>href</span>
-        <input name="href" type="text" placeholder="url" defaultValue={value?.href} />
+        <input
+          name="href"
+          type="text"
+          placeholder="url"
+          defaultValue={value?.href}
+        />
       </label>
 
       <label>

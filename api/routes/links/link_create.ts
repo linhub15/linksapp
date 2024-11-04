@@ -1,6 +1,6 @@
 import { createRoute, z } from "@hono/zod-openapi";
 import { createInsertSchema } from "drizzle-zod";
-import { db } from "../../db.ts";
+import { db } from "../../db/db.client.ts";
 import { links } from "../../db/schema.ts";
 import type { Handler } from "../../lib/types.ts";
 
