@@ -7,7 +7,7 @@ import { files } from "../../db/schema.ts";
 
 const route = createRoute({
   method: "post",
-  path: "/generate/html",
+  path: "/html/generate",
   description: "Generate static HTML for a specific page",
   request: {
     body: {
@@ -22,6 +22,7 @@ const route = createRoute({
     200: { description: "Returns content: `text/html`" },
     500: { description: "Internal Server Error" },
   },
+  tags: ["html"],
 });
 
 const handler: Handler<typeof route> = async (c) => {
@@ -32,7 +33,6 @@ const handler: Handler<typeof route> = async (c) => {
     with: { links: true },
   });
 
-  // todo: persist the html into a bucket and persist the path to the db;
   const content = await html`<h1>${page?.title}</h1>`;
 
   const response = await fs.write({

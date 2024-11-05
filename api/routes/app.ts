@@ -10,6 +10,7 @@ import { pageUpdate } from "./pages/page_update.ts";
 import { pageList } from "./pages/page_list.ts";
 import { pageGet } from "./pages/page_get.ts";
 import { htmlGenerate } from "./html/html_generate.ts";
+import { htmlView } from "./html/html_view.ts";
 
 export const app = new OpenAPIHono<AppEnv>();
 
@@ -26,3 +27,4 @@ app.openapi(pageCreate.route, pageCreate.handler);
 app.openapi(pageUpdate.route, pageUpdate.handler);
 
 app.openapi(htmlGenerate.route, htmlGenerate.handler);
+app.openapi(htmlView.route, htmlView.handler);

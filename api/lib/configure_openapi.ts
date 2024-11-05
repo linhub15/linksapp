@@ -14,6 +14,8 @@ export function configureOpenapi(app: App) {
       "/",
       apiReference({
         spec: { url: "/openapi" },
+        defaultOpenAllTags: true,
+        hideSearch: true,
         hiddenClients: {
           c: true,
           clojure: true,

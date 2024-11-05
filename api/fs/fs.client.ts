@@ -1,9 +1,11 @@
 import { ensureFile } from "@std/fs";
 import { crypto } from "@std/crypto";
 
+type Bucket = "html_pages";
+
 /** Local file system client */
 export const fs = {
-  write: async (args: { bucket: string; key: string; body: string }) => {
+  write: async (args: { bucket: Bucket; key: string; body: string }) => {
     const encoder = new TextEncoder();
     const decoder = new TextDecoder("utf-8");
     const path = `./fs/s3/${args.bucket}/${args.key}`;
@@ -18,9 +20,9 @@ export const fs = {
 
     return { ETag: etag, VersionId: undefined };
   },
-  read: async (args: { bucket: string; key: string }) => {
+  read: async (args: { bucket: Bucket; key: string }) => {
     const decoder = new TextDecoder("utf-8");
-    const file = await Deno.readFile(`./fs/s3/${args.bucket}/${args.key}`);
-    console.log(decoder.decode(file));
+    const data = await Deno.readFile(`./fs/s3/${args.bucket}/${args.key}`);
+    return decoder.decode(data);
   },
 };
