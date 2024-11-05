@@ -8,6 +8,8 @@ await createClient({
   output: outDir,
 });
 
+await Deno.rename(`${outDir}/index.ts`, `${outDir}/mod.ts`);
+
 const lint = new Deno.Command("deno", {
   args: ["lint", "--unstable-sloppy-imports", "--fix", outDir],
 });
