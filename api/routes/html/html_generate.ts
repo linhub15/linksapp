@@ -1,9 +1,6 @@
 import { createRoute, z } from "@hono/zod-openapi";
-import { html } from "hono/html";
-import { db } from "../../db/db.client.ts";
+import { generateHtml } from "../../actions/generate_html.ts";
 import type { Handler } from "../../lib/types.ts";
-import { fs } from "../../fs/fs.client.ts";
-import { files } from "../../db/schema.ts";
 
 const route = createRoute({
   method: "post",
@@ -28,29 +25,13 @@ const route = createRoute({
 const handler: Handler<typeof route> = async (c) => {
   const id = c.req.valid("json").pageId;
 
-  const page = await db.query.pages.findFirst({
-    where: (page, { eq }) => eq(page.id, id),
-    with: { links: true },
-  });
+  const result = await generateHtml(id);
 
-  const content = await html`<h1>${page?.title}</h1>`;
-
-  const response = await fs.write({
-    bucket: "html_pages",
-    key: id,
-    body: content,
-  });
-
-  if (!response.ETag) {
-    return c.text("Error writing to bucket", 500);
+  if (!result.ok) {
+    return c.text(result.error.message, 500);
   }
-  await db.insert(files).values({
-    bucket: "html_pages",
-    key: id,
-    etag: response.ETag,
-  });
 
-  return c.html(content);
+  return c.html(result.value);
 };
 
 export const htmlGenerate = { route, handler };

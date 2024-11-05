@@ -1,6 +1,5 @@
 import { createRoute, z } from "@hono/zod-openapi";
 import type { Handler } from "../../lib/types.ts";
-import { db } from "../../db/db.client.ts";
 import { fs } from "../../fs/fs.client.ts";
 
 const route = createRoute({
@@ -20,20 +19,16 @@ const route = createRoute({
 const handler: Handler<typeof route> = async (c) => {
   const slug = c.req.valid("param").slug;
 
-  const page = await db.query.pages.findFirst({
-    where: (page, { eq }) => eq(page.urlSlug, slug),
+  const html = await fs.read({
+    bucket: "html_pages",
+    key: slug,
   });
 
-  if (!page) {
+  if (!html.ok) {
     return c.text("Page not found", 404);
   }
 
-  const html = await fs.read({
-    bucket: "html_pages",
-    key: page.id,
-  });
-
-  return c.html(html);
+  return c.html(html.value);
 };
 
 export const htmlView = { route, handler };

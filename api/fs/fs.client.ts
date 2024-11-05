@@ -1,5 +1,6 @@
 import { ensureFile } from "@std/fs";
 import { crypto } from "@std/crypto";
+import { tryFn } from "../lib/result.ts";
 
 type Bucket = "html_pages";
 
@@ -22,7 +23,11 @@ export const fs = {
   },
   read: async (args: { bucket: Bucket; key: string }) => {
     const decoder = new TextDecoder("utf-8");
-    const data = await Deno.readFile(`./fs/s3/${args.bucket}/${args.key}`);
-    return decoder.decode(data);
+    const result = await tryFn(async () => {
+      const data = await Deno.readFile(`./fs/s3/${args.bucket}/${args.key}`);
+      const html = decoder.decode(data);
+      return html;
+    });
+    return result;
   },
 };

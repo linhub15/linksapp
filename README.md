@@ -18,6 +18,7 @@ Uses [Deno 2](https://deno.com/).
 - DB ORM
 - Monorepo
 - Integration Tests
+- Errors as values
 
 ### Backend Tech
 
