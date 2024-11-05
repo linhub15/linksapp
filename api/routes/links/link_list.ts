@@ -7,9 +7,9 @@ import { db } from "../../db/db.client.ts";
 const schema = createSelectSchema(links).openapi("Link");
 
 const route = createRoute({
+  operationId: "listLinks",
   method: "get",
   path: "/links",
-  operationId: "listLinks",
   responses: {
     200: {
       content: {

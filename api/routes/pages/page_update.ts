@@ -21,8 +21,9 @@ const schema = createInsertSchema(pages)
   );
 
 const route = createRoute({
+  operationId: "updatePage",
   method: "put",
-  path: "/pages/:id",
+  path: "/pages/{id}",
   description: "Update a page",
   request: {
     params: z.object({ id: z.string().uuid() }),

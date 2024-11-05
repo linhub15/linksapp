@@ -6,31 +6,31 @@ import {
   type Options,
 } from "@hey-api/client-fetch";
 import type {
-  DeletePagesPageIdLinksIdData,
-  DeletePagesPageIdLinksIdError,
-  DeletePagesPageIdLinksIdResponse,
-  GetPagesError,
-  GetPagesIdData,
-  GetPagesIdError,
-  GetPagesIdResponse,
-  GetPagesResponse,
-  GetSlugData,
-  GetSlugError,
-  GetSlugResponse,
+  CreateLinkData,
+  CreateLinkError,
+  CreateLinkResponse,
+  CreatePageData,
+  CreatePageError,
+  CreatePageResponse,
+  DeleteLinkData,
+  DeleteLinkError,
+  DeleteLinkResponse,
+  GenerateHtmlData,
+  GenerateHtmlError,
+  GenerateHtmlResponse,
+  GetBySlugData,
+  GetBySlugError,
+  GetBySlugResponse,
+  GetPageData,
+  GetPageError,
+  GetPageResponse,
   ListLinksError,
   ListLinksResponse,
-  PostHtmlGenerateData,
-  PostHtmlGenerateError,
-  PostHtmlGenerateResponse,
-  PostPagesData,
-  PostPagesError,
-  PostPagesPageIdLinksData,
-  PostPagesPageIdLinksError,
-  PostPagesPageIdLinksResponse,
-  PostPagesResponse,
-  PutPagesIdData,
-  PutPagesIdError,
-  PutPagesIdResponse,
+  ListPagesError,
+  ListPagesResponse,
+  UpdatePageData,
+  UpdatePageError,
+  UpdatePageResponse,
 } from "./types.gen.ts";
 
 export const client = createClient(createConfig());
@@ -51,41 +51,41 @@ export const listLinks = <ThrowOnError extends boolean = false>(
 /**
  * Create a new link
  */
-export const postPagesPageIdLinks = <ThrowOnError extends boolean = false>(
-  options: Options<PostPagesPageIdLinksData, ThrowOnError>,
+export const createLink = <ThrowOnError extends boolean = false>(
+  options: Options<CreateLinkData, ThrowOnError>,
 ) => {
   return (options?.client ?? client).post<
-    PostPagesPageIdLinksResponse,
-    PostPagesPageIdLinksError,
+    CreateLinkResponse,
+    CreateLinkError,
     ThrowOnError
   >({
     ...options,
-    url: "/pages/:pageId/links",
+    url: "/pages/{pageId}/links",
   });
 };
 
 /**
  * Delete a link
  */
-export const deletePagesPageIdLinksId = <ThrowOnError extends boolean = false>(
-  options: Options<DeletePagesPageIdLinksIdData, ThrowOnError>,
+export const deleteLink = <ThrowOnError extends boolean = false>(
+  options: Options<DeleteLinkData, ThrowOnError>,
 ) => {
   return (options?.client ?? client).delete<
-    DeletePagesPageIdLinksIdResponse,
-    DeletePagesPageIdLinksIdError,
+    DeleteLinkResponse,
+    DeleteLinkError,
     ThrowOnError
   >({
     ...options,
-    url: "/pages/:pageId/links/:id",
+    url: "/pages/{pageId}/links/{id}",
   });
 };
 
-export const getPages = <ThrowOnError extends boolean = false>(
+export const listPages = <ThrowOnError extends boolean = false>(
   options?: Options<unknown, ThrowOnError>,
 ) => {
   return (options?.client ?? client).get<
-    GetPagesResponse,
-    GetPagesError,
+    ListPagesResponse,
+    ListPagesError,
     ThrowOnError
   >({
     ...options,
@@ -96,12 +96,12 @@ export const getPages = <ThrowOnError extends boolean = false>(
 /**
  * Create a page
  */
-export const postPages = <ThrowOnError extends boolean = false>(
-  options?: Options<PostPagesData, ThrowOnError>,
+export const createPage = <ThrowOnError extends boolean = false>(
+  options?: Options<CreatePageData, ThrowOnError>,
 ) => {
   return (options?.client ?? client).post<
-    PostPagesResponse,
-    PostPagesError,
+    CreatePageResponse,
+    CreatePageError,
     ThrowOnError
   >({
     ...options,
@@ -109,44 +109,44 @@ export const postPages = <ThrowOnError extends boolean = false>(
   });
 };
 
-export const getPagesId = <ThrowOnError extends boolean = false>(
-  options: Options<GetPagesIdData, ThrowOnError>,
+export const getPage = <ThrowOnError extends boolean = false>(
+  options: Options<GetPageData, ThrowOnError>,
 ) => {
   return (options?.client ?? client).get<
-    GetPagesIdResponse,
-    GetPagesIdError,
+    GetPageResponse,
+    GetPageError,
     ThrowOnError
   >({
     ...options,
-    url: "/pages/:id",
+    url: "/pages/{id}",
   });
 };
 
 /**
  * Update a page
  */
-export const putPagesId = <ThrowOnError extends boolean = false>(
-  options: Options<PutPagesIdData, ThrowOnError>,
+export const updatePage = <ThrowOnError extends boolean = false>(
+  options: Options<UpdatePageData, ThrowOnError>,
 ) => {
   return (options?.client ?? client).put<
-    PutPagesIdResponse,
-    PutPagesIdError,
+    UpdatePageResponse,
+    UpdatePageError,
     ThrowOnError
   >({
     ...options,
-    url: "/pages/:id",
+    url: "/pages/{id}",
   });
 };
 
 /**
  * Generate static HTML for a specific page
  */
-export const postHtmlGenerate = <ThrowOnError extends boolean = false>(
-  options?: Options<PostHtmlGenerateData, ThrowOnError>,
+export const generateHtml = <ThrowOnError extends boolean = false>(
+  options?: Options<GenerateHtmlData, ThrowOnError>,
 ) => {
   return (options?.client ?? client).post<
-    PostHtmlGenerateResponse,
-    PostHtmlGenerateError,
+    GenerateHtmlResponse,
+    GenerateHtmlError,
     ThrowOnError
   >({
     ...options,
@@ -157,15 +157,15 @@ export const postHtmlGenerate = <ThrowOnError extends boolean = false>(
 /**
  * View a published link page
  */
-export const getSlug = <ThrowOnError extends boolean = false>(
-  options: Options<GetSlugData, ThrowOnError>,
+export const getBySlug = <ThrowOnError extends boolean = false>(
+  options: Options<GetBySlugData, ThrowOnError>,
 ) => {
   return (options?.client ?? client).get<
-    GetSlugResponse,
-    GetSlugError,
+    GetBySlugResponse,
+    GetBySlugError,
     ThrowOnError
   >({
     ...options,
-    url: "/:slug",
+    url: "/{slug}",
   });
 };

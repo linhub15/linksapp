@@ -4,7 +4,7 @@ import { fs } from "../../fs/fs.client.ts";
 
 const route = createRoute({
   method: "get",
-  path: "/:slug",
+  path: "/{slug}",
   description: "View a published link page",
   request: {
     params: z.object({ slug: z.string() }),

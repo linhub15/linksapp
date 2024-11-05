@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createLink } from "../../lib/hey-client/mod.ts";
 
 export function useCreateLink() {
   const queryClient = useQueryClient();
@@ -7,12 +8,13 @@ export function useCreateLink() {
     mutationFn: async (
       { data, pageId }: { data: FormData; pageId: string },
     ) => {
-      await fetch(`http://localhost:8000/pages/${pageId}/links`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      await createLink({
+        path: { pageId: pageId },
+        body: {
+          href: data.get("href") as string,
+          label: data.get("label") as string,
+          newTab: !!data.get("newTab"),
         },
-        body: JSON.stringify(Object.fromEntries(data)),
       });
     },
     onSuccess: () => {

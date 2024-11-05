@@ -7,8 +7,9 @@ import { db } from "../../db/db.client.ts";
 const schema = createSelectSchema(pages).openapi("Page");
 
 const route = createRoute({
+  operationId: "getPage",
   method: "get",
-  path: "/pages/:id",
+  path: "/pages/{id}",
   request: {
     params: z.object({ id: z.string().uuid() }),
   },

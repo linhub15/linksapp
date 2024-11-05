@@ -3,6 +3,7 @@ import { generateHtml } from "../../actions/generate_html.ts";
 import type { Handler } from "../../lib/types.ts";
 
 const route = createRoute({
+  operationId: "generateHtml",
   method: "post",
   path: "/html/generate",
   description: "Generate static HTML for a specific page",

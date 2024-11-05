@@ -23,6 +23,7 @@ const schema = createInsertSchema(pages, {
   );
 
 const route = createRoute({
+  operationId: "createPage",
   method: "post",
   path: "/pages",
   description: "Create a page",

@@ -7,6 +7,7 @@ import { db } from "../../db/db.client.ts";
 const schema = createSelectSchema(pages).openapi("Page");
 
 const route = createRoute({
+  operationId: "listPages",
   method: "get",
   path: "/pages",
   responses: {

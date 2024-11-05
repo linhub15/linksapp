@@ -45,77 +45,77 @@ export type ListLinksResponse = Array<Link>;
 
 export type ListLinksError = unknown;
 
-export type PostPagesPageIdLinksData = {
+export type CreateLinkData = {
   body?: LinkCreate;
   path: {
     pageId: string;
   };
 };
 
-export type PostPagesPageIdLinksResponse = string;
+export type CreateLinkResponse = string;
 
-export type PostPagesPageIdLinksError = unknown;
+export type CreateLinkError = unknown;
 
-export type DeletePagesPageIdLinksIdData = {
+export type DeleteLinkData = {
   path: {
     id: string;
     pageId: string;
   };
 };
 
-export type DeletePagesPageIdLinksIdResponse = void;
+export type DeleteLinkResponse = void;
 
-export type DeletePagesPageIdLinksIdError = unknown;
+export type DeleteLinkError = unknown;
 
-export type GetPagesResponse = Array<Page>;
+export type ListPagesResponse = Array<Page>;
 
-export type GetPagesError = unknown;
+export type ListPagesError = unknown;
 
-export type PostPagesData = {
+export type CreatePageData = {
   body?: PageCreate;
 };
 
-export type PostPagesResponse = string;
+export type CreatePageResponse = string;
 
-export type PostPagesError = unknown;
+export type CreatePageError = unknown;
 
-export type GetPagesIdData = {
+export type GetPageData = {
   path: {
     id: string;
   };
 };
 
-export type GetPagesIdResponse = Page;
+export type GetPageResponse = Page;
 
-export type GetPagesIdError = unknown;
+export type GetPageError = unknown;
 
-export type PutPagesIdData = {
+export type UpdatePageData = {
   body?: PageUpdate;
   path: {
     id: string;
   };
 };
 
-export type PutPagesIdResponse = "ok";
+export type UpdatePageResponse = "ok";
 
-export type PutPagesIdError = unknown;
+export type UpdatePageError = unknown;
 
-export type PostHtmlGenerateData = {
+export type GenerateHtmlData = {
   body?: {
     pageId: string;
   };
 };
 
-export type PostHtmlGenerateResponse = unknown;
+export type GenerateHtmlResponse = unknown;
 
-export type PostHtmlGenerateError = unknown;
+export type GenerateHtmlError = unknown;
 
-export type GetSlugData = {
+export type GetBySlugData = {
   path: {
     slug: string;
   };
 };
 
-export type GetSlugResponse = unknown;
+export type GetBySlugResponse = unknown;
 
-export type GetSlugError = unknown;
+export type GetBySlugError = unknown;

@@ -27,8 +27,9 @@ const schema = createInsertSchema(links, {
   );
 
 const route = createRoute({
+  operationId: "updateLink",
   method: "put",
-  path: "/pages/:pageId/links/:id",
+  path: "/pages/{pageId}/links/{id}",
   description: "Update a link",
   request: {
     params: z.object({ pageId: z.string().uuid(), id: z.string().uuid() }),
