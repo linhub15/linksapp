@@ -9,6 +9,7 @@ const schema = createSelectSchema(links).openapi("Link");
 const route = createRoute({
   method: "get",
   path: "/links",
+  operationId: "listLinks",
   responses: {
     200: {
       content: {

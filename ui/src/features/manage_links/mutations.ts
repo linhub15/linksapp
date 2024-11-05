@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export function useCreateLink() {
   const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: async (
       { data, pageId }: { data: FormData; pageId: string },

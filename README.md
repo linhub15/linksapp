@@ -34,6 +34,7 @@ Uses [Deno 2](https://deno.com/).
 - Vite + React
 - Tailwind v4
 - Tanstack Query
+- @hey-api openapi client generation
 
 ### Devops, CI/CD
 
