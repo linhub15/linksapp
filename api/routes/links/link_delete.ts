@@ -3,14 +3,14 @@ import { eq } from "drizzle-orm";
 
 import type { Handler } from "../../lib/types.ts";
 import { db } from "../../db/db.client.ts";
-import { links } from "../../db/schema.ts";
+import { links, pages } from "../../db/schema.ts";
 
 const route = createRoute({
   method: "delete",
-  path: "/links/:id",
+  path: "pages/:pageId/links/:id",
   description: "Delete a link",
   request: {
-    params: z.object({ id: z.string().uuid() }),
+    params: z.object({ pageId: z.string().uuid(), id: z.string().uuid() }),
   },
   responses: {
     204: {
@@ -20,9 +20,14 @@ const route = createRoute({
 });
 
 const handler: Handler<typeof route> = async (c) => {
-  const id = c.req.valid("param").id;
+  const { id, pageId } = c.req.valid("param");
 
-  await db.delete(links).where(eq(links.id, id));
+  await db.transaction(async (transaction) => {
+    await transaction.delete(links).where(eq(links.id, id));
+    await transaction.update(pages).set({ updatedAt: new Date() }).where(
+      eq(pages.id, pageId),
+    );
+  });
 
   return c.body(null, 204);
 };

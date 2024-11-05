@@ -2,7 +2,7 @@ import { createRoute, z } from "@hono/zod-openapi";
 import { eq } from "drizzle-orm";
 
 import { createInsertSchema } from "drizzle-zod";
-import { links } from "../../db/schema.ts";
+import { links, pages } from "../../db/schema.ts";
 import type { Handler } from "../../lib/types.ts";
 import { db } from "../../db/db.client.ts";
 
@@ -28,10 +28,10 @@ const schema = createInsertSchema(links, {
 
 const route = createRoute({
   method: "put",
-  path: "/links/:id",
+  path: "/pages/:pageId/links/:id",
   description: "Update a link",
   request: {
-    params: z.object({ id: z.string().uuid() }),
+    params: z.object({ pageId: z.string().uuid(), id: z.string().uuid() }),
     body: {
       content: {
         "application/json": { schema },
@@ -52,17 +52,21 @@ const route = createRoute({
 });
 
 const handler: Handler<typeof route> = async (c) => {
-  const id = c.req.valid("param").id;
+  const { pageId, id } = c.req.valid("param");
   const body = c.req.valid("json");
 
-  const response = await db
-    .update(links)
-    .set({
-      href: body.href,
-      label: body.label,
-      newTab: !!body.newTab,
-    })
-    .where(eq(links.id, id));
+  const response = await db.transaction(async (transaction) => {
+    await transaction.update(pages).set({ updatedAt: new Date() }).where(
+      eq(pages.id, pageId),
+    );
+    return await transaction.update(links)
+      .set({
+        href: body.href,
+        label: body.label,
+        newTab: !!body.newTab,
+      })
+      .where(eq(links.id, id));
+  });
 
   if (response.rowsAffected === 1) {
     return c.text("ok");

@@ -6,8 +6,7 @@ export function useCreateLink() {
     mutationFn: async (
       { data, pageId }: { data: FormData; pageId: string },
     ) => {
-      data.append("pageId", pageId);
-      await fetch("http://localhost:8000/links", {
+      await fetch(`http://localhost:8000/pages/${pageId}/links`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -16,7 +15,7 @@ export function useCreateLink() {
       });
     },
     onSuccess: () => {
-      queryClient.refetchQueries({ queryKey: ["links"] });
+      queryClient.refetchQueries({ queryKey: ["pages"] });
     },
   });
 }
@@ -24,31 +23,36 @@ export function useCreateLink() {
 export function useDeleteLink() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (id: string) => {
-      await fetch(`http://localhost:8000/links/${id}`, {
+    mutationFn: async ({ pageId, id }: { pageId: string; id: string }) => {
+      await fetch(`http://localhost:8000/pages/${pageId}/links/${id}`, {
         method: "DELETE",
       });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["links"] });
+      queryClient.invalidateQueries({ queryKey: ["pages"] });
     },
   });
 }
 
-export function useEditLink() {
+export function useUpdateLink() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: FormData) => {
-      await fetch(`http://localhost:8000/links/${data.get("id")}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
+    mutationFn: async (
+      { pageId, data }: { pageId: string; data: FormData },
+    ) => {
+      await fetch(
+        `http://localhost:8000/pages/${pageId}/links/${data.get("id")}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(Object.fromEntries(data)),
         },
-        body: JSON.stringify(Object.fromEntries(data)),
-      });
+      );
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["links"] });
+      queryClient.invalidateQueries({ queryKey: ["pages"] });
     },
   });
 }

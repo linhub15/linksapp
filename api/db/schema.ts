@@ -12,6 +12,8 @@ export const pages = sqliteTable("pages", {
   title: text().notNull(),
   urlSlug: text().notNull(),
   createdAt: text().default(sql`(CURRENT_TIMESTAMP)`),
+  updatedAt: integer({ mode: "timestamp_ms" }).$onUpdate(() => new Date()),
+  publishedAt: integer({ mode: "timestamp_ms" }),
 });
 
 export const pageRelations = relations(pages, ({ many }) => ({

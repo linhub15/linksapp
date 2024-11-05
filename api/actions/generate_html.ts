@@ -1,7 +1,9 @@
 import { html } from "hono/html";
+import { eq } from "drizzle-orm";
+
 import { db } from "../db/db.client.ts";
 import { fs } from "../fs/fs.client.ts";
-import { files } from "../db/schema.ts";
+import { files, pages } from "../db/schema.ts";
 import { err, ok, type Result } from "../lib/result.ts";
 import type { HtmlEscapedString } from "hono/utils/html";
 
@@ -53,10 +55,16 @@ export async function generateHtml(
     return err<HtmlEscapedString>("Error writing to bucket");
   }
 
-  await db.insert(files).values({
-    bucket: "html_pages",
-    key: page.urlSlug,
-    etag: response.ETag,
+  await db.transaction(async (transaction) => {
+    await transaction.update(pages).set({
+      publishedAt: new Date(),
+    }).where(eq(pages.id, page.id));
+
+    await transaction.insert(files).values({
+      bucket: "html_pages",
+      key: page.urlSlug,
+      etag: response.ETag,
+    });
   });
 
   return ok(content);

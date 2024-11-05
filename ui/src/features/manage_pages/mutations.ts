@@ -17,3 +17,22 @@ export function useCreatePage() {
     },
   });
 }
+
+export function usePublishPage() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (id: string) => {
+      await fetch("http://localhost:8000/html/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ pageId: id }),
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["pages"] });
+    },
+  });
+}

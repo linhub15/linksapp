@@ -3,35 +3,43 @@ import { LinkForm } from "./features/manage_links/LinkForm.tsx";
 import {
   useCreateLink,
   useDeleteLink,
-  useEditLink,
+  useUpdateLink,
 } from "./features/manage_links/mutations.ts";
 import { useListLinks } from "./features/manage_links/queries.ts";
 import { PageForm } from "./features/manage_pages/PageForm.tsx";
-import { useCreatePage } from "./features/manage_pages/mutations.ts";
+import {
+  useCreatePage,
+  usePublishPage,
+} from "./features/manage_pages/mutations.ts";
 import { useListPages } from "./features/manage_pages/queries.ts";
 
 export function Links() {
   const [editId, setEditId] = useState<string | undefined>();
   const deleteLink = useDeleteLink();
   const createLink = useCreateLink();
-  const editLink = useEditLink();
+  const updateLink = useUpdateLink();
   const query = useListLinks();
 
   const createPage = useCreatePage();
   const pageList = useListPages();
+  const publishPage = usePublishPage();
 
   const currentPage = pageList.data?.at(0);
 
+  const shouldPublish = (currentPage?.updatedAt?.getTime() ?? 0) >
+    (currentPage?.publishedAt?.getTime() ?? 0);
+
+  if (!currentPage) return <PageForm onSubmit={createPage.mutateAsync} />;
+
   return (
     <div className="space-y-2">
-      <PageForm onSubmit={createPage.mutateAsync} />
-
       {query.data?.map((link) => (
         <div className="space-x-4" key={link.id}>
           <button
             className="p-1 bg-red-400 text-white"
             type="button"
-            onClick={() => deleteLink.mutateAsync(link.id)}
+            onClick={() =>
+              deleteLink.mutateAsync({ pageId: currentPage.id, id: link.id })}
           >
             Delete
           </button>
@@ -58,7 +66,10 @@ export function Links() {
               <LinkForm
                 value={link}
                 onSubmit={async (data) => {
-                  await editLink.mutateAsync(data);
+                  await updateLink.mutateAsync({
+                    pageId: currentPage.id,
+                    data,
+                  });
                   setEditId(undefined);
                 }}
                 submitText="Save"
@@ -66,14 +77,22 @@ export function Links() {
             )}
         </div>
       ))}
-      {currentPage &&
-        (
-          <LinkForm
-            onSubmit={(data) =>
-              createLink.mutateAsync({ data, pageId: currentPage.id })}
-            submitText="Add"
-          />
+      <>
+        <LinkForm
+          onSubmit={(data) =>
+            createLink.mutateAsync({ data, pageId: currentPage.id })}
+          submitText="Add"
+        />
+        {shouldPublish && (
+          <button
+            className="bg-green-300 p-1"
+            type="button"
+            onClick={() => publishPage.mutateAsync(currentPage.id)}
+          >
+            Publish page
+          </button>
         )}
+      </>
     </div>
   );
 }

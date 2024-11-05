@@ -1,7 +1,8 @@
 import { createRoute, z } from "@hono/zod-openapi";
+import { eq } from "drizzle-orm";
 import { createInsertSchema } from "drizzle-zod";
 import { db } from "../../db/db.client.ts";
-import { links } from "../../db/schema.ts";
+import { links, pages } from "../../db/schema.ts";
 import type { Handler } from "../../lib/types.ts";
 
 const schema = createInsertSchema(links, {
@@ -12,7 +13,6 @@ const schema = createInsertSchema(links, {
     href: true,
     label: true,
     newTab: true,
-    pageId: true,
   })
   .openapi(
     "LinkCreate",
@@ -21,16 +21,16 @@ const schema = createInsertSchema(links, {
         href: "https://example.com",
         label: "Example",
         newTab: false,
-        pageId: "caa94a8b-6f68-4984-94ba-c52b30f77ae0",
       },
     },
   );
 
 const route = createRoute({
   method: "post",
-  path: "/links",
+  path: "/pages/:pageId/links",
   description: "Create a new link",
   request: {
+    params: z.object({ pageId: z.string().uuid() }),
     body: {
       content: {
         "application/json": { schema },
@@ -48,13 +48,20 @@ const route = createRoute({
 });
 
 const handler: Handler<typeof route> = async (c) => {
+  const pageId = c.req.valid("param").pageId;
   const body = c.req.valid("json");
 
-  await db.insert(links).values({
-    href: body.href,
-    label: body.label,
-    newTab: body.newTab,
-    pageId: body.pageId,
+  await db.transaction(async (transaction) => {
+    await transaction.insert(links).values({
+      href: body.href,
+      label: body.label,
+      newTab: body.newTab,
+      pageId: pageId,
+    });
+
+    await transaction.update(pages).set({ updatedAt: new Date() }).where(
+      eq(pages.id, pageId),
+    );
   });
 
   return c.text("ok");
