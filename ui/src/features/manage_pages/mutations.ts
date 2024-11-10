@@ -1,10 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { api } from "../../lib/api/api.ts";
+import { api, type types } from "../../lib/api/mod.ts";
 
 export function useCreatePage() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: api.PageCreate) => {
+    mutationFn: async (data: types.PageCreate) => {
       await api.createPage({
         body: data,
       });

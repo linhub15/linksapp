@@ -1,49 +1,71 @@
+import { useForm } from "@tanstack/react-form";
+import type { types } from "../../lib/api/mod.ts";
+
 type Props = {
-  value?: { id: string; href: string; label: string; newTab?: boolean | null };
-  onSubmit: (data: FormData) => Promise<void>;
+  defaultValue?: types.LinkCreate | types.LinkUpdate;
+  onSubmit: (data: types.LinkCreate | types.LinkUpdate) => Promise<void>;
   submitText?: string;
 };
 
 export function LinkForm(props: Props) {
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const form = useForm({
+    defaultValues: props.defaultValue,
+    onSubmit: async ({ value }) => {
+      await props.onSubmit(value);
+    },
+  });
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    await props.onSubmit(formData);
+    e.stopPropagation();
+    form.handleSubmit();
   };
 
-  const { value } = props;
-
   return (
-    <form onSubmit={(e) => handleSubmit(e)}>
-      <input name="id" type="hidden" defaultValue={value?.id} />
-      <label>
-        <span>href</span>
-        <input
-          name="href"
-          type="text"
-          placeholder="url"
-          defaultValue={value?.href}
-        />
-      </label>
+    <form onSubmit={handleSubmit}>
+      <form.Field name="href">
+        {(field) => (
+          <label>
+            <span>href</span>
+            <input
+              name={field.name}
+              type="text"
+              placeholder="url"
+              value={field.state.value}
+              onChange={(e) => field.handleChange(e.target.value)}
+            />
+          </label>
+        )}
+      </form.Field>
 
-      <label>
-        <span>label</span>
-        <input
-          name="label"
-          type="text"
-          placeholder="url label"
-          defaultValue={value?.label}
-        />
-      </label>
+      <form.Field name="label">
+        {(field) => (
+          <label>
+            <span>label</span>
+            <input
+              name={field.name}
+              type="text"
+              placeholder="url label"
+              value={field.state.value}
+              onChange={(e) => field.handleChange(e.target.value)}
+            />
+          </label>
+        )}
+      </form.Field>
 
-      <label>
-        <span>open in new tab</span>
-        <input
-          name="newTab"
-          type="checkbox"
-          defaultChecked={!!value?.newTab}
-        />
-      </label>
+      <form.Field name="newTab">
+        {(field) => (
+          <label>
+            <span>open in new tab</span>
+            <input
+              name={field.name}
+              type="checkbox"
+              checked={!!field.state.value}
+              onChange={(e) => field.handleChange(!!e.target.checked)}
+            />
+          </label>
+        )}
+      </form.Field>
 
       <button type="submit">{props.submitText || "Submit"}</button>
     </form>

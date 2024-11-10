@@ -25,6 +25,7 @@
     "@std/dotenv": "jsr:@std/dotenv@^0.225.2",
     "@std/fs": "jsr:@std/fs@^1.0.5",
     "@tailwindcss/vite": "npm:@tailwindcss/vite@^4.0.0-alpha.31",
+    "@tanstack/react-form": "npm:@tanstack/react-form@^0.34.4",
     "@tanstack/react-query": "npm:@tanstack/react-query@^5.59.19",
     "@vitejs/plugin-react": "npm:@vitejs/plugin-react@^4.3.3",
     "drizzle-kit": "npm:drizzle-kit@^0.27.0",

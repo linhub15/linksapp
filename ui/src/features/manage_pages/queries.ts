@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { api } from "../../lib/api/api.ts";
+import { api } from "../../lib/api/mod.ts";
 import { toDate } from "../../lib/transformers/to_date.ts";
 
 export function useListPages() {

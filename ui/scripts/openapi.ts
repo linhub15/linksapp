@@ -10,7 +10,9 @@ await createClient(defineConfig({
   plugins: [
     "@hey-api/schemas",
     "@hey-api/types",
-    "@hey-api/services",
+    {
+      name: "@hey-api/services",
+    },
     // Date transformations only works if the openapi spec is a $ref type,
     // right now z.ZodDate is a string type so it doesn't transform
     {

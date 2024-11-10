@@ -70,10 +70,11 @@ export function Links() {
             )
             : (
               <LinkForm
-                value={link}
+                defaultValue={link}
                 onSubmit={async (data) => {
                   await updateLink.mutateAsync({
                     pageId: currentPage.id,
+                    linkId: link.id,
                     data,
                   });
                   setEditId(undefined);
