@@ -1,17 +1,17 @@
 import { useState } from "react";
-import { LinkForm } from "./features/manage_links/LinkForm.tsx";
+import { LinkForm } from "./LinkForm.tsx";
 import {
   useCreateLink,
   useDeleteLink,
   useUpdateLink,
-} from "./features/manage_links/mutations.ts";
-import { useListLinks } from "./features/manage_links/queries.ts";
-import { PageForm } from "./features/manage_pages/PageForm.tsx";
+} from "./mutations.ts";
+import { useListLinks } from "./queries.ts";
+import { PageForm } from "../manage_pages/PageForm.tsx";
 import {
   useCreatePage,
   usePublishPage,
-} from "./features/manage_pages/mutations.ts";
-import { useListPages } from "./features/manage_pages/queries.ts";
+} from "../manage_pages/mutations.ts";
+import { useListPages } from "../manage_pages/queries.ts";
 
 export function Links() {
   const [editId, setEditId] = useState<string | undefined>();

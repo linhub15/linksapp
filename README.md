@@ -36,6 +36,8 @@ View the db with https://libsqlstudio.com
 - Vite + React
 - Tailwind v4
 - Tanstack Query
+- Tanstack Form
+- Tanstack Router
 - @hey-api openapi client generation
 
 ### Devops, CI/CD
