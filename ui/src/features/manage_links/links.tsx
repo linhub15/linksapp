@@ -1,40 +1,27 @@
 import { useState } from "react";
-import { LinkForm } from "./LinkForm.tsx";
-import {
-  useCreateLink,
-  useDeleteLink,
-  useUpdateLink,
-} from "./mutations.ts";
+import { LinkForm } from "./link_form.tsx";
+import { useCreateLink, useDeleteLink, useUpdateLink } from "./mutations.ts";
 import { useListLinks } from "./queries.ts";
-import { PageForm } from "../manage_pages/PageForm.tsx";
-import {
-  useCreatePage,
-  usePublishPage,
-} from "../manage_pages/mutations.ts";
+import { usePublishPage } from "../manage_pages/mutations.ts";
 import { useListPages } from "../manage_pages/queries.ts";
 
-export function Links() {
+type Props = {
+  pageId: string;
+};
+
+export function Links(props: Props) {
   const [editId, setEditId] = useState<string | undefined>();
   const deleteLink = useDeleteLink();
   const createLink = useCreateLink();
   const updateLink = useUpdateLink();
   const query = useListLinks();
 
-  const createPage = useCreatePage();
-  const pageList = useListPages();
   const publishPage = usePublishPage();
 
-  const currentPage = pageList.data?.at(0);
-
+  const { data } = useListPages();
+  const currentPage = data?.find((page) => page.id === props.pageId);
   const shouldPublish = (currentPage?.updatedAt?.getTime() ?? 0) >
     (currentPage?.publishedAt?.getTime() ?? 0);
-
-  const handleSubmit = async (title: string) => {
-    if (!title) return;
-    await createPage.mutateAsync({ title: title });
-  };
-
-  if (!currentPage) return <PageForm onSubmit={handleSubmit} />;
 
   return (
     <div className="space-y-2">
@@ -44,7 +31,7 @@ export function Links() {
             className="p-1 bg-red-400 text-white"
             type="button"
             onClick={() =>
-              deleteLink.mutateAsync({ pageId: currentPage.id, id: link.id })}
+              deleteLink.mutateAsync({ pageId: props.pageId, id: link.id })}
           >
             Delete
           </button>
@@ -72,7 +59,7 @@ export function Links() {
                 defaultValue={link}
                 onSubmit={async (data) => {
                   await updateLink.mutateAsync({
-                    pageId: currentPage.id,
+                    pageId: props.pageId,
                     linkId: link.id,
                     data,
                   });
@@ -86,14 +73,14 @@ export function Links() {
       <>
         <LinkForm
           onSubmit={(data) =>
-            createLink.mutateAsync({ data, pageId: currentPage.id })}
+            createLink.mutateAsync({ data, pageId: props.pageId })}
           submitText="Add"
         />
         {shouldPublish && (
           <button
             className="bg-green-300 p-1"
             type="button"
-            onClick={() => publishPage.mutateAsync(currentPage.id)}
+            onClick={() => publishPage.mutateAsync(props.pageId)}
           >
             Publish page
           </button>

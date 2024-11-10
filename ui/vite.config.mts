@@ -17,6 +17,7 @@ export default defineConfig({
         `/// <reference types="@tanstack/react-router" />`,
         "// deno-lint-ignore-file",
       ],
+      generatedRouteTree: "src/route_tree.gen.ts",
     }),
     react(),
     // @ts-expect-error: it works
