@@ -1,5 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { z } from "zod";
 import { createLink } from "../../lib/hey-client/mod.ts";
+import { api } from "../../lib/api/api.ts";
 
 export function useCreateLink() {
   const queryClient = useQueryClient();
@@ -27,9 +29,7 @@ export function useDeleteLink() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async ({ pageId, id }: { pageId: string; id: string }) => {
-      await fetch(`http://localhost:8000/pages/${pageId}/links/${id}`, {
-        method: "DELETE",
-      });
+      await api.deleteLink({ path: { pageId, id } });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["pages"] });
@@ -43,16 +43,19 @@ export function useUpdateLink() {
     mutationFn: async (
       { pageId, data }: { pageId: string; data: FormData },
     ) => {
-      await fetch(
-        `http://localhost:8000/pages/${pageId}/links/${data.get("id")}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(Object.fromEntries(data)),
-        },
-      );
+      const schema = z.object({
+        id: z.string(),
+        href: z.string(),
+        label: z.string(),
+        newTab: z.boolean().optional(),
+      });
+
+      const body = schema.parse(Object.fromEntries(data));
+
+      await api.updateLink({
+        path: { pageId, id: body.id },
+        body: body,
+      });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["pages"] });

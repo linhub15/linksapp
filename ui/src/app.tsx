@@ -6,7 +6,7 @@ import { client } from "./lib/hey-client/mod.ts";
 const queryClient = new QueryClient();
 
 client.setConfig({
-  baseUrl: "http://localhost:8000",
+  baseUrl: import.meta.env.VITE_API_URL,
 });
 
 export function App() {

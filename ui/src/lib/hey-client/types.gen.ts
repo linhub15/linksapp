@@ -4,30 +4,30 @@ export type Link = {
   id: string;
   href: string;
   label: string;
-  newTab: (boolean) | null;
-  createdAt: (string) | null;
+  newTab: boolean | null;
+  createdAt: string | null;
   pageId: string;
 };
 
 export type LinkCreate = {
   href: string;
   label: string;
-  newTab?: (boolean) | null;
+  newTab?: boolean | null;
 };
 
 export type LinkUpdate = {
   href: string;
   label: string;
-  newTab?: (boolean) | null;
+  newTab?: boolean | null;
 };
 
 export type Page = {
   id: string;
   title: string;
   urlSlug: string;
-  createdAt: (string) | null;
-  updatedAt: (string) | null;
-  publishedAt: (string) | null;
+  createdAt: string | null;
+  updatedAt: string | null;
+  publishedAt: string | null;
 };
 
 export type PageCreate = {
@@ -43,33 +43,39 @@ export type PageUpdate = {
 
 export type ListLinksResponse = Array<Link>;
 
-export type ListLinksError = unknown;
-
 export type CreateLinkData = {
   body?: LinkCreate;
   path: {
     pageId: string;
   };
+  query?: never;
 };
 
 export type CreateLinkResponse = string;
 
-export type CreateLinkError = unknown;
-
 export type DeleteLinkData = {
+  body?: never;
   path: {
-    id: string;
     pageId: string;
+    id: string;
   };
+  query?: never;
 };
 
 export type DeleteLinkResponse = void;
 
-export type DeleteLinkError = unknown;
+export type UpdateLinkData = {
+  body?: LinkUpdate;
+  path: {
+    pageId: string;
+    id: string;
+  };
+  query?: never;
+};
+
+export type UpdateLinkResponse = "ok";
 
 export type ListPagesResponse = Array<Page>;
-
-export type ListPagesError = unknown;
 
 export type CreatePageData = {
   body?: PageCreate;
@@ -77,28 +83,25 @@ export type CreatePageData = {
 
 export type CreatePageResponse = string;
 
-export type CreatePageError = unknown;
-
 export type GetPageData = {
+  body?: never;
   path: {
     id: string;
   };
+  query?: never;
 };
 
 export type GetPageResponse = Page;
-
-export type GetPageError = unknown;
 
 export type UpdatePageData = {
   body?: PageUpdate;
   path: {
     id: string;
   };
+  query?: never;
 };
 
 export type UpdatePageResponse = "ok";
-
-export type UpdatePageError = unknown;
 
 export type GenerateHtmlData = {
   body?: {
@@ -106,16 +109,10 @@ export type GenerateHtmlData = {
   };
 };
 
-export type GenerateHtmlResponse = unknown;
-
-export type GenerateHtmlError = unknown;
-
 export type GetBySlugData = {
+  body?: never;
   path: {
     slug: string;
   };
+  query?: never;
 };
-
-export type GetBySlugResponse = unknown;
-
-export type GetBySlugError = unknown;

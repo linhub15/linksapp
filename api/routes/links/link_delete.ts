@@ -8,7 +8,7 @@ import { links, pages } from "../../db/schema.ts";
 const route = createRoute({
   operationId: "deleteLink",
   method: "delete",
-  path: "pages/{pageId}/links/{id}",
+  path: "/pages/{pageId}/links/{id}",
   description: "Delete a link",
   request: {
     params: z.object({ pageId: z.string().uuid(), id: z.string().uuid() }),

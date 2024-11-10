@@ -29,7 +29,13 @@ export function Links() {
   const shouldPublish = (currentPage?.updatedAt?.getTime() ?? 0) >
     (currentPage?.publishedAt?.getTime() ?? 0);
 
-  if (!currentPage) return <PageForm onSubmit={createPage.mutateAsync} />;
+  const handleSubmit = async (data: FormData) => {
+    const title = data.get("title")?.toString();
+    if (!title) return;
+    await createPage.mutateAsync({ title: title });
+  };
+
+  if (!currentPage) return <PageForm onSubmit={handleSubmit} />;
 
   return (
     <div className="space-y-2">

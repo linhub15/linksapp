@@ -1,27 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
+import { api } from "../../lib/api/api.ts";
+import { toDate } from "../../lib/transformers/to_date.ts";
 
 export function useListPages() {
   return useQuery({
     queryKey: ["pages"],
     queryFn: async () => {
-      const response = await fetch("http://localhost:8000/pages");
-      const text = await response.text();
+      const { data } = await api.listPages();
 
-      const json = JSON.parse(text, (key, value) => {
-        if (key === "updatedAt" || key === "publishedAt") {
-          if (!value) return;
-          return new Date(value);
-        }
-        return value;
-      }) as {
-        id: string;
-        title: string;
-        urlSlug: string;
-        updatedAt?: Date;
-        publishedAt?: Date;
-      }[];
-
-      return json;
+      // todo: find a better way to transform these to dates
+      return data?.map((page) => ({
+        ...page,
+        updatedAt: toDate(page.updatedAt),
+        createdAt: toDate(page.createdAt),
+        publishedAt: toDate(page.publishedAt),
+      }));
     },
   });
 }

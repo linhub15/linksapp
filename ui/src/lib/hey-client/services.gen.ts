@@ -7,29 +7,20 @@ import {
 } from "@hey-api/client-fetch";
 import type {
   CreateLinkData,
-  CreateLinkError,
   CreateLinkResponse,
   CreatePageData,
-  CreatePageError,
   CreatePageResponse,
   DeleteLinkData,
-  DeleteLinkError,
   DeleteLinkResponse,
   GenerateHtmlData,
-  GenerateHtmlError,
-  GenerateHtmlResponse,
   GetBySlugData,
-  GetBySlugError,
-  GetBySlugResponse,
   GetPageData,
-  GetPageError,
   GetPageResponse,
-  ListLinksError,
   ListLinksResponse,
-  ListPagesError,
   ListPagesResponse,
+  UpdateLinkData,
+  UpdateLinkResponse,
   UpdatePageData,
-  UpdatePageError,
   UpdatePageResponse,
 } from "./types.gen.ts";
 
@@ -40,7 +31,7 @@ export const listLinks = <ThrowOnError extends boolean = false>(
 ) => {
   return (options?.client ?? client).get<
     ListLinksResponse,
-    ListLinksError,
+    unknown,
     ThrowOnError
   >({
     ...options,
@@ -56,10 +47,14 @@ export const createLink = <ThrowOnError extends boolean = false>(
 ) => {
   return (options?.client ?? client).post<
     CreateLinkResponse,
-    CreateLinkError,
+    unknown,
     ThrowOnError
   >({
     ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
     url: "/pages/{pageId}/links",
   });
 };
@@ -72,10 +67,30 @@ export const deleteLink = <ThrowOnError extends boolean = false>(
 ) => {
   return (options?.client ?? client).delete<
     DeleteLinkResponse,
-    DeleteLinkError,
+    unknown,
     ThrowOnError
   >({
     ...options,
+    url: "/pages/{pageId}/links/{id}",
+  });
+};
+
+/**
+ * Update a link
+ */
+export const updateLink = <ThrowOnError extends boolean = false>(
+  options: Options<UpdateLinkData, ThrowOnError>,
+) => {
+  return (options?.client ?? client).put<
+    UpdateLinkResponse,
+    unknown,
+    ThrowOnError
+  >({
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
     url: "/pages/{pageId}/links/{id}",
   });
 };
@@ -85,7 +100,7 @@ export const listPages = <ThrowOnError extends boolean = false>(
 ) => {
   return (options?.client ?? client).get<
     ListPagesResponse,
-    ListPagesError,
+    unknown,
     ThrowOnError
   >({
     ...options,
@@ -101,10 +116,14 @@ export const createPage = <ThrowOnError extends boolean = false>(
 ) => {
   return (options?.client ?? client).post<
     CreatePageResponse,
-    CreatePageError,
+    unknown,
     ThrowOnError
   >({
     ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
     url: "/pages",
   });
 };
@@ -114,7 +133,7 @@ export const getPage = <ThrowOnError extends boolean = false>(
 ) => {
   return (options?.client ?? client).get<
     GetPageResponse,
-    GetPageError,
+    unknown,
     ThrowOnError
   >({
     ...options,
@@ -130,10 +149,14 @@ export const updatePage = <ThrowOnError extends boolean = false>(
 ) => {
   return (options?.client ?? client).put<
     UpdatePageResponse,
-    UpdatePageError,
+    unknown,
     ThrowOnError
   >({
     ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
     url: "/pages/{id}",
   });
 };
@@ -144,12 +167,12 @@ export const updatePage = <ThrowOnError extends boolean = false>(
 export const generateHtml = <ThrowOnError extends boolean = false>(
   options?: Options<GenerateHtmlData, ThrowOnError>,
 ) => {
-  return (options?.client ?? client).post<
-    GenerateHtmlResponse,
-    GenerateHtmlError,
-    ThrowOnError
-  >({
+  return (options?.client ?? client).post<unknown, unknown, ThrowOnError>({
     ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
     url: "/html/generate",
   });
 };
@@ -160,11 +183,7 @@ export const generateHtml = <ThrowOnError extends boolean = false>(
 export const getBySlug = <ThrowOnError extends boolean = false>(
   options: Options<GetBySlugData, ThrowOnError>,
 ) => {
-  return (options?.client ?? client).get<
-    GetBySlugResponse,
-    GetBySlugError,
-    ThrowOnError
-  >({
+  return (options?.client ?? client).get<unknown, unknown, ThrowOnError>({
     ...options,
     url: "/{slug}",
   });

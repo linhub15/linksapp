@@ -1,15 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { api } from "../../lib/api/api.ts";
 
 export function useCreatePage() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: FormData) => {
-      await fetch("http://localhost:8000/pages", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(Object.fromEntries(data)),
+    mutationFn: async (data: api.PageCreate) => {
+      await api.createPage({
+        body: data,
       });
     },
     onSuccess: () => {
@@ -23,12 +20,8 @@ export function usePublishPage() {
 
   return useMutation({
     mutationFn: async (id: string) => {
-      await fetch("http://localhost:8000/html/generate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ pageId: id }),
+      await api.generateHtml({
+        body: { pageId: id },
       });
     },
     onSuccess: () => {
