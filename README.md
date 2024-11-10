@@ -11,6 +11,8 @@ Uses [Deno 2](https://deno.com/).
 - start the api `deno task api`
 - start the ui `deno task ui`
 
+View the db with https://libsqlstudio.com
+
 ### Buzzwords
 
 - Hexagonal, Clean Architecture, Screaming Architecture

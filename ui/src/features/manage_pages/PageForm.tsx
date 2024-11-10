@@ -1,16 +1,25 @@
+import { useForm } from "@tanstack/react-form";
 import { useListPages } from "./queries.ts";
 
 type Props = {
-  onSubmit: (data: FormData) => Promise<void>;
+  onSubmit: (title: string) => Promise<void>;
 };
 
 export function PageForm(props: Props) {
   const pages = useListPages();
+  const form = useForm({
+    defaultValues: {
+      title: "",
+    },
+    onSubmit: async ({ value }) => {
+      await props.onSubmit(value.title);
+    },
+  });
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-
-    props.onSubmit(formData);
+    e.stopPropagation();
+    form.handleSubmit();
   };
 
   return (
@@ -23,11 +32,20 @@ export function PageForm(props: Props) {
           </div>
         )
         : (
-          <form onSubmit={(e) => handleSubmit(e)}>
-            <label>
-              <span>Title</span>
-              <input name="title" type="text" />
-            </label>
+          <form onSubmit={handleSubmit}>
+            <form.Field name="title">
+              {(field) => (
+                <label>
+                  <span>Title</span>
+                  <input
+                    name={field.name}
+                    type="text"
+                    value={field.state.value}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                  />
+                </label>
+              )}
+            </form.Field>
 
             <button type="submit">Save</button>
           </form>

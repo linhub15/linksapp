@@ -29,8 +29,7 @@ export function Links() {
   const shouldPublish = (currentPage?.updatedAt?.getTime() ?? 0) >
     (currentPage?.publishedAt?.getTime() ?? 0);
 
-  const handleSubmit = async (data: FormData) => {
-    const title = data.get("title")?.toString();
+  const handleSubmit = async (title: string) => {
     if (!title) return;
     await createPage.mutateAsync({ title: title });
   };
