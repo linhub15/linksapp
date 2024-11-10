@@ -1,5 +1,5 @@
 type Props = {
-  value?: { id: string; href: string; label: string; newTab: boolean };
+  value?: { id: string; href: string; label: string; newTab?: boolean | null };
   onSubmit: (data: FormData) => Promise<void>;
   submitText?: string;
 };
@@ -41,7 +41,7 @@ export function LinkForm(props: Props) {
         <input
           name="newTab"
           type="checkbox"
-          defaultChecked={value?.newTab}
+          defaultChecked={!!value?.newTab}
         />
       </label>
 

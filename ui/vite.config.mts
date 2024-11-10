@@ -7,5 +7,9 @@ import "react-dom";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  plugins: [
+    react(),
+    // @ts-expect-error: it works
+    tailwindcss(),
+  ],
 });
