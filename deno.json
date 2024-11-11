@@ -10,7 +10,7 @@
     "test": "deno test --allow-net",
     "ui": "deno task --cwd ui openapi && deno task --cwd ui dev"
   },
-  "exclude": ["node_modules", "ui/.vite", "**/*.gen.ts"],
+  "exclude": ["node_modules", "ui/.vite"],
   "imports": {
     "@asteasolutions/zod-to-openapi": "npm:@asteasolutions/zod-to-openapi@^7.2.0",
     "@headlessui/react": "npm:@headlessui/react@^2.2.0",

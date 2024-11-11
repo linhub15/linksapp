@@ -91,14 +91,7 @@ export type GetPageData = {
   query?: never;
 };
 
-export type GetPageResponse = Page & {
-  id?: string;
-  title?: string;
-  urlSlug?: string;
-  createdAt?: string;
-  updatedAt?: string;
-  publishedAt?: string;
-};
+export type GetPageResponse = Page;
 
 export type UpdatePageData = {
   body?: PageUpdate;
