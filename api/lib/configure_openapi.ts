@@ -4,7 +4,7 @@ import type { App } from "./types.ts";
 export function configureOpenapi(app: App) {
   app
     .doc("/openapi", {
-      openapi: "3.0.0",
+      openapi: "3.1.0",
       info: {
         version: "1.0.0",
         title: "api",

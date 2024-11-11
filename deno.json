@@ -10,11 +10,10 @@
     "test": "deno test --allow-net",
     "ui": "deno task --cwd ui openapi && deno task --cwd ui dev"
   },
-  "lint": {
-    "exclude": ["node_modules", "ui/.vite"]
-  },
+  "exclude": ["node_modules", "ui/.vite", "**/*.gen.ts"],
   "imports": {
     "@asteasolutions/zod-to-openapi": "npm:@asteasolutions/zod-to-openapi@^7.2.0",
+    "@headlessui/react": "npm:@headlessui/react@^2.2.0",
     "@hey-api/client-fetch": "npm:@hey-api/client-fetch@^0.4.2",
     "@hey-api/openapi-ts": "npm:@hey-api/openapi-ts@^0.55.1",
     "@hono/zod-openapi": "npm:@hono/zod-openapi@^0.16.4",
@@ -30,6 +29,7 @@
     "@tanstack/react-router": "npm:@tanstack/react-router@^1.81.1",
     "@tanstack/router-plugin": "npm:@tanstack/router-plugin@^1.79.0",
     "@vitejs/plugin-react": "npm:@vitejs/plugin-react@^4.3.3",
+    "clsx": "npm:clsx@^2.1.1",
     "drizzle-kit": "npm:drizzle-kit@^0.27.0",
     "drizzle-orm": "npm:drizzle-orm@^0.36.0",
     "drizzle-zod": "npm:drizzle-zod@^0.5.1",

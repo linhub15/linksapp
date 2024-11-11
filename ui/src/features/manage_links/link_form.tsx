@@ -1,5 +1,6 @@
 import { useForm } from "@tanstack/react-form";
 import type { types } from "../../lib/api/mod.ts";
+import type { FormEvent } from "react";
 
 type Props = {
   defaultValue?: types.LinkCreate | types.LinkUpdate;
@@ -15,7 +16,7 @@ export function LinkForm(props: Props) {
     },
   });
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     e.stopPropagation();
     form.handleSubmit();

@@ -23,6 +23,7 @@ import type {
   UpdatePageData,
   UpdatePageResponse,
 } from "./types.gen.ts";
+import { listPagesResponseTransformer } from "./transformers.gen.ts";
 
 export const client = createClient(createConfig());
 
@@ -105,6 +106,7 @@ export const listPages = <ThrowOnError extends boolean = false>(
   >({
     ...options,
     url: "/pages",
+    responseTransformer: listPagesResponseTransformer,
   });
 };
 

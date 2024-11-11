@@ -1,10 +1,7 @@
 import { createRoute, z } from "@hono/zod-openapi";
-import { createSelectSchema } from "drizzle-zod";
-import { pages } from "../../db/schema.ts";
 import type { Handler } from "../../lib/types.ts";
 import { db } from "../../db/db.client.ts";
-
-const schema = createSelectSchema(pages).openapi("Page");
+import { pageSelectSchema } from "./page.types.ts";
 
 const route = createRoute({
   operationId: "getPage",
@@ -16,7 +13,7 @@ const route = createRoute({
   responses: {
     200: {
       content: {
-        "application/json": { schema: schema },
+        "application/json": { schema: pageSelectSchema },
       },
       description: "Get a single page",
     },

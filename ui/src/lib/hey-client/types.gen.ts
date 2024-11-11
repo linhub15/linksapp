@@ -4,30 +4,30 @@ export type Link = {
   id: string;
   href: string;
   label: string;
-  newTab: boolean | null;
-  createdAt: string | null;
+  newTab: boolean;
+  createdAt: string;
   pageId: string;
 };
 
 export type LinkCreate = {
   href: string;
   label: string;
-  newTab?: boolean | null;
+  newTab?: boolean;
 };
 
 export type LinkUpdate = {
   href: string;
   label: string;
-  newTab?: boolean | null;
+  newTab?: boolean;
 };
 
 export type Page = {
   id: string;
   title: string;
   urlSlug: string;
-  createdAt: string | null;
-  updatedAt: string | null;
-  publishedAt: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date;
 };
 
 export type PageCreate = {
@@ -91,7 +91,14 @@ export type GetPageData = {
   query?: never;
 };
 
-export type GetPageResponse = Page;
+export type GetPageResponse = Page & {
+  id?: string;
+  title?: string;
+  urlSlug?: string;
+  createdAt?: string;
+  updatedAt?: string;
+  publishedAt?: string;
+};
 
 export type UpdatePageData = {
   body?: PageUpdate;

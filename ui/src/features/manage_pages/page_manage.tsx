@@ -1,4 +1,5 @@
 import { useForm } from "@tanstack/react-form";
+import type { FormEvent } from "react";
 
 type Props = {
   onSubmit: (title: string) => Promise<void>;
@@ -11,10 +12,11 @@ export function PageForm(props: Props) {
     },
     onSubmit: async ({ value }) => {
       await props.onSubmit(value.title);
+      form.reset();
     },
   });
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     e.stopPropagation();
     form.handleSubmit();

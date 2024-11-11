@@ -3,10 +3,10 @@ import { LinkForm } from "./link_form.tsx";
 import { useCreateLink, useDeleteLink, useUpdateLink } from "./mutations.ts";
 import { useListLinks } from "./queries.ts";
 import { usePublishPage } from "../manage_pages/mutations.ts";
-import { useListPages } from "../manage_pages/queries.ts";
+import type { types } from "../../lib/api/mod.ts";
 
 type Props = {
-  pageId: string;
+  page: types.Page;
 };
 
 export function Links(props: Props) {
@@ -18,10 +18,8 @@ export function Links(props: Props) {
 
   const publishPage = usePublishPage();
 
-  const { data } = useListPages();
-  const currentPage = data?.find((page) => page.id === props.pageId);
-  const shouldPublish = (currentPage?.updatedAt?.getTime() ?? 0) >
-    (currentPage?.publishedAt?.getTime() ?? 0);
+  const shouldPublish = (props.page?.updatedAt?.getTime() ?? 0) >
+    (props.page?.publishedAt?.getTime() ?? 0);
 
   return (
     <div className="space-y-2">
@@ -31,7 +29,7 @@ export function Links(props: Props) {
             className="p-1 bg-red-400 text-white"
             type="button"
             onClick={() =>
-              deleteLink.mutateAsync({ pageId: props.pageId, id: link.id })}
+              deleteLink.mutateAsync({ pageId: props.page.id, id: link.id })}
           >
             Delete
           </button>
@@ -59,7 +57,7 @@ export function Links(props: Props) {
                 defaultValue={link}
                 onSubmit={async (data) => {
                   await updateLink.mutateAsync({
-                    pageId: props.pageId,
+                    pageId: props.page.id,
                     linkId: link.id,
                     data,
                   });
@@ -73,14 +71,14 @@ export function Links(props: Props) {
       <>
         <LinkForm
           onSubmit={(data) =>
-            createLink.mutateAsync({ data, pageId: props.pageId })}
+            createLink.mutateAsync({ data, pageId: props.page.id })}
           submitText="Add"
         />
         {shouldPublish && (
           <button
             className="bg-green-300 p-1"
             type="button"
-            onClick={() => publishPage.mutateAsync(props.pageId)}
+            onClick={() => publishPage.mutateAsync(props.page.id)}
           >
             Publish page
           </button>

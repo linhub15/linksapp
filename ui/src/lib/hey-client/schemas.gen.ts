@@ -89,14 +89,17 @@ export const PageSchema = {
     createdAt: {
       type: "string",
       nullable: true,
+      format: "date-time",
     },
     updatedAt: {
       type: "string",
       nullable: true,
+      format: "date-time",
     },
     publishedAt: {
       type: "string",
       nullable: true,
+      format: "date-time",
     },
   },
   required: ["id", "title", "urlSlug", "createdAt", "updatedAt", "publishedAt"],

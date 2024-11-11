@@ -11,7 +11,7 @@ export const pages = sqliteTable("pages", {
   id: text().$defaultFn(() => crypto.randomUUID()).primaryKey(),
   title: text().notNull(),
   urlSlug: text().notNull(),
-  createdAt: text().default(sql`(CURRENT_TIMESTAMP)`),
+  createdAt: text().notNull().default(sql`(CURRENT_TIMESTAMP)`),
   updatedAt: integer({ mode: "timestamp_ms" }).$onUpdate(() => new Date()),
   publishedAt: integer({ mode: "timestamp_ms" }),
 });

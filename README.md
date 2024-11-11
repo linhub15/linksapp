@@ -34,11 +34,12 @@ View the db with https://libsqlstudio.com
 ### Frontend Tech
 
 - Vite + React
-- Tailwind v4
+- @hey-api openapi client generation
 - Tanstack Query
 - Tanstack Form
 - Tanstack Router
-- @hey-api openapi client generation
+- Tailwind v4
+- Tailwindlabs - Catalyst UI Kit
 
 ### Devops, CI/CD
 

@@ -1,1 +1,11 @@
 @import "tailwindcss";
+
+@font-face {
+  font-family: "inter";
+  display: swap;
+  src: url("https://rsms.me/inter/inter.css");
+}
+
+@theme {
+  --font-family-sans: "inter", sans-serif;
+}

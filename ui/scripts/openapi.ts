@@ -13,8 +13,7 @@ await createClient(defineConfig({
     {
       name: "@hey-api/services",
     },
-    // Date transformations only works if the openapi spec is a $ref type,
-    // right now z.ZodDate is a string type so it doesn't transform
+    // Date transformations only works if the openapi spec is a "format: date-time"
     {
       dates: true,
       name: "@hey-api/transformers",
