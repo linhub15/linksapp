@@ -21,9 +21,9 @@ const route = createRoute({
 });
 
 const handler: Handler<typeof route> = async (c) => {
-  const id = c.req.valid("param").page_id;
+  const { page_id } = c.req.valid("param");
   const data = await db.query.pages.findFirst({
-    where: (page, { eq }) => eq(page.id, id),
+    where: (page, { eq }) => eq(page.id, page_id),
   });
 
   return c.json(data);

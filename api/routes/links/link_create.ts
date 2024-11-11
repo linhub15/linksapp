@@ -49,7 +49,7 @@ const route = createRoute({
 });
 
 const handler: Handler<typeof route> = async (c) => {
-  const pageId = c.req.valid("param").page_id;
+  const { page_id } = c.req.valid("param");
   const body = c.req.valid("json");
 
   await db.transaction(async (transaction) => {
@@ -57,11 +57,11 @@ const handler: Handler<typeof route> = async (c) => {
       href: body.href,
       label: body.label,
       newTab: body.newTab,
-      pageId: pageId,
+      pageId: page_id,
     });
 
     await transaction.update(pages).set({ updatedAt: new Date() }).where(
-      eq(pages.id, pageId),
+      eq(pages.id, page_id),
     );
   });
 

@@ -47,7 +47,7 @@ const route = createRoute({
 });
 
 const handler: Handler<typeof route> = async (c) => {
-  const id = c.req.valid("param").page_id;
+  const { page_id } = c.req.valid("param");
   const body = c.req.valid("json");
 
   const response = await db
@@ -56,7 +56,7 @@ const handler: Handler<typeof route> = async (c) => {
       title: body.title,
       urlSlug: slugify(body.title),
     })
-    .where(eq(pages.id, id));
+    .where(eq(pages.id, page_id));
 
   if (response.rowsAffected === 1) {
     return c.text("ok");
