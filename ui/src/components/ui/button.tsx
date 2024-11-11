@@ -179,6 +179,24 @@ type ButtonProps =
     | Omit<ComponentPropsWithoutRef<typeof Link>, "className">
   );
 
+export const buttonVariants = (args?: {
+  className?: string;
+  outline?: true | undefined;
+  plain?: true | undefined;
+  color?: keyof typeof styles.colors | undefined;
+}) => {
+  const { className, outline, plain, color } = args ?? {};
+  return clsx(
+    className,
+    styles.base,
+    outline
+      ? styles.outline
+      : plain
+      ? styles.plain
+      : clsx(styles.solid, styles.colors[color ?? "dark/zinc"]),
+  );
+};
+
 export const Button = forwardRef(function Button(
   { color, outline, plain, className, children, ...props }: ButtonProps,
   ref: ForwardedRef<HTMLElement>,

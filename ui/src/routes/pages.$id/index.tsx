@@ -11,14 +11,22 @@ export const Route = createFileRoute("/pages/$id/")({
 
 function RouteComponent() {
   const id = Route.useParams().id;
-  const { data } = useListPages();
+  const { data, isSuccess, isLoading } = useListPages();
   const page = data?.find((page) => page.id === id);
   const deletePage = useDeletePage();
   const navigate = useNavigate();
 
-  if (!page) {
+  if (!page && isLoading) {
+    return <div>...</div>;
+  }
+
+  if (!page && isSuccess) {
     navigate({ to: "/" });
     return;
+  }
+
+  if (!page) {
+    return <div>Page not found</div>;
   }
 
   return (
