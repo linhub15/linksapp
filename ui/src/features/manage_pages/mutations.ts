@@ -21,7 +21,7 @@ export function usePublishPage() {
   return useMutation({
     mutationFn: async (id: string) => {
       await api.generateHtml({
-        body: { pageId: id },
+        body: { page_id: id },
       });
     },
     onSuccess: () => {

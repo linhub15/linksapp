@@ -28,10 +28,10 @@ const schema = createInsertSchema(links, {
 const route = createRoute({
   operationId: "createLink",
   method: "post",
-  path: "/pages/{pageId}/links",
+  path: "/pages/{page_id}/links",
   description: "Create a new link",
   request: {
-    params: z.object({ pageId: z.string().uuid() }),
+    params: z.object({ page_id: z.string().uuid() }),
     body: {
       content: {
         "application/json": { schema },
@@ -49,7 +49,7 @@ const route = createRoute({
 });
 
 const handler: Handler<typeof route> = async (c) => {
-  const pageId = c.req.valid("param").pageId;
+  const pageId = c.req.valid("param").page_id;
   const body = c.req.valid("json");
 
   await db.transaction(async (transaction) => {

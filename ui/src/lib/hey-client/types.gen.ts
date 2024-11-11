@@ -41,12 +41,20 @@ export type PageUpdate = {
   title: string;
 };
 
+export type ListLinksData = {
+  body?: never;
+  path: {
+    page_id: string;
+  };
+  query?: never;
+};
+
 export type ListLinksResponse = Array<Link>;
 
 export type CreateLinkData = {
   body?: LinkCreate;
   path: {
-    pageId: string;
+    page_id: string;
   };
   query?: never;
 };
@@ -56,7 +64,7 @@ export type CreateLinkResponse = string;
 export type DeleteLinkData = {
   body?: never;
   path: {
-    pageId: string;
+    page_id: string;
     id: string;
   };
   query?: never;
@@ -67,7 +75,7 @@ export type DeleteLinkResponse = void;
 export type UpdateLinkData = {
   body?: LinkUpdate;
   path: {
-    pageId: string;
+    page_id: string;
     id: string;
   };
   query?: never;
@@ -86,7 +94,7 @@ export type CreatePageResponse = string;
 export type GetPageData = {
   body?: never;
   path: {
-    id: string;
+    page_id: string;
   };
   query?: never;
 };
@@ -96,7 +104,7 @@ export type GetPageResponse = Page;
 export type UpdatePageData = {
   body?: PageUpdate;
   path: {
-    id: string;
+    page_id: string;
   };
   query?: never;
 };
@@ -105,7 +113,7 @@ export type UpdatePageResponse = "ok";
 
 export type GenerateHtmlData = {
   body?: {
-    pageId: string;
+    page_id: string;
   };
 };
 

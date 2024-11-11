@@ -14,7 +14,7 @@ export function Links(props: Props) {
   const deleteLink = useDeleteLink();
   const createLink = useCreateLink();
   const updateLink = useUpdateLink();
-  const query = useListLinks();
+  const query = useListLinks({ pageId: props.page.id });
 
   const publishPage = usePublishPage();
 

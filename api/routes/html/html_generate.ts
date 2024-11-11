@@ -11,7 +11,7 @@ const route = createRoute({
     body: {
       content: {
         "application/json": {
-          schema: z.object({ pageId: z.string().uuid() }).required(),
+          schema: z.object({ page_id: z.string().uuid() }).required(),
         },
       },
     },
@@ -24,7 +24,7 @@ const route = createRoute({
 });
 
 const handler: Handler<typeof route> = async (c) => {
-  const id = c.req.valid("json").pageId;
+  const id = c.req.valid("json").page_id;
 
   const result = await generateHtml(id);
 

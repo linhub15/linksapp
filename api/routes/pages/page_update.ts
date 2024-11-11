@@ -23,10 +23,10 @@ const schema = createInsertSchema(pages)
 const route = createRoute({
   operationId: "updatePage",
   method: "put",
-  path: "/pages/{id}",
+  path: "/pages/{page_id}",
   description: "Update a page",
   request: {
-    params: z.object({ id: z.string().uuid() }),
+    params: z.object({ page_id: z.string().uuid() }),
     body: {
       content: {
         "application/json": { schema },
@@ -47,7 +47,7 @@ const route = createRoute({
 });
 
 const handler: Handler<typeof route> = async (c) => {
-  const id = c.req.valid("param").id;
+  const id = c.req.valid("param").page_id;
   const body = c.req.valid("json");
 
   const response = await db

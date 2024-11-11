@@ -10,7 +10,7 @@ export function useCreateLink() {
       { data, pageId }: { data: types.LinkCreate; pageId: string },
     ) => {
       await api.createLink({
-        path: { pageId: pageId },
+        path: { page_id: pageId },
         body: {
           href: data.href,
           label: data.label,
@@ -28,7 +28,7 @@ export function useDeleteLink() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async ({ pageId, id }: { pageId: string; id: string }) => {
-      await api.deleteLink({ path: { pageId, id } });
+      await api.deleteLink({ path: { page_id: pageId, id } });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["pages"] });
@@ -55,7 +55,7 @@ export function useUpdateLink() {
       const body = schema.parse(data);
 
       await api.updateLink({
-        path: { pageId, id: linkId },
+        path: { page_id: pageId, id: linkId },
         body: body,
       });
     },

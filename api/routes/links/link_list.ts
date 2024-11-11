@@ -9,19 +9,26 @@ const schema = createSelectSchema(links).openapi("Link");
 const route = createRoute({
   operationId: "listLinks",
   method: "get",
-  path: "/links",
+  path: "/pages/{page_id}/links",
+  request: {
+    params: z.object({ page_id: z.string().uuid() }),
+  },
   responses: {
     200: {
       content: {
         "application/json": { schema: z.array(schema) },
       },
-      description: "List all links",
+      description: "List links for a page",
     },
   },
 });
 
 const handler: Handler<typeof route> = async (c) => {
-  const data = await db.select().from(links);
+  const { page_id } = c.req.valid("param");
+  const data = await db.query.links.findMany({
+    where: (link, { eq }) => eq(link.pageId, page_id),
+  });
+
   return c.json(data);
 };
 

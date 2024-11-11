@@ -29,10 +29,10 @@ const schema = createInsertSchema(links, {
 const route = createRoute({
   operationId: "updateLink",
   method: "put",
-  path: "/pages/{pageId}/links/{id}",
+  path: "/pages/{page_id}/links/{id}",
   description: "Update a link",
   request: {
-    params: z.object({ pageId: z.string().uuid(), id: z.string().uuid() }),
+    params: z.object({ page_id: z.string().uuid(), id: z.string().uuid() }),
     body: {
       content: {
         "application/json": { schema },
@@ -53,12 +53,12 @@ const route = createRoute({
 });
 
 const handler: Handler<typeof route> = async (c) => {
-  const { pageId, id } = c.req.valid("param");
+  const { page_id, id } = c.req.valid("param");
   const body = c.req.valid("json");
 
   const response = await db.transaction(async (transaction) => {
     await transaction.update(pages).set({ updatedAt: new Date() }).where(
-      eq(pages.id, pageId),
+      eq(pages.id, page_id),
     );
     return await transaction.update(links)
       .set({

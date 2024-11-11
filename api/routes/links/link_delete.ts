@@ -8,10 +8,10 @@ import { links, pages } from "../../db/schema.ts";
 const route = createRoute({
   operationId: "deleteLink",
   method: "delete",
-  path: "/pages/{pageId}/links/{id}",
+  path: "/pages/{page_id}/links/{id}",
   description: "Delete a link",
   request: {
-    params: z.object({ pageId: z.string().uuid(), id: z.string().uuid() }),
+    params: z.object({ page_id: z.string().uuid(), id: z.string().uuid() }),
   },
   responses: {
     204: {
@@ -21,12 +21,12 @@ const route = createRoute({
 });
 
 const handler: Handler<typeof route> = async (c) => {
-  const { id, pageId } = c.req.valid("param");
+  const { id, page_id } = c.req.valid("param");
 
   await db.transaction(async (transaction) => {
     await transaction.delete(links).where(eq(links.id, id));
     await transaction.update(pages).set({ updatedAt: new Date() }).where(
-      eq(pages.id, pageId),
+      eq(pages.id, page_id),
     );
   });
 

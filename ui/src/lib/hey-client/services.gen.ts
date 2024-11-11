@@ -16,6 +16,7 @@ import type {
   GetBySlugData,
   GetPageData,
   GetPageResponse,
+  ListLinksData,
   ListLinksResponse,
   ListPagesResponse,
   UpdateLinkData,
@@ -31,7 +32,7 @@ import {
 export const client = createClient(createConfig());
 
 export const listLinks = <ThrowOnError extends boolean = false>(
-  options?: Options<unknown, ThrowOnError>,
+  options: Options<ListLinksData, ThrowOnError>,
 ) => {
   return (options?.client ?? client).get<
     ListLinksResponse,
@@ -39,7 +40,7 @@ export const listLinks = <ThrowOnError extends boolean = false>(
     ThrowOnError
   >({
     ...options,
-    url: "/links",
+    url: "/pages/{page_id}/links",
   });
 };
 
@@ -59,7 +60,7 @@ export const createLink = <ThrowOnError extends boolean = false>(
       "Content-Type": "application/json",
       ...options?.headers,
     },
-    url: "/pages/{pageId}/links",
+    url: "/pages/{page_id}/links",
   });
 };
 
@@ -75,7 +76,7 @@ export const deleteLink = <ThrowOnError extends boolean = false>(
     ThrowOnError
   >({
     ...options,
-    url: "/pages/{pageId}/links/{id}",
+    url: "/pages/{page_id}/links/{id}",
   });
 };
 
@@ -95,7 +96,7 @@ export const updateLink = <ThrowOnError extends boolean = false>(
       "Content-Type": "application/json",
       ...options?.headers,
     },
-    url: "/pages/{pageId}/links/{id}",
+    url: "/pages/{page_id}/links/{id}",
   });
 };
 
@@ -142,7 +143,7 @@ export const getPage = <ThrowOnError extends boolean = false>(
     ThrowOnError
   >({
     ...options,
-    url: "/pages/{id}",
+    url: "/pages/{page_id}",
     responseTransformer: getPageResponseTransformer,
   });
 };
@@ -163,7 +164,7 @@ export const updatePage = <ThrowOnError extends boolean = false>(
       "Content-Type": "application/json",
       ...options?.headers,
     },
-    url: "/pages/{id}",
+    url: "/pages/{page_id}",
   });
 };
 

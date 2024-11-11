@@ -6,9 +6,9 @@ import { pageSelectSchema } from "./page.types.ts";
 const route = createRoute({
   operationId: "getPage",
   method: "get",
-  path: "/pages/{id}",
+  path: "/pages/{page_id}",
   request: {
-    params: z.object({ id: z.string().uuid() }),
+    params: z.object({ page_id: z.string().uuid() }),
   },
   responses: {
     200: {
@@ -21,8 +21,7 @@ const route = createRoute({
 });
 
 const handler: Handler<typeof route> = async (c) => {
-  const id = c.req.valid("param").id;
-
+  const id = c.req.valid("param").page_id;
   const data = await db.query.pages.findFirst({
     where: (page, { eq }) => eq(page.id, id),
   });
