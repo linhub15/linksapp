@@ -29,3 +29,18 @@ export function usePublishPage() {
     },
   });
 }
+
+export function useDeletePage() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (id: string) => {
+      await api.deletePage({
+        path: { page_id: id },
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["pages"] });
+    },
+  });
+}

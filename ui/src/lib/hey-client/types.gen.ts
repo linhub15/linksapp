@@ -91,6 +91,16 @@ export type CreatePageData = {
 
 export type CreatePageResponse = string;
 
+export type DeletePageData = {
+  body?: never;
+  path: {
+    page_id: string;
+  };
+  query?: never;
+};
+
+export type DeletePageResponse = void;
+
 export type GetPageData = {
   body?: never;
   path: {

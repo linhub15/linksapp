@@ -12,6 +12,8 @@ import type {
   CreatePageResponse,
   DeleteLinkData,
   DeleteLinkResponse,
+  DeletePageData,
+  DeletePageResponse,
   GenerateHtmlData,
   GetBySlugData,
   GetPageData,
@@ -131,6 +133,19 @@ export const createPage = <ThrowOnError extends boolean = false>(
       ...options?.headers,
     },
     url: "/pages",
+  });
+};
+
+export const deletePage = <ThrowOnError extends boolean = false>(
+  options: Options<DeletePageData, ThrowOnError>,
+) => {
+  return (options?.client ?? client).delete<
+    DeletePageResponse,
+    unknown,
+    ThrowOnError
+  >({
+    ...options,
+    url: "/pages/{page_id}",
   });
 };
 
