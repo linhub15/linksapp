@@ -4,6 +4,7 @@ import { type FormEvent, useState } from "react";
 import { Button, buttonVariants } from "../../components/ui/button.tsx";
 import type { types } from "../../lib/api/mod.ts";
 import { useDeleteLink, useUpdateLink } from "./mutations.ts";
+import { Switch } from "../../components/ui/switch.tsx";
 
 type Props = {
   link: types.Link;
@@ -29,6 +30,11 @@ export function LinkCard({ link }: Props) {
       setEditing(false);
     },
   });
+
+  const handleCancel = () => {
+    form.reset();
+    setEditing(false);
+  };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -74,16 +80,18 @@ export function LinkCard({ link }: Props) {
         <div>
           <form.Field name="newTab">
             {(field) => (
-              <label className="text-sm text-nowrap">
-                <span>Open in new tab {" "}</span>
-                <input
+              <div className="flex items-end justify-center gap-1.5">
+                <label className="text-sm text-nowrap" htmlFor={field.name}>
+                  New tab
+                </label>
+                <Switch
+                  id={field.name}
                   name={field.name}
-                  type="checkbox"
                   checked={!!field.state.value}
-                  onChange={(e) => field.handleChange(!!e.target.checked)}
+                  onChange={(checked) => field.handleChange(checked)}
                   disabled={!editing}
                 />
-              </label>
+              </div>
             )}
           </form.Field>
         </div>
@@ -95,7 +103,7 @@ export function LinkCard({ link }: Props) {
               <button
                 className={buttonVariants()}
                 type="button"
-                onClick={() => setEditing(false)}
+                onClick={handleCancel}
               >
                 Cancel
               </button>
