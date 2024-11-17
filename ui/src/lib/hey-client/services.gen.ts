@@ -12,26 +12,11 @@ import type {
   DeleteLinkResponse,
   GenerateHtmlData,
   GetBySlugData,
-  ListLinksData,
-  ListLinksResponse,
   UpdateLinkData,
   UpdateLinkResponse,
 } from "./types.gen.ts";
 
 export const client = createClient(createConfig());
-
-export const listLinks = <ThrowOnError extends boolean = false>(
-  options: Options<ListLinksData, ThrowOnError>,
-) => {
-  return (options?.client ?? client).get<
-    ListLinksResponse,
-    unknown,
-    ThrowOnError
-  >({
-    ...options,
-    url: "/pages/{page_id}/links",
-  });
-};
 
 /**
  * Create a new link

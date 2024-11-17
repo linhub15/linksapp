@@ -1,12 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { api } from "../../lib/api/mod.ts";
+import { api } from "../../lib/trpc/client.ts";
 
 export function useListLinks({ pageId }: { pageId: string }) {
   return useQuery({
     queryKey: ["pages", pageId, "links"],
     queryFn: async () => {
-      const { data } = await api.listLinks({ path: { page_id: pageId } });
-      return data;
+      return await api.pageLinks.list.query({ page_id: pageId });
     },
   });
 }

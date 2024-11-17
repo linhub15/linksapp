@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { createInsertSchema } from "drizzle-zod";
 import { db } from "../../db/db.client.ts";
-import { slugify } from "../../routes/pages/slugify.ts";
+import { slugify } from "../../lib/slugify.ts";
 import { pages } from "../../db/schema.ts";
 
 export const pageCreateSchema = createInsertSchema(pages, {

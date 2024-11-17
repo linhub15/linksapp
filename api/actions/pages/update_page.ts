@@ -2,7 +2,7 @@ import { z } from "zod";
 import { eq } from "drizzle-orm";
 import { pages } from "../../db/schema.ts";
 import { db } from "../../db/db.client.ts";
-import { slugify } from "../../routes/pages/slugify.ts";
+import { slugify } from "../../lib/slugify.ts";
 
 export const pageUpdateSchema = z.object({
   id: z.string().uuid(),
