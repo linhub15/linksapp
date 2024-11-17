@@ -74,52 +74,6 @@ export const LinkUpdateSchema = {
   },
 } as const;
 
-export const PageSchema = {
-  type: "object",
-  properties: {
-    id: {
-      type: "string",
-    },
-    title: {
-      type: "string",
-    },
-    urlSlug: {
-      type: "string",
-    },
-    createdAt: {
-      type: "string",
-      nullable: true,
-      format: "date-time",
-    },
-    updatedAt: {
-      type: "string",
-      nullable: true,
-      format: "date-time",
-    },
-    publishedAt: {
-      type: "string",
-      nullable: true,
-      format: "date-time",
-    },
-  },
-  required: ["id", "title", "urlSlug", "createdAt", "updatedAt", "publishedAt"],
-} as const;
-
-export const PageCreateSchema = {
-  type: "object",
-  properties: {
-    title: {
-      type: "string",
-      pattern: "^[a-zA-Z0-9 ]+$",
-      description: "Alphnumeric characters and spaces only",
-    },
-  },
-  required: ["title"],
-  example: {
-    title: "My social media links",
-  },
-} as const;
-
 export const PageUpdateSchema = {
   type: "object",
   properties: {

@@ -29,7 +29,7 @@ function RouteComponent() {
         {data?.map((page) => (
           <div key={page.id}>
             <Link
-              className="block size-fit rounded-lg border border-1 border-zinc-400 px-6 py-4"
+              className="block size-fit rounded-lg border border-zinc-400 px-6 py-4"
               to="/pages/$id"
               params={{ id: page.id }}
             >

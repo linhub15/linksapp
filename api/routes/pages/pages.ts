@@ -3,6 +3,10 @@ import { z } from "zod";
 import { publicProcedure, router } from "../../trpc.ts";
 import { db } from "../../db/db.client.ts";
 import { pages } from "../../db/schema.ts";
+import {
+  createPage,
+  pageCreateSchema,
+} from "../../actions/pages/create_page.ts";
 
 export const pagesRouter = router({
   list: publicProcedure.query(async () => {
@@ -16,5 +20,9 @@ export const pagesRouter = router({
         where: (page, { eq }) => eq(page.id, page_id),
       });
     }),
-  create: publicProcedure.mutation(() => {}),
+  create: publicProcedure
+    .input(pageCreateSchema)
+    .mutation(async ({ input }) => {
+      await createPage(input);
+    }),
 });

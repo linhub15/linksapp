@@ -21,22 +21,6 @@ export type LinkUpdate = {
   newTab?: boolean;
 };
 
-export type Page = {
-  id: string;
-  title: string;
-  urlSlug: string;
-  createdAt: Date;
-  updatedAt: Date;
-  publishedAt: Date;
-};
-
-export type PageCreate = {
-  /**
-   * Alphnumeric characters and spaces only
-   */
-  title: string;
-};
-
 export type PageUpdate = {
   title: string;
 };
@@ -93,16 +77,6 @@ export type DeletePageData = {
 
 export type DeletePageResponse = void;
 
-export type GetPageData = {
-  body?: never;
-  path: {
-    page_id: string;
-  };
-  query?: never;
-};
-
-export type GetPageResponse = Page;
-
 export type UpdatePageData = {
   body?: PageUpdate;
   path: {
@@ -112,12 +86,6 @@ export type UpdatePageData = {
 };
 
 export type UpdatePageResponse = "ok";
-
-export type CreatePageData = {
-  body?: PageCreate;
-};
-
-export type CreatePageResponse = string;
 
 export type GenerateHtmlData = {
   body?: {

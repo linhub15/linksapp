@@ -14,5 +14,5 @@ export const api = createTRPCProxyClient<Router>({
   ],
 });
 
-type RouterInput = inferRouterInputs<Router>;
-type RouterOutputs = inferRouterOutputs<Router>;
+export type ApiRequest = inferRouterInputs<Router>;
+export type ApiResponse = inferRouterOutputs<Router>;

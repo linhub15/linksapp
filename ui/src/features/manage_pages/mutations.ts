@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { api, type types } from "../../lib/api/mod.ts";
+import { api } from "../../lib/api/mod.ts";
+
+import { api as trpc, type ApiRequest } from "../../lib/trpc/client.ts";
 
 export function useCreatePage() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: types.PageCreate) => {
-      await api.createPage({
-        body: data,
-      });
+    mutationFn: async (data: ApiRequest["pages"]["create"]) => {
+      return await trpc.pages.create.mutate(data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["pages"] });

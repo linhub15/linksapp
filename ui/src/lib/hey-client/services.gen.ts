@@ -8,16 +8,12 @@ import {
 import type {
   CreateLinkData,
   CreateLinkResponse,
-  CreatePageData,
-  CreatePageResponse,
   DeleteLinkData,
   DeleteLinkResponse,
   DeletePageData,
   DeletePageResponse,
   GenerateHtmlData,
   GetBySlugData,
-  GetPageData,
-  GetPageResponse,
   ListLinksData,
   ListLinksResponse,
   UpdateLinkData,
@@ -25,7 +21,6 @@ import type {
   UpdatePageData,
   UpdatePageResponse,
 } from "./types.gen.ts";
-import { getPageResponseTransformer } from "./transformers.gen.ts";
 
 export const client = createClient(createConfig());
 
@@ -111,20 +106,6 @@ export const deletePage = <ThrowOnError extends boolean = false>(
   });
 };
 
-export const getPage = <ThrowOnError extends boolean = false>(
-  options: Options<GetPageData, ThrowOnError>,
-) => {
-  return (options?.client ?? client).get<
-    GetPageResponse,
-    unknown,
-    ThrowOnError
-  >({
-    ...options,
-    url: "/pages/{page_id}",
-    responseTransformer: getPageResponseTransformer,
-  });
-};
-
 /**
  * Update a page
  */
@@ -142,26 +123,6 @@ export const updatePage = <ThrowOnError extends boolean = false>(
       ...options?.headers,
     },
     url: "/pages/{page_id}",
-  });
-};
-
-/**
- * Create a page
- */
-export const createPage = <ThrowOnError extends boolean = false>(
-  options?: Options<CreatePageData, ThrowOnError>,
-) => {
-  return (options?.client ?? client).post<
-    CreatePageResponse,
-    unknown,
-    ThrowOnError
-  >({
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options?.headers,
-    },
-    url: "/pages",
   });
 };
 
