@@ -21,10 +21,6 @@ export type LinkUpdate = {
   newTab?: boolean;
 };
 
-export type PageUpdate = {
-  title: string;
-};
-
 export type ListLinksData = {
   body?: never;
   path: {
@@ -66,26 +62,6 @@ export type UpdateLinkData = {
 };
 
 export type UpdateLinkResponse = "ok";
-
-export type DeletePageData = {
-  body?: never;
-  path: {
-    page_id: string;
-  };
-  query?: never;
-};
-
-export type DeletePageResponse = void;
-
-export type UpdatePageData = {
-  body?: PageUpdate;
-  path: {
-    page_id: string;
-  };
-  query?: never;
-};
-
-export type UpdatePageResponse = "ok";
 
 export type GenerateHtmlData = {
   body?: {

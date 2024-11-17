@@ -73,16 +73,3 @@ export const LinkUpdateSchema = {
     newTab: false,
   },
 } as const;
-
-export const PageUpdateSchema = {
-  type: "object",
-  properties: {
-    title: {
-      type: "string",
-    },
-  },
-  required: ["title"],
-  example: {
-    title: "https://example.com",
-  },
-} as const;

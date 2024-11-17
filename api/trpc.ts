@@ -1,4 +1,5 @@
 import { initTRPC } from "@trpc/server";
+export { TRPCError } from "@trpc/server";
 import superjson from "superjson";
 
 type Context = {

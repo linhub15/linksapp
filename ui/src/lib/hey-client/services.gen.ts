@@ -10,16 +10,12 @@ import type {
   CreateLinkResponse,
   DeleteLinkData,
   DeleteLinkResponse,
-  DeletePageData,
-  DeletePageResponse,
   GenerateHtmlData,
   GetBySlugData,
   ListLinksData,
   ListLinksResponse,
   UpdateLinkData,
   UpdateLinkResponse,
-  UpdatePageData,
-  UpdatePageResponse,
 } from "./types.gen.ts";
 
 export const client = createClient(createConfig());
@@ -90,39 +86,6 @@ export const updateLink = <ThrowOnError extends boolean = false>(
       ...options?.headers,
     },
     url: "/pages/{page_id}/links/{id}",
-  });
-};
-
-export const deletePage = <ThrowOnError extends boolean = false>(
-  options: Options<DeletePageData, ThrowOnError>,
-) => {
-  return (options?.client ?? client).delete<
-    DeletePageResponse,
-    unknown,
-    ThrowOnError
-  >({
-    ...options,
-    url: "/pages/{page_id}",
-  });
-};
-
-/**
- * Update a page
- */
-export const updatePage = <ThrowOnError extends boolean = false>(
-  options: Options<UpdatePageData, ThrowOnError>,
-) => {
-  return (options?.client ?? client).put<
-    UpdatePageResponse,
-    unknown,
-    ThrowOnError
-  >({
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options?.headers,
-    },
-    url: "/pages/{page_id}",
   });
 };
 
