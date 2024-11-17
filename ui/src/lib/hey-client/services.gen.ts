@@ -20,16 +20,12 @@ import type {
   GetPageResponse,
   ListLinksData,
   ListLinksResponse,
-  ListPagesResponse,
   UpdateLinkData,
   UpdateLinkResponse,
   UpdatePageData,
   UpdatePageResponse,
 } from "./types.gen.ts";
-import {
-  getPageResponseTransformer,
-  listPagesResponseTransformer,
-} from "./transformers.gen.ts";
+import { getPageResponseTransformer } from "./transformers.gen.ts";
 
 export const client = createClient(createConfig());
 
@@ -102,40 +98,6 @@ export const updateLink = <ThrowOnError extends boolean = false>(
   });
 };
 
-export const listPages = <ThrowOnError extends boolean = false>(
-  options?: Options<unknown, ThrowOnError>,
-) => {
-  return (options?.client ?? client).get<
-    ListPagesResponse,
-    unknown,
-    ThrowOnError
-  >({
-    ...options,
-    url: "/pages",
-    responseTransformer: listPagesResponseTransformer,
-  });
-};
-
-/**
- * Create a page
- */
-export const createPage = <ThrowOnError extends boolean = false>(
-  options?: Options<CreatePageData, ThrowOnError>,
-) => {
-  return (options?.client ?? client).post<
-    CreatePageResponse,
-    unknown,
-    ThrowOnError
-  >({
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options?.headers,
-    },
-    url: "/pages",
-  });
-};
-
 export const deletePage = <ThrowOnError extends boolean = false>(
   options: Options<DeletePageData, ThrowOnError>,
 ) => {
@@ -180,6 +142,26 @@ export const updatePage = <ThrowOnError extends boolean = false>(
       ...options?.headers,
     },
     url: "/pages/{page_id}",
+  });
+};
+
+/**
+ * Create a page
+ */
+export const createPage = <ThrowOnError extends boolean = false>(
+  options?: Options<CreatePageData, ThrowOnError>,
+) => {
+  return (options?.client ?? client).post<
+    CreatePageResponse,
+    unknown,
+    ThrowOnError
+  >({
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
+    url: "/pages",
   });
 };
 

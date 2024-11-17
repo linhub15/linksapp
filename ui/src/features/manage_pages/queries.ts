@@ -1,13 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { api } from "../../lib/api/mod.ts";
+import { api } from "../../lib/trpc/client.ts";
 
 export function useListPages() {
   return useQuery({
     queryKey: ["pages"],
     queryFn: async () => {
-      const { data } = await api.listPages();
-
-      return data;
+      return await api.pages.list.query();
     },
   });
 }

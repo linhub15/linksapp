@@ -83,14 +83,6 @@ export type UpdateLinkData = {
 
 export type UpdateLinkResponse = "ok";
 
-export type ListPagesResponse = Array<Page>;
-
-export type CreatePageData = {
-  body?: PageCreate;
-};
-
-export type CreatePageResponse = string;
-
 export type DeletePageData = {
   body?: never;
   path: {
@@ -120,6 +112,12 @@ export type UpdatePageData = {
 };
 
 export type UpdatePageResponse = "ok";
+
+export type CreatePageData = {
+  body?: PageCreate;
+};
+
+export type CreatePageResponse = string;
 
 export type GenerateHtmlData = {
   body?: {
