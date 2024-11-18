@@ -1,14 +1,9 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import "./app.css";
-import { client } from "./lib/hey-client/mod.ts";
 
 // Tanstack Query Client
 const queryClient = new QueryClient();
-
-// Hey API Client
-client.setConfig({
-  baseUrl: import.meta.env.VITE_API_URL,
-});
 
 // Tanstack Router
 import { createRouter, RouterProvider } from "@tanstack/react-router";
@@ -26,6 +21,7 @@ export function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 }

@@ -1,38 +1,42 @@
 import { useListLinks } from "./queries.ts";
 import { usePublishPage } from "../manage_pages/mutations.ts";
-import type { types } from "../../lib/api/mod.ts";
 import { LinkCard } from "./link_card.tsx";
 import { Heading } from "../../components/ui/heading.tsx";
 import { AddLinkForm } from "./add_link_form.tsx";
 import { buttonVariants } from "../../components/ui/button.tsx";
+import { useGetPage } from "../manage_pages/queries.ts";
 
 type Props = {
-  page: types.Page;
+  pageId: string;
 };
 
 export function Links(props: Props) {
-  const query = useListLinks({ pageId: props.page.id });
-
+  const { data: page } = useGetPage(props.pageId);
+  const query = useListLinks({ pageId: props.pageId });
   const publishPage = usePublishPage();
 
-  const shouldPublish = (props.page?.updatedAt?.getTime() ?? 0) >
-    (props.page?.publishedAt?.getTime() ?? 0);
+  if (!page) {
+    return null;
+  }
+
+  const shouldPublish = (page?.updatedAt?.getTime() ?? 0) >
+    (page?.publishedAt?.getTime() ?? 0);
 
   return (
     <div className="space-y-6">
       {query.data?.map((link) => (
         <div className="space-x-4" key={link.id}>
-          <LinkCard link={link} />
+          <LinkCard linkId={link.id} pageId={link.pageId} />
         </div>
       ))}
       <>
         <Heading level={2}>Add link</Heading>
-        <AddLinkForm pageId={props.page.id} />
+        <AddLinkForm pageId={page?.id} />
         {shouldPublish && (
           <button
             className={buttonVariants({ outline: true })}
             type="button"
-            onClick={() => publishPage.mutateAsync(props.page.id)}
+            onClick={() => publishPage.mutateAsync(props.pageId)}
           >
             Publish page
           </button>

@@ -2,10 +2,10 @@ import { eq } from "drizzle-orm";
 import { z } from "zod";
 import {
   createPage,
-  pageCreateSchema,
+  createPageRequest,
 } from "../actions/pages/create_page.ts";
 import {
-  pageUpdateSchema,
+  updatePageRequest,
   updatePage,
 } from "../actions/pages/update_page.ts";
 import { db } from "../db/db.client.ts";
@@ -25,12 +25,12 @@ export const pagesRouter = router({
       });
     }),
   create: publicProcedure
-    .input(pageCreateSchema)
+    .input(createPageRequest)
     .mutation(async ({ input }) => {
       await createPage(input);
     }),
   update: publicProcedure
-    .input(pageUpdateSchema)
+    .input(updatePageRequest)
     .mutation(async ({ input }) => {
       await updatePage(input);
     }),

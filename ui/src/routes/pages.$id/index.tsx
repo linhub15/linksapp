@@ -71,7 +71,7 @@ function RouteComponent() {
         </div>
       </div>
       <div className="py-6">
-        <Links page={page} />
+        <Links pageId={page.id} />
       </div>
     </>
   );

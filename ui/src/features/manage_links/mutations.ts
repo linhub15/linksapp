@@ -1,21 +1,22 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { z } from "zod";
-import { api, type types } from "../../lib/api/mod.ts";
+import { api, type ApiRequest } from "../../lib/trpc/client.ts";
 
 export function useCreateLink() {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (
-      { data, pageId }: { data: types.LinkCreate; pageId: string },
+      { data, pageId }: {
+        data: ApiRequest["pageLinks"]["create"];
+        pageId: string;
+      },
     ) => {
-      await api.createLink({
-        path: { page_id: pageId },
-        body: {
-          href: data.href,
-          label: data.label,
-          newTab: !!data.newTab,
-        },
+      await api.pageLinks.create.mutate({
+        pageId: pageId,
+        href: data.href,
+        label: data.label,
+        newTab: !!data.newTab,
       });
     },
     onSuccess: () => {
@@ -28,7 +29,7 @@ export function useDeleteLink() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async ({ pageId, id }: { pageId: string; id: string }) => {
-      await api.deleteLink({ path: { page_id: pageId, id } });
+      await api.pageLinks.delete.mutate({ page_id: pageId, link_id: id });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["pages"] });
@@ -40,11 +41,7 @@ export function useUpdateLink() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (
-      { pageId, linkId, data }: {
-        pageId: string;
-        linkId: string;
-        data: types.LinkUpdate;
-      },
+      { target, values }: ApiRequest["pageLinks"]["update"],
     ) => {
       const schema = z.object({
         href: z.string(),
@@ -52,11 +49,11 @@ export function useUpdateLink() {
         newTab: z.boolean().optional(),
       });
 
-      const body = schema.parse(data);
+      const body = schema.parse(values);
 
-      await api.updateLink({
-        path: { page_id: pageId, id: linkId },
-        body: body,
+      await api.pageLinks.update.mutate({
+        target: target,
+        values: body,
       });
     },
     onSuccess: () => {

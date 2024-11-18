@@ -4,19 +4,19 @@ import { pages } from "../../db/schema.ts";
 import { db } from "../../db/db.client.ts";
 import { slugify } from "../../lib/slugify.ts";
 
-export const pageUpdateSchema = z.object({
+export const updatePageRequest = z.object({
   id: z.string().uuid(),
   title: z.string(),
 });
 
-export async function updatePage(page: z.infer<typeof pageUpdateSchema>) {
+export async function updatePage(request: z.infer<typeof updatePageRequest>) {
   const response = await db
     .update(pages)
     .set({
-      title: page.title,
-      urlSlug: slugify(page.title),
+      title: request.title,
+      urlSlug: slugify(request.title),
     })
-    .where(eq(pages.id, page.id));
+    .where(eq(pages.id, request.id));
 
   if (response.rowsAffected === 1) {
     return "ok";

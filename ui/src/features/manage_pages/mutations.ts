@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { api as old } from "../../lib/api/mod.ts";
 import { api, type ApiRequest } from "../../lib/trpc/client.ts";
 
 export function useCreatePage() {
@@ -19,9 +18,11 @@ export function usePublishPage() {
 
   return useMutation({
     mutationFn: async (id: string) => {
-      await old.generateHtml({
-        body: { page_id: id },
+      const response = await api.html.generate.mutate({
+        page_id: id,
       });
+
+      return response;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["pages"] });

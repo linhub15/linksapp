@@ -9,3 +9,12 @@ export function useListPages() {
     },
   });
 }
+
+export function useGetPage(id: string) {
+  return useQuery({
+    queryKey: ["pages", id],
+    queryFn: async () => {
+      return await api.pages.get.query({ page_id: id });
+    },
+  });
+}

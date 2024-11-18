@@ -2,16 +2,18 @@ import { useForm } from "@tanstack/react-form";
 import { type FormEvent, useState } from "react";
 
 import { Button, buttonVariants } from "../../components/ui/button.tsx";
-import type { types } from "../../lib/api/mod.ts";
 import { useDeleteLink, useUpdateLink } from "./mutations.ts";
 import { Switch } from "../../components/ui/switch.tsx";
+import { useGetLink } from "./queries.ts";
 
 type Props = {
-  link: types.Link;
+  linkId: string;
+  pageId: string;
 };
 
-export function LinkCard({ link }: Props) {
-  const [editing, setEditing] = useState(!link || false);
+export function LinkCard(props: Props) {
+  const link = useGetLink({ pageId: props.pageId, linkId: props.linkId });
+  const [editing, setEditing] = useState(false);
   const deleteLink = useDeleteLink();
   const updateLink = useUpdateLink();
 
@@ -23,9 +25,11 @@ export function LinkCard({ link }: Props) {
     },
     onSubmit: async ({ value }) => {
       await updateLink.mutateAsync({
-        pageId: link?.pageId,
-        linkId: link?.id,
-        data: value,
+        target: {
+          page_id: props.pageId,
+          link_id: props.linkId,
+        },
+        values: value,
       });
       setEditing(false);
     },
@@ -125,8 +129,8 @@ export function LinkCard({ link }: Props) {
                 type="button"
                 onClick={() =>
                   deleteLink.mutateAsync({
-                    pageId: link.pageId,
-                    id: link.id,
+                    pageId: props.pageId,
+                    id: props.linkId,
                   })}
               >
                 Delete

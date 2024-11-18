@@ -1,10 +1,10 @@
 import { html } from "hono/html";
 import { eq } from "drizzle-orm";
 
-import { db } from "../db/db.client.ts";
-import { fs } from "../fs/fs.client.ts";
-import { files, pages } from "../db/schema.ts";
-import { err, ok, type Result } from "../lib/result.ts";
+import { db } from "../../db/db.client.ts";
+import { fs } from "../../fs/fs.client.ts";
+import { files, pages } from "../../db/schema.ts";
+import { err, ok, type Result } from "../../lib/result.ts";
 import type { HtmlEscapedString } from "hono/utils/html";
 
 export async function generateHtml(

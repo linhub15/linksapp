@@ -27,14 +27,13 @@ View the db with https://libsqlstudio.com
 - Hono
 - Zod
 - Drizzle ORM
-- OpenApi
-- Scalar API Docs
 - Turso LibSQL (sqlite)
+- tRPC server
 
 ### Frontend Tech
 
 - Vite + React
-- @hey-api openapi client generation
+- tRPC client
 - Tanstack Query
 - Tanstack Form
 - Tanstack Router

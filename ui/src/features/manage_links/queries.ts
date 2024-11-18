@@ -9,3 +9,10 @@ export function useListLinks({ pageId }: { pageId: string }) {
     },
   });
 }
+
+export function useGetLink(
+  { pageId, linkId }: { pageId: string; linkId: string },
+) {
+  const { data: links } = useListLinks({ pageId: pageId });
+  return links?.find((link) => link.id === linkId);
+}
