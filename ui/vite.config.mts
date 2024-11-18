@@ -9,6 +9,7 @@ import "react-dom";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
+    // @ts-expect-error: it works
     TanStackRouterVite({
       addExtensions: true,
       semicolons: true,
@@ -19,8 +20,8 @@ export default defineConfig({
       ],
       generatedRouteTree: "src/route_tree.gen.ts",
     }),
-    react(),
     // @ts-expect-error: it works
+    react(),
     tailwindcss(),
   ],
 });

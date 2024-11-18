@@ -3,14 +3,14 @@ import { z } from "zod";
 import {
   createPage,
   createPageRequest,
-} from "../actions/pages/create_page.ts";
+} from "../../actions/pages/create_page.ts";
 import {
-  updatePageRequest,
   updatePage,
-} from "../actions/pages/update_page.ts";
-import { db } from "../db/db.client.ts";
-import { pages } from "../db/schema.ts";
-import { publicProcedure, router } from "../trpc.ts";
+  updatePageRequest,
+} from "../../actions/pages/update_page.ts";
+import { db } from "../../db/db.client.ts";
+import { pages } from "../../db/schema.ts";
+import { publicProcedure, router } from "./trpc.ts";
 
 export const pagesRouter = router({
   list: publicProcedure.query(async () => {

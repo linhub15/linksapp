@@ -7,13 +7,10 @@ export function useCreateLink() {
 
   return useMutation({
     mutationFn: async (
-      { data, pageId }: {
-        data: ApiRequest["pageLinks"]["create"];
-        pageId: string;
-      },
+      data: ApiRequest["pageLinks"]["create"],
     ) => {
       await api.pageLinks.create.mutate({
-        pageId: pageId,
+        pageId: data.pageId,
         href: data.href,
         label: data.label,
         newTab: !!data.newTab,

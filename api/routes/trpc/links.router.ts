@@ -1,9 +1,18 @@
 import { z } from "zod";
-import { publicProcedure, router } from "../trpc.ts";
-import { db } from "../db/db.client.ts";
-import { createLink, createLinkRequest } from "../actions/links/create_link.ts";
-import { updateLink, updateLinkRequest } from "../actions/links/update_link.ts";
-import { deleteLink, deleteLinkRequest } from "../actions/links/delete_link.ts";
+import { publicProcedure, router } from "./trpc.ts";
+import { db } from "../../db/db.client.ts";
+import {
+  createLink,
+  createLinkRequest,
+} from "../../actions/links/create_link.ts";
+import {
+  updateLink,
+  updateLinkRequest,
+} from "../../actions/links/update_link.ts";
+import {
+  deleteLink,
+  deleteLinkRequest,
+} from "../../actions/links/delete_link.ts";
 
 export const linksRouter = router({
   list: publicProcedure

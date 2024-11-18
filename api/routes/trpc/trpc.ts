@@ -1,7 +1,7 @@
 import { initTRPC } from "@trpc/server";
-export { TRPCError } from "@trpc/server";
 import superjson from "superjson";
-
+export { TRPCError } from "@trpc/server";
+  
 type Context = {
   secret: string;
 };

@@ -1,30 +1,21 @@
 {
   "version": "4",
   "specifiers": {
-    "jsr:@deno/cache-dir@0.13.2": "0.13.2",
-    "jsr:@deno/emit@*": "0.46.0",
-    "jsr:@deno/graph@~0.73.1": "0.73.1",
-    "jsr:@std/assert@0.223": "0.223.0",
     "jsr:@std/assert@^1.0.6": "1.0.8",
-    "jsr:@std/bytes@0.223": "0.223.0",
     "jsr:@std/crypto@^1.0.3": "1.0.3",
     "jsr:@std/dotenv@~0.225.2": "0.225.2",
-    "jsr:@std/fmt@0.223": "0.223.0",
-    "jsr:@std/fs@0.223": "0.223.0",
     "jsr:@std/fs@^1.0.5": "1.0.5",
     "jsr:@std/internal@^1.0.5": "1.0.5",
-    "jsr:@std/io@0.223": "0.223.0",
-    "jsr:@std/path@0.223": "0.223.0",
     "jsr:@std/path@^1.0.7": "1.0.8",
     "npm:@headlessui/react@^2.2.0": "2.2.0_react@18.3.1_react-dom@18.3.1__react@18.3.1",
     "npm:@hono/trpc-server@~0.3.2": "0.3.2_@trpc+server@10.45.2_hono@4.6.10",
     "npm:@hono/zod-validator@~0.4.1": "0.4.1_hono@4.6.10_zod@3.23.8",
     "npm:@libsql/client@0.14": "0.14.0",
-    "npm:@tailwindcss/vite@^4.0.0-alpha.31": "4.0.0-alpha.34_vite@5.4.11__lightningcss@1.28.1_lightningcss@1.28.1",
+    "npm:@tailwindcss/vite@^4.0.0-alpha.34": "4.0.0-alpha.34_vite@5.4.11__lightningcss@1.28.1_lightningcss@1.28.1",
     "npm:@tanstack/react-form@~0.34.4": "0.34.4_react@18.3.1_react-dom@18.3.1__react@18.3.1",
     "npm:@tanstack/react-query-devtools@^5.60.5": "5.60.5_@tanstack+react-query@5.60.5__react@18.3.1_react@18.3.1",
     "npm:@tanstack/react-query@^5.59.19": "5.60.5_react@18.3.1",
-    "npm:@tanstack/react-router@^1.81.1": "1.81.14_react@18.3.1_react-dom@18.3.1__react@18.3.1",
+    "npm:@tanstack/react-router@^1.81.1": "1.82.0_react@18.3.1_react-dom@18.3.1__react@18.3.1",
     "npm:@tanstack/router-plugin@^1.79.0": "1.81.9_vite@5.4.11__lightningcss@1.28.1_@babel+core@7.26.0",
     "npm:@trpc/client@^10.45.2": "10.45.2_@trpc+server@10.45.2",
     "npm:@trpc/server@^10.45.2": "10.45.2",
@@ -38,47 +29,19 @@
     "npm:hono@^4.6.8": "4.6.10",
     "npm:jose@*": "5.9.6",
     "npm:react-dom@^18.3.1": "18.3.1_react@18.3.1",
-    "npm:react@18.3.1": "18.3.1",
     "npm:react@^18.3.1": "18.3.1",
     "npm:superjson@^2.2.1": "2.2.1",
-    "npm:tailwindcss@^4.0.0-alpha.31": "4.0.0-alpha.34",
-    "npm:tsc@*": "2.0.4",
+    "npm:tailwindcss@^4.0.0-alpha.34": "4.0.0-alpha.34",
     "npm:vite@*": "5.4.11_@types+node@22.5.4",
     "npm:vite@^5.4.10": "5.4.11_@types+node@22.5.4",
     "npm:zod@^3.23.8": "3.23.8"
   },
   "jsr": {
-    "@deno/cache-dir@0.13.2": {
-      "integrity": "c22419dfe27ab85f345bee487aaaadba498b005cce3644e9d2528db035c5454d",
-      "dependencies": [
-        "jsr:@deno/graph",
-        "jsr:@std/fmt",
-        "jsr:@std/fs@0.223",
-        "jsr:@std/io",
-        "jsr:@std/path@0.223"
-      ]
-    },
-    "@deno/emit@0.46.0": {
-      "integrity": "e276be2c77bac1b93caf775762e2a49a54cb00da2d48ca2b01ed8d7cba9d082c",
-      "dependencies": [
-        "jsr:@deno/cache-dir",
-        "jsr:@std/path@0.223"
-      ]
-    },
-    "@deno/graph@0.73.1": {
-      "integrity": "cd69639d2709d479037d5ce191a422eabe8d71bb68b0098344f6b07411c84d41"
-    },
-    "@std/assert@0.223.0": {
-      "integrity": "eb8d6d879d76e1cc431205bd346ed4d88dc051c6366365b1af47034b0670be24"
-    },
     "@std/assert@1.0.8": {
       "integrity": "ebe0bd7eb488ee39686f77003992f389a06c3da1bbd8022184804852b2fa641b",
       "dependencies": [
         "jsr:@std/internal"
       ]
-    },
-    "@std/bytes@0.223.0": {
-      "integrity": "84b75052cd8680942c397c2631318772b295019098f40aac5c36cead4cba51a8"
     },
     "@std/crypto@1.0.3": {
       "integrity": "a2a32f51ddef632d299e3879cd027c630dcd4d1d9a5285d6e6788072f4e51e7f"
@@ -86,33 +49,14 @@
     "@std/dotenv@0.225.2": {
       "integrity": "e2025dce4de6c7bca21dece8baddd4262b09d5187217e231b033e088e0c4dd23"
     },
-    "@std/fmt@0.223.0": {
-      "integrity": "6deb37794127dfc7d7bded2586b9fc6f5d50e62a8134846608baf71ffc1a5208"
-    },
-    "@std/fs@0.223.0": {
-      "integrity": "3b4b0550b2c524cbaaa5a9170c90e96cbb7354e837ad1bdaf15fc9df1ae9c31c"
-    },
     "@std/fs@1.0.5": {
       "integrity": "41806ad6823d0b5f275f9849a2640d87e4ef67c51ee1b8fb02426f55e02fd44e",
       "dependencies": [
-        "jsr:@std/path@^1.0.7"
+        "jsr:@std/path"
       ]
     },
     "@std/internal@1.0.5": {
       "integrity": "54a546004f769c1ac9e025abd15a76b6671ddc9687e2313b67376125650dc7ba"
-    },
-    "@std/io@0.223.0": {
-      "integrity": "2d8c3c2ab3a515619b90da2c6ff5ea7b75a94383259ef4d02116b228393f84f1",
-      "dependencies": [
-        "jsr:@std/assert@0.223",
-        "jsr:@std/bytes"
-      ]
-    },
-    "@std/path@0.223.0": {
-      "integrity": "593963402d7e6597f5a6e620931661053572c982fc014000459edc1f93cc3989",
-      "dependencies": [
-        "jsr:@std/assert@0.223"
-      ]
     },
     "@std/path@1.0.8": {
       "integrity": "548fa456bb6a04d3c1a1e7477986b6cffbce95102d0bb447c67c4ee70e0364be"
@@ -992,8 +936,8 @@
         "react"
       ]
     },
-    "@tanstack/react-router@1.81.14_react@18.3.1_react-dom@18.3.1__react@18.3.1": {
-      "integrity": "sha512-+pzpblWgIUGXlyYlUAfGTZv7YfNOEMKupB5cP4CY9K/qu94D1qrUipjZ6PAqwj8yAwUDcBGam/AyzOLLTSNY5w==",
+    "@tanstack/react-router@1.82.0_react@18.3.1_react-dom@18.3.1__react@18.3.1": {
+      "integrity": "sha512-A4e5xXQ4B+UGYki5qi31wIJCmTDK7NE8z+Xb2ledx2zf9gmKm4G8pOJt4gdFfMbivKImkGHE8o5eLhNW86F7iA==",
       "dependencies": [
         "@tanstack/history",
         "@tanstack/react-store",
@@ -1902,9 +1846,6 @@
         "is-number"
       ]
     },
-    "tsc@2.0.4": {
-      "integrity": "sha512-fzoSieZI5KKJVBYGvwbVZs/J5za84f2lSTLPYf6AGiIf43tZ3GNrI1QzTLcjtyDDP4aLxd46RTZq1nQxe7+k5Q=="
-    },
     "tslib@2.8.1": {
       "integrity": "sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w=="
     },
@@ -2021,12 +1962,6 @@
       "integrity": "sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g=="
     }
   },
-  "remote": {
-    "https://esm.sh/superjson@2.2.1": "c59c74aa4bd779e9b18f88f645886e5a5ea3ca5501987e0f7b5cb120cc1bb7f5",
-    "https://esm.sh/v135/copy-anything@3.0.5/denonext/copy-anything.mjs": "9d89b9383fe6a846f62ff4e0d2d12f8ae24eee93462e7591f4b72ac9e5643c2c",
-    "https://esm.sh/v135/is-what@4.1.16/denonext/is-what.mjs": "ca4fb1138ffedd5a5a6fbd65c48f5dc1d1d0f7abbbe6890e5c74ed4351796399",
-    "https://esm.sh/v135/superjson@2.2.1/denonext/superjson.mjs": "e230fdda84889ba83df0f4fae2252f00831ed25ac6e0cb1307c6dff9018f76e8"
-  },
   "workspace": {
     "dependencies": [
       "jsr:@std/assert@^1.0.6",
@@ -2037,7 +1972,7 @@
       "npm:@hono/trpc-server@~0.3.2",
       "npm:@hono/zod-validator@~0.4.1",
       "npm:@libsql/client@0.14",
-      "npm:@tailwindcss/vite@^4.0.0-alpha.31",
+      "npm:@tailwindcss/vite@^4.0.0-alpha.34",
       "npm:@tanstack/react-form@~0.34.4",
       "npm:@tanstack/react-query-devtools@^5.60.5",
       "npm:@tanstack/react-query@^5.59.19",
@@ -2054,7 +1989,7 @@
       "npm:react-dom@^18.3.1",
       "npm:react@^18.3.1",
       "npm:superjson@^2.2.1",
-      "npm:tailwindcss@^4.0.0-alpha.31",
+      "npm:tailwindcss@^4.0.0-alpha.34",
       "npm:vite@^5.4.10",
       "npm:zod@^3.23.8"
     ]

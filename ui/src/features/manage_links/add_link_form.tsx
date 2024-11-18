@@ -21,10 +21,9 @@ export function AddLinkForm(props: Props) {
       const title = await fetchTitle(value.href);
       await createLink.mutateAsync({
         pageId: props.pageId,
-        data: {
-          ...value,
-          label: title,
-        },
+        href: value.href,
+        newTab: value.newTab,
+        label: title,
       });
       form.reset();
       setSubmitting(false);
@@ -45,7 +44,9 @@ export function AddLinkForm(props: Props) {
           <form.Field name="href">
             {(field) => (
               <input
-                className={clsx("block rounded-lg p-4 min-w-sm", {"aniamte-pulse": submitting})}
+                className={clsx("block rounded-lg p-4 min-w-sm", {
+                  "aniamte-pulse": submitting,
+                })}
                 name={field.name}
                 type="text"
                 placeholder="URL"
