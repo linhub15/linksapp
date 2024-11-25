@@ -1,5 +1,4 @@
-// todo: THIS FILE IS A HACK
-// https://github.com/denoland/deno/issues/25341
+// todo(hack): https://github.com/denoland/deno/issues/25341
 // Try removing it and see if intellisense works when importing types from react
 
 declare module "react" {

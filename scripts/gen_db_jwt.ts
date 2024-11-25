@@ -22,11 +22,11 @@ const urlSafeBase64PublicKey = btoa(
   .replace(/\//g, "_")
   .replace(/=+$/, "");
 
-console.log("Public Key\n", urlSafeBase64PublicKey);
+console.info("Public Key\n", urlSafeBase64PublicKey);
 
 const jwt = await (new jose.SignJWT({ "a": "rw" }))
   .setProtectedHeader({ alg: "EdDSA", "typ": "JWT" })
   .setIssuedAt()
   .sign(keyPair.privateKey);
 
-console.log("JWT\n", jwt);
+console.info("JWT\n", jwt);

@@ -30,10 +30,15 @@ authRoutes
         return c.redirect("/auth/profile");
       }
 
-      const codeUri = await googleOAuth.code.getAuthorizationUri();
+      // todo(hack): https://github.com/cmd-johnson/deno-oauth2-client/issues/59
+      // allows for infering the redirectUri from the request
       const { origin } = new URL(c.req.url);
+      Object.assign(googleOAuth.config, {
+        ...googleOAuth.config,
+        redirectUri: `${origin}/auth/callback`,
+      });
 
-      codeUri.uri.searchParams.set("redirect_uri", `${origin}/auth/callback`);
+      const codeUri = await googleOAuth.code.getAuthorizationUri();
 
       setCookie(c.res.headers, codeVerifierCookie(codeUri.codeVerifier));
 
@@ -46,7 +51,6 @@ authRoutes
       z.object({ [AUTH_COOKIE.code_verifier]: z.string() }),
     ),
     async (c) => {
-      console.log("callback");
       const { code_verifier } = c.req.valid("cookie");
 
       const tokens = await googleOAuth.code.getToken(c.req.url, {
