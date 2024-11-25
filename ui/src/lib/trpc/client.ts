@@ -2,7 +2,7 @@ import { createTRPCProxyClient, httpBatchLink } from "@trpc/client";
 import superjson from "superjson";
 import type { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
 import type { Router } from "../../../../api/routes/trpc/router.ts";
-import { router } from "../../app.tsx";
+import { router } from "../../main.tsx";
 
 const url = new URL("/trpc", import.meta.env.VITE_API_URL);
 

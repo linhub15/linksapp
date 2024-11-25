@@ -224,7 +224,7 @@ export const Button = forwardRef(function Button(
     : (
       <Headless.Button
         {...props as Headless.ButtonProps}
-        className={clsx(classes, "cursor-default")}
+        className={clsx("cursor-default", classes)}
       >
         <TouchTarget>{children}</TouchTarget>
       </Headless.Button>
