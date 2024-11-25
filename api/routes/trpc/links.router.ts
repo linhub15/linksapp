@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { authedProcedure, publicProcedure, router } from "./trpc.ts";
+import { authedProcedure, router } from "./trpc.ts";
 import { db } from "../../db/db.client.ts";
 import {
   createLink,
@@ -23,19 +23,19 @@ export const linksRouter = router({
       });
     }),
 
-  create: publicProcedure
+  create: authedProcedure
     .input(createLinkRequest)
     .mutation(async ({ input }) => {
       await createLink(input);
     }),
 
-  update: publicProcedure
+  update: authedProcedure
     .input(updateLinkRequest)
     .mutation(async ({ input }) => {
       await updateLink(input);
     }),
 
-  delete: publicProcedure
+  delete: authedProcedure
     .input(deleteLinkRequest)
     .mutation(async ({ input }) => {
       await deleteLink(input);

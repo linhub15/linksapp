@@ -12,7 +12,7 @@ import { Route as rootRoute } from "./routes/__root.tsx";
 import { Route as IndexImport } from "./routes/index.tsx";
 import { Route as AboutIndexImport } from "./routes/about/index.tsx";
 import { Route as PagesIdIndexImport } from "./routes/pages.$id/index.tsx";
-import { Route as authSignoutIndexImport } from "./routes/(auth)/signout.index.tsx";
+import { Route as authLogoutIndexImport } from "./routes/(auth)/logout.index.tsx";
 import { Route as authLoginIndexImport } from "./routes/(auth)/login.index.tsx";
 
 // Create/Update Routes
@@ -35,9 +35,9 @@ const PagesIdIndexRoute = PagesIdIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any);
 
-const authSignoutIndexRoute = authSignoutIndexImport.update({
-  id: "/(auth)/signout/",
-  path: "/signout/",
+const authLogoutIndexRoute = authLogoutIndexImport.update({
+  id: "/(auth)/logout/",
+  path: "/logout/",
   getParentRoute: () => rootRoute,
 } as any);
 
@@ -72,11 +72,11 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof authLoginIndexImport;
       parentRoute: typeof rootRoute;
     };
-    "/(auth)/signout/": {
-      id: "/(auth)/signout/";
-      path: "/signout";
-      fullPath: "/signout";
-      preLoaderRoute: typeof authSignoutIndexImport;
+    "/(auth)/logout/": {
+      id: "/(auth)/logout/";
+      path: "/logout";
+      fullPath: "/logout";
+      preLoaderRoute: typeof authLogoutIndexImport;
       parentRoute: typeof rootRoute;
     };
     "/pages/$id/": {
@@ -95,7 +95,7 @@ export interface FileRoutesByFullPath {
   "/": typeof IndexRoute;
   "/about": typeof AboutIndexRoute;
   "/login": typeof authLoginIndexRoute;
-  "/signout": typeof authSignoutIndexRoute;
+  "/logout": typeof authLogoutIndexRoute;
   "/pages/$id": typeof PagesIdIndexRoute;
 }
 
@@ -103,7 +103,7 @@ export interface FileRoutesByTo {
   "/": typeof IndexRoute;
   "/about": typeof AboutIndexRoute;
   "/login": typeof authLoginIndexRoute;
-  "/signout": typeof authSignoutIndexRoute;
+  "/logout": typeof authLogoutIndexRoute;
   "/pages/$id": typeof PagesIdIndexRoute;
 }
 
@@ -112,21 +112,21 @@ export interface FileRoutesById {
   "/": typeof IndexRoute;
   "/about/": typeof AboutIndexRoute;
   "/(auth)/login/": typeof authLoginIndexRoute;
-  "/(auth)/signout/": typeof authSignoutIndexRoute;
+  "/(auth)/logout/": typeof authLogoutIndexRoute;
   "/pages/$id/": typeof PagesIdIndexRoute;
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: "/" | "/about" | "/login" | "/signout" | "/pages/$id";
+  fullPaths: "/" | "/about" | "/login" | "/logout" | "/pages/$id";
   fileRoutesByTo: FileRoutesByTo;
-  to: "/" | "/about" | "/login" | "/signout" | "/pages/$id";
+  to: "/" | "/about" | "/login" | "/logout" | "/pages/$id";
   id:
     | "__root__"
     | "/"
     | "/about/"
     | "/(auth)/login/"
-    | "/(auth)/signout/"
+    | "/(auth)/logout/"
     | "/pages/$id/";
   fileRoutesById: FileRoutesById;
 }
@@ -135,7 +135,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute;
   AboutIndexRoute: typeof AboutIndexRoute;
   authLoginIndexRoute: typeof authLoginIndexRoute;
-  authSignoutIndexRoute: typeof authSignoutIndexRoute;
+  authLogoutIndexRoute: typeof authLogoutIndexRoute;
   PagesIdIndexRoute: typeof PagesIdIndexRoute;
 }
 
@@ -143,7 +143,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutIndexRoute: AboutIndexRoute,
   authLoginIndexRoute: authLoginIndexRoute,
-  authSignoutIndexRoute: authSignoutIndexRoute,
+  authLogoutIndexRoute: authLogoutIndexRoute,
   PagesIdIndexRoute: PagesIdIndexRoute,
 };
 
@@ -160,7 +160,7 @@ export const routeTree = rootRoute
         "/",
         "/about/",
         "/(auth)/login/",
-        "/(auth)/signout/",
+        "/(auth)/logout/",
         "/pages/$id/"
       ]
     },
@@ -173,8 +173,8 @@ export const routeTree = rootRoute
     "/(auth)/login/": {
       "filePath": "(auth)/login.index.tsx"
     },
-    "/(auth)/signout/": {
-      "filePath": "(auth)/signout.index.tsx"
+    "/(auth)/logout/": {
+      "filePath": "(auth)/logout.index.tsx"
     },
     "/pages/$id/": {
       "filePath": "pages.$id/index.tsx"

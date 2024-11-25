@@ -10,13 +10,13 @@ import {
 } from "../../actions/pages/update_page.ts";
 import { db } from "../../db/db.client.ts";
 import { pages } from "../../db/schema.ts";
-import { publicProcedure, router } from "./trpc.ts";
+import { authedProcedure, router } from "./trpc.ts";
 
 export const pagesRouter = router({
-  list: publicProcedure.query(async () => {
+  list: authedProcedure.query(async () => {
     return await db.select().from(pages);
   }),
-  get: publicProcedure
+  get: authedProcedure
     .input(z.object({ page_id: z.string().uuid() }))
     .query(async ({ input }) => {
       const { page_id } = input;
@@ -24,17 +24,17 @@ export const pagesRouter = router({
         where: (page, { eq }) => eq(page.id, page_id),
       });
     }),
-  create: publicProcedure
+  create: authedProcedure
     .input(createPageRequest)
     .mutation(async ({ input }) => {
       await createPage(input);
     }),
-  update: publicProcedure
+  update: authedProcedure
     .input(updatePageRequest)
     .mutation(async ({ input }) => {
       await updatePage(input);
     }),
-  delete: publicProcedure
+  delete: authedProcedure
     .input(z.object({ page_id: z.string().uuid() }))
     .mutation(async ({ input }) => {
       const { page_id } = input;

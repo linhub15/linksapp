@@ -14,11 +14,23 @@ export const AUTH_COOKIE = {
   session: "session",
   refresh: "refresh",
   code_verifier: "code_verifier",
+  login_redirect: "login_redirect",
 } as const;
 
 export function codeVerifierCookie(value = ""): Cookie {
   return {
     name: AUTH_COOKIE.code_verifier,
+    value,
+    httpOnly: true,
+    sameSite: "Lax",
+    path: "/",
+    maxAge: 60,
+  } as const;
+}
+
+export function loginRedirectCookie(value = ""): Cookie {
+  return {
+    name: AUTH_COOKIE.login_redirect,
     value,
     httpOnly: true,
     sameSite: "Lax",

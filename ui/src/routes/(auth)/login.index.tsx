@@ -7,7 +7,7 @@ export const Route = createFileRoute("/(auth)/login/")({
 function RouteComponent() {
   return (
     <>
-      <a href="http://localhost:8000/auth/signin">
+      <a href="http://localhost:8000/auth/signin?redirect=http://localhost:5173">
         Login with Google
       </a>
     </>
