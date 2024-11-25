@@ -12,6 +12,8 @@ import { Route as rootRoute } from "./routes/__root.tsx";
 import { Route as IndexImport } from "./routes/index.tsx";
 import { Route as AboutIndexImport } from "./routes/about/index.tsx";
 import { Route as PagesIdIndexImport } from "./routes/pages.$id/index.tsx";
+import { Route as authSignoutIndexImport } from "./routes/(auth)/signout.index.tsx";
+import { Route as authLoginIndexImport } from "./routes/(auth)/login.index.tsx";
 
 // Create/Update Routes
 
@@ -33,6 +35,18 @@ const PagesIdIndexRoute = PagesIdIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any);
 
+const authSignoutIndexRoute = authSignoutIndexImport.update({
+  id: "/(auth)/signout/",
+  path: "/signout/",
+  getParentRoute: () => rootRoute,
+} as any);
+
+const authLoginIndexRoute = authLoginIndexImport.update({
+  id: "/(auth)/login/",
+  path: "/login/",
+  getParentRoute: () => rootRoute,
+} as any);
+
 // Populate the FileRoutesByPath interface
 
 declare module "@tanstack/react-router" {
@@ -51,6 +65,20 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof AboutIndexImport;
       parentRoute: typeof rootRoute;
     };
+    "/(auth)/login/": {
+      id: "/(auth)/login/";
+      path: "/login";
+      fullPath: "/login";
+      preLoaderRoute: typeof authLoginIndexImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/(auth)/signout/": {
+      id: "/(auth)/signout/";
+      path: "/signout";
+      fullPath: "/signout";
+      preLoaderRoute: typeof authSignoutIndexImport;
+      parentRoute: typeof rootRoute;
+    };
     "/pages/$id/": {
       id: "/pages/$id/";
       path: "/pages/$id";
@@ -66,12 +94,16 @@ declare module "@tanstack/react-router" {
 export interface FileRoutesByFullPath {
   "/": typeof IndexRoute;
   "/about": typeof AboutIndexRoute;
+  "/login": typeof authLoginIndexRoute;
+  "/signout": typeof authSignoutIndexRoute;
   "/pages/$id": typeof PagesIdIndexRoute;
 }
 
 export interface FileRoutesByTo {
   "/": typeof IndexRoute;
   "/about": typeof AboutIndexRoute;
+  "/login": typeof authLoginIndexRoute;
+  "/signout": typeof authSignoutIndexRoute;
   "/pages/$id": typeof PagesIdIndexRoute;
 }
 
@@ -79,27 +111,39 @@ export interface FileRoutesById {
   __root__: typeof rootRoute;
   "/": typeof IndexRoute;
   "/about/": typeof AboutIndexRoute;
+  "/(auth)/login/": typeof authLoginIndexRoute;
+  "/(auth)/signout/": typeof authSignoutIndexRoute;
   "/pages/$id/": typeof PagesIdIndexRoute;
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: "/" | "/about" | "/pages/$id";
+  fullPaths: "/" | "/about" | "/login" | "/signout" | "/pages/$id";
   fileRoutesByTo: FileRoutesByTo;
-  to: "/" | "/about" | "/pages/$id";
-  id: "__root__" | "/" | "/about/" | "/pages/$id/";
+  to: "/" | "/about" | "/login" | "/signout" | "/pages/$id";
+  id:
+    | "__root__"
+    | "/"
+    | "/about/"
+    | "/(auth)/login/"
+    | "/(auth)/signout/"
+    | "/pages/$id/";
   fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute;
   AboutIndexRoute: typeof AboutIndexRoute;
+  authLoginIndexRoute: typeof authLoginIndexRoute;
+  authSignoutIndexRoute: typeof authSignoutIndexRoute;
   PagesIdIndexRoute: typeof PagesIdIndexRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutIndexRoute: AboutIndexRoute,
+  authLoginIndexRoute: authLoginIndexRoute,
+  authSignoutIndexRoute: authSignoutIndexRoute,
   PagesIdIndexRoute: PagesIdIndexRoute,
 };
 
@@ -115,6 +159,8 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/about/",
+        "/(auth)/login/",
+        "/(auth)/signout/",
         "/pages/$id/"
       ]
     },
@@ -123,6 +169,12 @@ export const routeTree = rootRoute
     },
     "/about/": {
       "filePath": "about/index.tsx"
+    },
+    "/(auth)/login/": {
+      "filePath": "(auth)/login.index.tsx"
+    },
+    "/(auth)/signout/": {
+      "filePath": "(auth)/signout.index.tsx"
     },
     "/pages/$id/": {
       "filePath": "pages.$id/index.tsx"

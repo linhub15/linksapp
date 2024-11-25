@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { publicProcedure, router } from "./trpc.ts";
+import { authedProcedure, publicProcedure, router } from "./trpc.ts";
 import { db } from "../../db/db.client.ts";
 import {
   createLink,
@@ -15,7 +15,7 @@ import {
 } from "../../actions/links/delete_link.ts";
 
 export const linksRouter = router({
-  list: publicProcedure
+  list: authedProcedure
     .input(z.object({ page_id: z.string().uuid() }))
     .query(async ({ input }) => {
       return await db.query.links.findMany({

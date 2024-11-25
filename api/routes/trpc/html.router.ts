@@ -1,6 +1,7 @@
+import { TRPCError } from "@trpc/server";
 import { z } from "zod";
-import { publicProcedure, router, TRPCError } from "./trpc.ts";
 import { generateHtml } from "../../actions/html/generate_html.ts";
+import { publicProcedure, router } from "./trpc.ts";
 
 export const htmlRouter = router({
   generate: publicProcedure

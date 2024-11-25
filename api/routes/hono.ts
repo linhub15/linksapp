@@ -1,9 +1,11 @@
+import { trpcServer } from "@hono/trpc-server";
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { z } from "zod";
 import { viewHtml } from "../actions/html/view_html.ts";
-import { trpcServer } from "@hono/trpc-server";
 import { appRouter } from "./trpc/router.ts";
+import { authRoutes } from "./auth/auth.routes.ts";
+import { createContext } from "./trpc/context.ts";
 
 export const app = new Hono();
 
@@ -11,20 +13,23 @@ app.use(
   "/trpc/*",
   trpcServer({
     router: appRouter,
+    createContext: createContext,
   }),
 );
 
 app.get(
-  "/:slug",
+  "/p/:slug",
   zValidator("param", z.object({ slug: z.string() })),
   async (c) => {
     const { slug } = c.req.valid("param");
     const html = await viewHtml(slug);
 
     if (!html.ok) {
-      return c.html("", 404);
+      return c.notFound();
     }
 
     return c.html(html.value);
   },
 );
+
+app.route("/", authRoutes);
