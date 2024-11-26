@@ -1,26 +1,19 @@
-import { createFileRoute, useRouter } from "@tanstack/react-router";
-import { useQueryClient } from "@tanstack/react-query";
+import { createFileRoute } from "@tanstack/react-router";
 import { Button } from "../../components/ui/button.tsx";
+import { useSignout } from "../../lib/auth/use_signout.ts";
 
 export const Route = createFileRoute("/(auth)/logout/")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const router = useRouter();
-  const queryClient = useQueryClient();
-
-  const signout = async () => {
-    await fetch("http://localhost:8000/auth/signout", {
-      credentials: "include",
-    });
-    queryClient.clear();
-    router.navigate({ to: "/login" });
-  };
-
+  const signout = useSignout();
   return (
     <>
-      <Button type="button" onClick={signout}>
+      <Button
+        type="button"
+        onClick={() => signout.mutateAsync({})}
+      >
         Log out
       </Button>
     </>

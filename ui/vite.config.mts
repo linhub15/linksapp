@@ -22,6 +22,7 @@ export default defineConfig({
     }),
     // @ts-expect-error: it works
     react(),
+    // @ts-expect-error: it works
     tailwindcss(),
   ],
 });

@@ -1,5 +1,5 @@
 /** Changing these values may trigger re-authentication */
-import { z } from 'zod';
+import { z } from "zod";
 import type { Cookie } from "@std/http/cookie";
 
 const authEnvSchema = z.object({

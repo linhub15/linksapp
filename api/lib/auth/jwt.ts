@@ -3,7 +3,7 @@ import { jwtVerify } from "jose/jwt/verify";
 import type { JWTPayload } from "jose";
 import { AUTH_ENV } from "./options.ts";
 
-type OAuthProfile = {
+export type OAuthProfile = {
   user_id: string;
   sub: string;
   email: string;

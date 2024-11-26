@@ -48,7 +48,7 @@ export function AppLayout({ children }: PropsWithChildren) {
             <SidebarSection>
               <SidebarItem
                 className="cursor-pointer"
-                onClick={() => signout.mutateAsync()}
+                onClick={() => signout.mutateAsync({})}
               >
                 Logout
               </SidebarItem>

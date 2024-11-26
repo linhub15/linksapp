@@ -25,17 +25,26 @@ authRoutes
     ),
     zValidator("query", z.object({ redirect: z.string().optional() })),
     async (c) => {
+      const referrer = c.req.header("Referer");
       const { session } = c.req.valid("cookie");
-      const payload = await decodeJwt(session);
+      const { redirect = "" } = c.req.valid("query");
+      const validAuth = await decodeJwt(session);
+      const redirectUrl = new URL(redirect, referrer);
 
-      if (payload) {
-        return c.redirect("/auth/profile");
+      if (validAuth) {
+        return c.redirect(redirectUrl);
       }
 
-      const { redirect } = c.req.valid("query");
+      /** Cookie helps redirect after login */
+      setCookie(
+        c.res.headers,
+        loginRedirectCookie(redirectUrl.toString()),
+      );
 
-      // todo(hack): https://github.com/cmd-johnson/deno-oauth2-client/issues/59
-      // allows for infering the redirectUri from the request
+      /**
+       * todo(hack): https://github.com/cmd-johnson/deno-oauth2-client/issues/59
+       * allows for infering the redirectUri from the request
+       */
       const { origin } = new URL(c.req.url);
       Object.assign(googleOAuth.config, {
         ...googleOAuth.config,
@@ -43,9 +52,7 @@ authRoutes
       });
 
       const codeUri = await googleOAuth.code.getAuthorizationUri();
-
       setCookie(c.res.headers, codeVerifierCookie(codeUri.codeVerifier));
-      setCookie(c.res.headers, loginRedirectCookie(redirect));
 
       return c.redirect(codeUri.uri);
     },
@@ -60,8 +67,12 @@ authRoutes
     ),
     async (c) => {
       const { code_verifier, login_redirect } = c.req.valid("cookie");
-      deleteCookie(c.res.headers, AUTH_COOKIE.code_verifier);
-      deleteCookie(c.res.headers, AUTH_COOKIE.login_redirect);
+      deleteCookie(c.res.headers, AUTH_COOKIE.code_verifier, {
+        ...codeVerifierCookie(),
+      });
+      deleteCookie(c.res.headers, AUTH_COOKIE.login_redirect, {
+        ...loginRedirectCookie(),
+      });
 
       const tokens = await googleOAuth.code.getToken(c.req.url, {
         codeVerifier: code_verifier,
@@ -97,7 +108,15 @@ authRoutes
     return c.body("ok");
   }).get(
     "profile",
-    zValidator("cookie", z.object({ [AUTH_COOKIE.session]: z.string() })),
+    zValidator(
+      "cookie",
+      z.object({ [AUTH_COOKIE.session]: z.string() }),
+      (result, c) => {
+        if (!result.success) {
+          return c.text("unauthorized", { status: 401 });
+        }
+      },
+    ),
     async (c) => {
       const { session } = c.req.valid("cookie");
       const jwt = await decodeJwt(session);

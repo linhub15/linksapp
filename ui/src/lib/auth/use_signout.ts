@@ -1,21 +1,23 @@
 import { useRouter } from "@tanstack/react-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { signout } from "./client.tsx";
 
 export function useSignout() {
   const router = useRouter();
   const queryClient = useQueryClient();
 
-  const signout = useMutation({
-    mutationFn: async () => {
-      await fetch("http://localhost:8000/auth/signout", {
-        credentials: "include",
+  return useMutation({
+    mutationFn: async (
+      _variables?: { redirect?: string },
+    ) => {
+      await signout();
+    },
+    onSuccess: (_, variables) => {
+      queryClient.clear();
+      router.navigate({
+        to: "/login",
+        search: { redirect: variables?.redirect },
       });
     },
-    onSuccess: () => {
-      queryClient.clear();
-      router.navigate({ to: "/login" });
-    },
   });
-
-  return signout;
 }
