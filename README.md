@@ -21,7 +21,7 @@ View the db with https://libsqlstudio.com
 - Monorepo
 - Integration Tests
 - Errors as values
-- OAuth2 with JWT
+- OAuth2 PKCE
 
 ### Backend Tech
 

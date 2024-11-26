@@ -10,6 +10,9 @@ import "react-dom";
 export default defineConfig({
   plugins: [
     // @ts-expect-error: it works
+    react(),
+    // @ts-expect-error: it works
+    tailwindcss(),
     TanStackRouterVite({
       addExtensions: true,
       semicolons: true,
@@ -20,9 +23,5 @@ export default defineConfig({
       ],
       generatedRouteTree: "src/route_tree.gen.ts",
     }),
-    // @ts-expect-error: it works
-    react(),
-    // @ts-expect-error: it works
-    tailwindcss(),
   ],
 });
