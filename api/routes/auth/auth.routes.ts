@@ -1,5 +1,5 @@
 import { zValidator } from "@hono/zod-validator";
-import { deleteCookie, setCookie } from "@std/http/cookie";
+import { deleteCookie, setCookie } from "hono/cookie";
 import { Hono } from "hono";
 import { z } from "zod";
 import {
@@ -7,12 +7,7 @@ import {
   googleOAuth,
 } from "../../lib/auth/google_oauth.ts";
 import { decodeJwt, signJwt } from "../../lib/auth/jwt.ts";
-import {
-  AUTH_COOKIE,
-  codeVerifierCookie,
-  loginRedirectCookie,
-  sessionCookie,
-} from "../../lib/auth/options.ts";
+import { AUTH_COOKIE } from "../../lib/auth/options.ts";
 
 export const authRoutes = new Hono().basePath("/auth");
 
@@ -37,8 +32,15 @@ authRoutes
 
       /** Cookie helps redirect after login */
       setCookie(
-        c.res.headers,
-        loginRedirectCookie(redirectUrl.toString()),
+        c,
+        AUTH_COOKIE.login_redirect,
+        redirectUrl.toString(),
+        {
+          path: "/",
+          httpOnly: true,
+          sameSite: "Lax",
+          maxAge: 30,
+        },
       );
 
       /**
@@ -52,7 +54,17 @@ authRoutes
       });
 
       const codeUri = await googleOAuth.code.getAuthorizationUri();
-      setCookie(c.res.headers, codeVerifierCookie(codeUri.codeVerifier));
+      setCookie(
+        c,
+        AUTH_COOKIE.code_verifier,
+        codeUri.codeVerifier,
+        {
+          path: "/",
+          httpOnly: true,
+          sameSite: "Lax",
+          maxAge: 60,
+        },
+      );
 
       return c.redirect(codeUri.uri);
     },
@@ -67,12 +79,6 @@ authRoutes
     ),
     async (c) => {
       const { code_verifier, login_redirect } = c.req.valid("cookie");
-      deleteCookie(c.res.headers, AUTH_COOKIE.code_verifier, {
-        ...codeVerifierCookie(),
-      });
-      deleteCookie(c.res.headers, AUTH_COOKIE.login_redirect, {
-        ...loginRedirectCookie(),
-      });
 
       const tokens = await googleOAuth.code.getToken(c.req.url, {
         codeVerifier: code_verifier,
@@ -95,7 +101,15 @@ authRoutes
         },
       });
 
-      setCookie(c.res.headers, sessionCookie(jwt));
+      deleteCookie(c, AUTH_COOKIE.code_verifier);
+      deleteCookie(c, AUTH_COOKIE.login_redirect);
+      setCookie(c, AUTH_COOKIE.session, jwt, {
+        path: "/",
+        httpOnly: true,
+        sameSite: "Lax",
+        maxAge: 14_400, // 4 hours
+        // todo: enable secure in production
+      });
 
       if (login_redirect) {
         return c.redirect(login_redirect);
@@ -104,7 +118,7 @@ authRoutes
       return c.redirect("/auth/profile");
     },
   ).get("signout", (c) => {
-    deleteCookie(c.res.headers, AUTH_COOKIE.session, { ...sessionCookie() });
+    deleteCookie(c, AUTH_COOKIE.session);
     return c.body("ok");
   }).get(
     "profile",
