@@ -34,6 +34,7 @@
     "@trpc/server": "npm:@trpc/server@^10.45.2",
     "@vitejs/plugin-react": "npm:@vitejs/plugin-react@^4.3.3",
     "clsx": "npm:clsx@^2.1.1",
+    "cva": "npm:cva@1.0.0-beta.0",
     "drizzle-kit": "npm:drizzle-kit@^0.28.1",
     "drizzle-orm": "npm:drizzle-orm@^0.36.4",
     "drizzle-zod": "npm:drizzle-zod@^0.5.1",

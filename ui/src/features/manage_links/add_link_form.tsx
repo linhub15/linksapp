@@ -2,7 +2,7 @@ import { type FormEvent, useState } from "react";
 import clsx from "clsx";
 import { useForm } from "@tanstack/react-form";
 import { useCreateLink } from "./mutations.ts";
-import { buttonVariants } from "../../components/ui/button.tsx";
+import { Button } from "../../components/ui/button.tsx";
 
 type Props = {
   pageId: string;
@@ -57,13 +57,12 @@ export function AddLinkForm(props: Props) {
             )}
           </form.Field>
 
-          <button
-            className={buttonVariants()}
+          <Button
             type="submit"
             disabled={submitting}
           >
             {submitting ? <div className="animate-spin">wee</div> : "Add Link"}
-          </button>
+          </Button>
         </div>
       </form>
     </div>

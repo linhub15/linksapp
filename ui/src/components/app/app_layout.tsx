@@ -44,13 +44,13 @@ export function AppLayout({ children }: PropsWithChildren) {
               </SidebarItem>
             </SidebarSection>
 
-            <SidebarDivider />
+            <SidebarDivider className="mt-auto"/>
             <SidebarSection>
               <SidebarItem
                 className="cursor-pointer"
                 onClick={() => signout.mutateAsync({})}
               >
-                Logout
+                Log out
               </SidebarItem>
             </SidebarSection>
           </SidebarBody>

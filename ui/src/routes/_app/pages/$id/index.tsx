@@ -4,6 +4,7 @@ import { Heading } from "../../../../components/ui/heading.tsx";
 import { useListPages } from "../../../../features/manage_pages/queries.ts";
 import { Button } from "../../../../components/ui/button.tsx";
 import { useDeletePage } from "../../../../features/manage_pages/mutations.ts";
+import { SectionNav } from "../../../../components/app/section_nav.tsx";
 
 export const Route = createFileRoute("/_app/pages/$id/")({
   component: RouteComponent,
@@ -31,29 +32,7 @@ function RouteComponent() {
 
   return (
     <>
-      <div className="max-lg:hidden">
-        <Link
-          className="inline-flex items-center gap-2 text-sm/6 text-zinc-500 dark:text-zinc-400"
-          data-headlessui-state=""
-          to=".."
-        >
-          <svg
-            className="size-4 fill-zinc-400 dark:fill-zinc-500"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16"
-            fill="currentColor"
-            aria-hidden="true"
-            data-slot="icon"
-          >
-            <path
-              fillRule="evenodd"
-              d="M9.78 4.22a.75.75 0 0 1 0 1.06L7.06 8l2.72 2.72a.75.75 0 1 1-1.06 1.06L5.47 8.53a.75.75 0 0 1 0-1.06l3.25-3.25a.75.75 0 0 1 1.06 0Z"
-              clipRule="evenodd"
-            />
-          </svg>
-          Pages
-        </Link>
-      </div>
+      <SectionNav backButtonLabel="Pages" />
       <div className="flex w-full flex-wrap items-end justify-between gap-4 border-b border-zinc-950/10 pb-6 dark:border-white/10">
         <div className="flex items-center gap-4">
           <Heading>{page.title}</Heading>
@@ -65,7 +44,7 @@ function RouteComponent() {
           </a>
         </div>
         <div className="flex gap-4">
-          <Button outline onClick={() => deletePage.mutateAsync(id)}>
+          <Button variant="outline" onClick={() => deletePage.mutateAsync(id)}>
             Delete page
           </Button>
         </div>

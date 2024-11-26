@@ -15,6 +15,7 @@ import { Route as AppPagesIndexImport } from "./routes/_app/pages/index.tsx";
 import { Route as AppAboutIndexImport } from "./routes/_app/about/index.tsx";
 import { Route as authLogoutIndexImport } from "./routes/(auth)/logout.index.tsx";
 import { Route as authLoginIndexImport } from "./routes/(auth)/login.index.tsx";
+import { Route as AppPagesNewImport } from "./routes/_app/pages/new.tsx";
 import { Route as AppPagesIdIndexImport } from "./routes/_app/pages/$id/index.tsx";
 
 // Create/Update Routes
@@ -54,6 +55,12 @@ const authLoginIndexRoute = authLoginIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any);
 
+const AppPagesNewRoute = AppPagesNewImport.update({
+  id: "/pages/new",
+  path: "/pages/new",
+  getParentRoute: () => AppRoute,
+} as any);
+
 const AppPagesIdIndexRoute = AppPagesIdIndexImport.update({
   id: "/pages/$id/",
   path: "/pages/$id/",
@@ -77,6 +84,13 @@ declare module "@tanstack/react-router" {
       fullPath: "";
       preLoaderRoute: typeof AppImport;
       parentRoute: typeof rootRoute;
+    };
+    "/_app/pages/new": {
+      id: "/_app/pages/new";
+      path: "/pages/new";
+      fullPath: "/pages/new";
+      preLoaderRoute: typeof AppPagesNewImport;
+      parentRoute: typeof AppImport;
     };
     "/(auth)/login/": {
       id: "/(auth)/login/";
@@ -119,12 +133,14 @@ declare module "@tanstack/react-router" {
 // Create and export the route tree
 
 interface AppRouteChildren {
+  AppPagesNewRoute: typeof AppPagesNewRoute;
   AppAboutIndexRoute: typeof AppAboutIndexRoute;
   AppPagesIndexRoute: typeof AppPagesIndexRoute;
   AppPagesIdIndexRoute: typeof AppPagesIdIndexRoute;
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppPagesNewRoute: AppPagesNewRoute,
   AppAboutIndexRoute: AppAboutIndexRoute,
   AppPagesIndexRoute: AppPagesIndexRoute,
   AppPagesIdIndexRoute: AppPagesIdIndexRoute,
@@ -135,6 +151,7 @@ const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren);
 export interface FileRoutesByFullPath {
   "/": typeof IndexRoute;
   "": typeof AppRouteWithChildren;
+  "/pages/new": typeof AppPagesNewRoute;
   "/login": typeof authLoginIndexRoute;
   "/logout": typeof authLogoutIndexRoute;
   "/about": typeof AppAboutIndexRoute;
@@ -145,6 +162,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   "/": typeof IndexRoute;
   "": typeof AppRouteWithChildren;
+  "/pages/new": typeof AppPagesNewRoute;
   "/login": typeof authLoginIndexRoute;
   "/logout": typeof authLogoutIndexRoute;
   "/about": typeof AppAboutIndexRoute;
@@ -156,6 +174,7 @@ export interface FileRoutesById {
   __root__: typeof rootRoute;
   "/": typeof IndexRoute;
   "/_app": typeof AppRouteWithChildren;
+  "/_app/pages/new": typeof AppPagesNewRoute;
   "/(auth)/login/": typeof authLoginIndexRoute;
   "/(auth)/logout/": typeof authLogoutIndexRoute;
   "/_app/about/": typeof AppAboutIndexRoute;
@@ -168,17 +187,27 @@ export interface FileRouteTypes {
   fullPaths:
     | "/"
     | ""
+    | "/pages/new"
     | "/login"
     | "/logout"
     | "/about"
     | "/pages"
     | "/pages/$id";
   fileRoutesByTo: FileRoutesByTo;
-  to: "/" | "" | "/login" | "/logout" | "/about" | "/pages" | "/pages/$id";
+  to:
+    | "/"
+    | ""
+    | "/pages/new"
+    | "/login"
+    | "/logout"
+    | "/about"
+    | "/pages"
+    | "/pages/$id";
   id:
     | "__root__"
     | "/"
     | "/_app"
+    | "/_app/pages/new"
     | "/(auth)/login/"
     | "/(auth)/logout/"
     | "/_app/about/"
@@ -223,10 +252,15 @@ export const routeTree = rootRoute
     "/_app": {
       "filePath": "_app.tsx",
       "children": [
+        "/_app/pages/new",
         "/_app/about/",
         "/_app/pages/",
         "/_app/pages/$id/"
       ]
+    },
+    "/_app/pages/new": {
+      "filePath": "_app/pages/new.tsx",
+      "parent": "/_app"
     },
     "/(auth)/login/": {
       "filePath": "(auth)/login.index.tsx"

@@ -1,7 +1,7 @@
 import { useForm } from "@tanstack/react-form";
 import { type FormEvent, useState } from "react";
 
-import { Button, buttonVariants } from "../../components/ui/button.tsx";
+import { Button } from "../../components/ui/button.tsx";
 import { useDeleteLink, useUpdateLink } from "./mutations.ts";
 import { Switch } from "../../components/ui/switch.tsx";
 import { useGetLink } from "./queries.ts";
@@ -104,28 +104,25 @@ export function LinkCard(props: Props) {
         {editing
           ? (
             <>
-              <button
-                className={buttonVariants()}
+              <Button
                 type="button"
                 onClick={handleCancel}
               >
                 Cancel
-              </button>
+              </Button>
               <Button type="submit">Save</Button>
             </>
           )
           : (
             <>
-              <button
-                className={buttonVariants()}
+              <Button
                 type="button"
                 onClick={() => setEditing(true)}
               >
                 Edit
-              </button>
+              </Button>
 
-              <button
-                className={buttonVariants()}
+              <Button
                 type="button"
                 onClick={() =>
                   deleteLink.mutateAsync({
@@ -134,7 +131,7 @@ export function LinkCard(props: Props) {
                   })}
               >
                 Delete
-              </button>
+              </Button>
             </>
           )}
       </div>
