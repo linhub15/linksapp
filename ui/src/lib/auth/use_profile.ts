@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "@tanstack/react-router";
 import type { OAuthProfile } from "../../../../api/lib/auth/jwt.ts";
-import { getProfile } from "./client.tsx";
+import { getProfile } from "./client.ts";
 
 export function useProfile() {
   const router = useRouter();

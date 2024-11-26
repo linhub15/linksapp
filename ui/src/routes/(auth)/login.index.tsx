@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
-import { signin } from "../../lib/auth/client.tsx";
+import { signin } from "../../lib/auth/client.ts";
 
 const loginSearchSchema = z.object({
   redirect: z.string().optional(),
