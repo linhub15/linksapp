@@ -44,7 +44,7 @@ export function AppLayout({ children }: PropsWithChildren) {
               </SidebarItem>
             </SidebarSection>
 
-            <SidebarDivider className="mt-auto"/>
+            <SidebarDivider className="mt-auto" />
             <SidebarSection>
               <SidebarItem
                 className="cursor-pointer"

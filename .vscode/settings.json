@@ -3,6 +3,7 @@
   "typescript.preferences.preferTypeOnlyAutoImports": true,
   "editor.tabSize": 2,
   "editor.defaultFormatter": "denoland.vscode-deno",
+  "editor.formatOnSave": true,
   "tailwindCSS.experimental.classRegex": [
     ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
     ["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]

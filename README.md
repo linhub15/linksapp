@@ -41,6 +41,11 @@ View the db with https://libsqlstudio.com
 - Tailwind v4
 - Tailwindlabs - Catalyst UI Kit
 
+#### Features
+
+- Confirmation dialogs
+- Toast notifications
+
 ### Devops, CI/CD
 
 ## Setup
