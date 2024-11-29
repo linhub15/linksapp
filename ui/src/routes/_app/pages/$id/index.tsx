@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Links } from "../../../../features/manage_links/links.tsx";
 import { Heading } from "../../../../components/ui/heading.tsx";
 import { useListPages } from "../../../../features/manage_pages/queries.ts";

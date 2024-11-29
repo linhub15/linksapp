@@ -17,6 +17,7 @@
     "jsr:@std/path@^1.0.8": "1.0.8",
     "jsr:@std/streams@^1.0.8": "1.0.8",
     "npm:@headlessui/react@^2.2.0": "2.2.0_react@18.3.1_react-dom@18.3.1__react@18.3.1",
+    "npm:@heroicons/react@^2.2.0": "2.2.0_react@18.3.1",
     "npm:@hono/trpc-server@~0.3.2": "0.3.2_@trpc+server@10.45.2_hono@4.6.12",
     "npm:@hono/zod-validator@~0.4.1": "0.4.1_hono@4.6.12_zod@3.23.8",
     "npm:@libsql/client@0.14": "0.14.0",
@@ -42,8 +43,8 @@
     "npm:react@^18.3.1": "18.3.1",
     "npm:superjson@^2.2.1": "2.2.1",
     "npm:tailwindcss@^4.0.0-beta.2": "4.0.0-beta.3",
-    "npm:vite@*": "6.0.1_@types+node@22.5.4",
-    "npm:vite@^6.0.1": "6.0.1_@types+node@22.5.4",
+    "npm:vite@*": "6.0.1",
+    "npm:vite@^6.0.1": "6.0.1",
     "npm:zod@^3.23.8": "3.23.8"
   },
   "jsr": {
@@ -675,6 +676,12 @@
         "@tanstack/react-virtual",
         "react",
         "react-dom"
+      ]
+    },
+    "@heroicons/react@2.2.0_react@18.3.1": {
+      "integrity": "sha512-LMcepvRaS9LYHJGsF0zzmgKCUim/X3N/DQKc4jepAXJ7l8QxJ1PmxJzqplF2Z3FE4PqBAIGyJAQ/w4B5dsqbtQ==",
+      "dependencies": [
+        "react"
       ]
     },
     "@hono/trpc-server@0.3.2_@trpc+server@10.45.2_hono@4.6.12": {
@@ -2076,16 +2083,6 @@
         "rollup"
       ]
     },
-    "vite@6.0.1_@types+node@22.5.4": {
-      "integrity": "sha512-Ldn6gorLGr4mCdFnmeAOLweJxZ34HjKnDm4HGo6P66IEqTxQb36VEdFJQENKxWjupNfoIjvRUnswjn1hpYEpjQ==",
-      "dependencies": [
-        "@types/node",
-        "esbuild@0.24.0",
-        "fsevents",
-        "postcss",
-        "rollup"
-      ]
-    },
     "web-encoding@1.1.5": {
       "integrity": "sha512-HYLeVCdJ0+lBYV2FvNZmv3HJ2Nt0QYXqZojk3d9FJOLkwnuhzM9tmamh8d7HPM8QqjKH8DeHkFTx+CFlWpZZDA==",
       "dependencies": [
@@ -2131,6 +2128,7 @@
       "jsr:@std/fs@^1.0.6",
       "jsr:@std/http@^1.0.11",
       "npm:@headlessui/react@^2.2.0",
+      "npm:@heroicons/react@^2.2.0",
       "npm:@hono/trpc-server@~0.3.2",
       "npm:@hono/zod-validator@~0.4.1",
       "npm:@libsql/client@0.14",

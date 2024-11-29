@@ -12,6 +12,7 @@ import { Route as rootRoute } from "./routes/__root.tsx";
 import { Route as AppImport } from "./routes/_app.tsx";
 import { Route as IndexImport } from "./routes/index.tsx";
 import { Route as AppPagesIndexImport } from "./routes/_app/pages/index.tsx";
+import { Route as AppAccountIndexImport } from "./routes/_app/account/index.tsx";
 import { Route as AppAboutIndexImport } from "./routes/_app/about/index.tsx";
 import { Route as authLogoutIndexImport } from "./routes/(auth)/logout.index.tsx";
 import { Route as authLoginIndexImport } from "./routes/(auth)/login.index.tsx";
@@ -34,6 +35,12 @@ const IndexRoute = IndexImport.update({
 const AppPagesIndexRoute = AppPagesIndexImport.update({
   id: "/pages/",
   path: "/pages/",
+  getParentRoute: () => AppRoute,
+} as any);
+
+const AppAccountIndexRoute = AppAccountIndexImport.update({
+  id: "/account/",
+  path: "/account/",
   getParentRoute: () => AppRoute,
 } as any);
 
@@ -113,6 +120,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof AppAboutIndexImport;
       parentRoute: typeof AppImport;
     };
+    "/_app/account/": {
+      id: "/_app/account/";
+      path: "/account";
+      fullPath: "/account";
+      preLoaderRoute: typeof AppAccountIndexImport;
+      parentRoute: typeof AppImport;
+    };
     "/_app/pages/": {
       id: "/_app/pages/";
       path: "/pages";
@@ -135,6 +149,7 @@ declare module "@tanstack/react-router" {
 interface AppRouteChildren {
   AppPagesNewRoute: typeof AppPagesNewRoute;
   AppAboutIndexRoute: typeof AppAboutIndexRoute;
+  AppAccountIndexRoute: typeof AppAccountIndexRoute;
   AppPagesIndexRoute: typeof AppPagesIndexRoute;
   AppPagesIdIndexRoute: typeof AppPagesIdIndexRoute;
 }
@@ -142,6 +157,7 @@ interface AppRouteChildren {
 const AppRouteChildren: AppRouteChildren = {
   AppPagesNewRoute: AppPagesNewRoute,
   AppAboutIndexRoute: AppAboutIndexRoute,
+  AppAccountIndexRoute: AppAccountIndexRoute,
   AppPagesIndexRoute: AppPagesIndexRoute,
   AppPagesIdIndexRoute: AppPagesIdIndexRoute,
 };
@@ -155,6 +171,7 @@ export interface FileRoutesByFullPath {
   "/login": typeof authLoginIndexRoute;
   "/logout": typeof authLogoutIndexRoute;
   "/about": typeof AppAboutIndexRoute;
+  "/account": typeof AppAccountIndexRoute;
   "/pages": typeof AppPagesIndexRoute;
   "/pages/$id": typeof AppPagesIdIndexRoute;
 }
@@ -166,6 +183,7 @@ export interface FileRoutesByTo {
   "/login": typeof authLoginIndexRoute;
   "/logout": typeof authLogoutIndexRoute;
   "/about": typeof AppAboutIndexRoute;
+  "/account": typeof AppAccountIndexRoute;
   "/pages": typeof AppPagesIndexRoute;
   "/pages/$id": typeof AppPagesIdIndexRoute;
 }
@@ -178,6 +196,7 @@ export interface FileRoutesById {
   "/(auth)/login/": typeof authLoginIndexRoute;
   "/(auth)/logout/": typeof authLogoutIndexRoute;
   "/_app/about/": typeof AppAboutIndexRoute;
+  "/_app/account/": typeof AppAccountIndexRoute;
   "/_app/pages/": typeof AppPagesIndexRoute;
   "/_app/pages/$id/": typeof AppPagesIdIndexRoute;
 }
@@ -191,6 +210,7 @@ export interface FileRouteTypes {
     | "/login"
     | "/logout"
     | "/about"
+    | "/account"
     | "/pages"
     | "/pages/$id";
   fileRoutesByTo: FileRoutesByTo;
@@ -201,6 +221,7 @@ export interface FileRouteTypes {
     | "/login"
     | "/logout"
     | "/about"
+    | "/account"
     | "/pages"
     | "/pages/$id";
   id:
@@ -211,6 +232,7 @@ export interface FileRouteTypes {
     | "/(auth)/login/"
     | "/(auth)/logout/"
     | "/_app/about/"
+    | "/_app/account/"
     | "/_app/pages/"
     | "/_app/pages/$id/";
   fileRoutesById: FileRoutesById;
@@ -254,6 +276,7 @@ export const routeTree = rootRoute
       "children": [
         "/_app/pages/new",
         "/_app/about/",
+        "/_app/account/",
         "/_app/pages/",
         "/_app/pages/$id/"
       ]
@@ -270,6 +293,10 @@ export const routeTree = rootRoute
     },
     "/_app/about/": {
       "filePath": "_app/about/index.tsx",
+      "parent": "/_app"
+    },
+    "/_app/account/": {
+      "filePath": "_app/account/index.tsx",
       "parent": "/_app"
     },
     "/_app/pages/": {

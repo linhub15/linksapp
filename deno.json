@@ -16,6 +16,7 @@
   "imports": {
     "@cmd-johnson/oauth2-client": "jsr:@cmd-johnson/oauth2-client@^2.0.0",
     "@headlessui/react": "npm:@headlessui/react@^2.2.0",
+    "@heroicons/react": "npm:@heroicons/react@^2.2.0",
     "@hono/trpc-server": "npm:@hono/trpc-server@^0.3.2",
     "@hono/zod-validator": "npm:@hono/zod-validator@^0.4.1",
     "@libsql/client": "npm:@libsql/client@^0.14.0",

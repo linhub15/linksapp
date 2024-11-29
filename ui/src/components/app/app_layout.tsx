@@ -10,14 +10,11 @@ import {
   SidebarLabel,
   SidebarSection,
 } from "../ui/sidebar.tsx";
-import { useSignout } from "../../lib/auth/use_signout.ts";
-import { useProfile } from "../../lib/auth/use_profile.ts";
 import type { PropsWithChildren } from "react";
+import { ProfileMenu } from "./profile_menu.tsx";
 
 export function AppLayout({ children }: PropsWithChildren) {
   const { pathname } = useLocation();
-  const { data } = useProfile();
-  const signout = useSignout();
 
   return (
     <SidebarLayout
@@ -31,7 +28,7 @@ export function AppLayout({ children }: PropsWithChildren) {
         <Sidebar>
           <SidebarBody>
             <SidebarSection>
-              <SidebarLabel>{data?.profile?.email}</SidebarLabel>
+              <SidebarLabel>Links App</SidebarLabel>
               <SidebarDivider />
               <SidebarItem
                 to="/pages"
@@ -43,15 +40,9 @@ export function AppLayout({ children }: PropsWithChildren) {
                 <SidebarLabel>About</SidebarLabel>
               </SidebarItem>
             </SidebarSection>
-
-            <SidebarDivider className="mt-auto" />
+            <div className="flex-1" />
             <SidebarSection>
-              <SidebarItem
-                className="cursor-pointer"
-                onClick={() => signout.mutateAsync({})}
-              >
-                Log out
-              </SidebarItem>
+              <ProfileMenu />
             </SidebarSection>
           </SidebarBody>
         </Sidebar>

@@ -43,6 +43,7 @@ View the db with https://libsqlstudio.com
 
 #### Features
 
+- Profile management
 - Confirmation dialogs
 - Toast notifications
 
