@@ -33,6 +33,7 @@
     "npm:@vitejs/plugin-react@^4.3.4": "4.3.4_vite@6.0.1_@babel+core@7.26.0",
     "npm:clsx@^2.1.1": "2.1.1",
     "npm:cva@1.0.0-beta.0": "1.0.0-beta.0",
+    "npm:drizzle-kit@*": "0.28.1_esbuild@0.19.12",
     "npm:drizzle-kit@~0.28.1": "0.28.1_esbuild@0.19.12",
     "npm:drizzle-orm@~0.36.4": "0.36.4_@libsql+client@0.14.0_react@18.3.1",
     "npm:drizzle-zod@~0.5.1": "0.5.1_drizzle-orm@0.36.4__@libsql+client@0.14.0__react@18.3.1_zod@3.23.8_@libsql+client@0.14.0_react@18.3.1",

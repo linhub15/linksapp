@@ -5,13 +5,13 @@ import {
   ChevronUpIcon,
   UserCircleIcon,
 } from "@heroicons/react/16/solid";
-import { useProfile } from "../../lib/auth/use_profile.ts";
+import { useUser } from "../../lib/auth/use_user.ts";
 import { SidebarItem } from "../ui/sidebar.tsx";
 import { useSignout } from "../../lib/auth/use_signout.ts";
 import { Link } from "../ui/link.tsx";
 
-export function ProfileMenu() {
-  const { data, isLoading } = useProfile();
+export function UserMenu() {
+  const { data, isLoading } = useUser();
   const signout = useSignout();
 
   return (

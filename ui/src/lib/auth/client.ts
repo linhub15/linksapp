@@ -1,5 +1,5 @@
-export async function getProfile() {
-  return await fetch("http://localhost:8000/auth/profile", {
+export async function getUser() {
+  return await fetch("http://localhost:8000/auth/user", {
     credentials: "include",
   });
 }
@@ -15,6 +15,6 @@ export async function signout() {
 }
 
 export async function isAuthenticated(): Promise<boolean> {
-  const response = await getProfile();
+  const response = await getUser();
   return response.ok;
 }

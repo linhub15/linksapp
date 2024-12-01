@@ -1,12 +1,19 @@
 import { relations, sql } from "drizzle-orm";
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
+/// Auth
 export const users = sqliteTable("users", {
-  id: integer(),
-  name: text(),
-  email: text(),
+  id: text().$defaultFn(() => crypto.randomUUID()).primaryKey(),
+  email: text().notNull().unique(),
+  emailVerified: integer({ mode: "boolean" }).notNull().default(false),
+  given_name: text().notNull(),
+  family_name: text().notNull(),
+  createdAt: integer({ mode: "timestamp_ms" }).notNull().$default(() =>
+    new Date()
+  ),
 });
 
+/// Pages
 export const pages = sqliteTable("pages", {
   id: text().$defaultFn(() => crypto.randomUUID()).primaryKey(),
   title: text().notNull(),

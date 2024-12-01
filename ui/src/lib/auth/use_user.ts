@@ -1,14 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "@tanstack/react-router";
 import type { OAuthProfile } from "../../../../api/lib/auth/jwt.ts";
-import { getProfile } from "./client.ts";
+import { getUser } from "./client.ts";
 
-export function useProfile() {
+export function useUser() {
   const router = useRouter();
-  const profile = useQuery({
-    queryKey: ["auth", "profile"],
+  return useQuery({
+    queryKey: ["auth", "user"],
     queryFn: async () => {
-      const response = await getProfile();
+      const response = await getUser();
 
       if (response.status === 401) {
         router.navigate({ to: "/login" });
@@ -18,6 +18,4 @@ export function useProfile() {
       return await response.json() as { profile: OAuthProfile };
     },
   });
-
-  return profile;
 }

@@ -11,7 +11,7 @@ import {
   SidebarSection,
 } from "../ui/sidebar.tsx";
 import type { PropsWithChildren } from "react";
-import { ProfileMenu } from "./profile_menu.tsx";
+import { UserMenu } from "./user_menu.tsx";
 
 export function AppLayout({ children }: PropsWithChildren) {
   const { pathname } = useLocation();
@@ -28,7 +28,7 @@ export function AppLayout({ children }: PropsWithChildren) {
         <Sidebar>
           <SidebarBody>
             <SidebarSection>
-              <SidebarLabel>Links App</SidebarLabel>
+              <SidebarLabel className="mt-3">Links App</SidebarLabel>
               <SidebarDivider />
               <SidebarItem
                 to="/pages"
@@ -36,13 +36,19 @@ export function AppLayout({ children }: PropsWithChildren) {
               >
                 <SidebarLabel>Pages</SidebarLabel>
               </SidebarItem>
-              <SidebarItem to="/about" current={pathname.startsWith("/about")}>
+              <SidebarItem to="/forms" current={pathname.startsWith("/forms")}>
+                <SidebarLabel>Forms</SidebarLabel>
+              </SidebarItem>
+              <SidebarItem
+                to="/about"
+                current={pathname.startsWith("/about")}
+              >
                 <SidebarLabel>About</SidebarLabel>
               </SidebarItem>
             </SidebarSection>
             <div className="flex-1" />
             <SidebarSection>
-              <ProfileMenu />
+              <UserMenu />
             </SidebarSection>
           </SidebarBody>
         </Sidebar>

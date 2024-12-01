@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Heading, Subheading } from "../../../components/ui/heading.tsx";
-import { useProfile } from "../../../lib/auth/use_profile.ts";
+import { useUser } from "../../../lib/auth/use_user.ts";
 import { Input } from "../../../components/ui/input.tsx";
 
 export const Route = createFileRoute("/_app/account/")({
@@ -8,7 +8,7 @@ export const Route = createFileRoute("/_app/account/")({
 });
 
 function RouteComponent() {
-  const { data } = useProfile();
+  const { data } = useUser();
   return (
     <div className="max-w-3xl mx-auto">
       <Heading>Account Settings</Heading>

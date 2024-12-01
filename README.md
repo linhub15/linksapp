@@ -10,6 +10,7 @@ Uses [Deno 2](https://deno.com/).
 - start the db `deno task db`
 - start the api `deno task api`
 - start the ui `deno task ui`
+- update db schema `deno task drizzle push`
 
 View the db with https://libsqlstudio.com
 
@@ -43,7 +44,7 @@ View the db with https://libsqlstudio.com
 
 #### Features
 
-- Profile management
+- User management
 - Confirmation dialogs
 - Toast notifications
 

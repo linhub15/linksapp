@@ -8,6 +8,7 @@ import {
 } from "../../lib/auth/google_oauth.ts";
 import { decodeJwt, signJwt } from "../../lib/auth/jwt.ts";
 import { AUTH_COOKIE } from "../../lib/auth/options.ts";
+import { registerUser } from "../../actions/auth/register_user.ts";
 
 export const authRoutes = new Hono().basePath("/auth");
 
@@ -86,7 +87,12 @@ authRoutes
 
       const profile = await fetchGoogleProfile(tokens.accessToken);
 
-      // todo: get or register profile
+      await registerUser({
+        email: profile.email,
+        emailVerified: profile.verified_email,
+        family_name: profile.family_name,
+        given_name: profile.given_name,
+      });
 
       const jwt = await signJwt({
         profile: {
@@ -115,13 +121,13 @@ authRoutes
         return c.redirect(login_redirect);
       }
 
-      return c.redirect("/auth/profile");
+      return c.redirect("/auth/user");
     },
   ).get("signout", (c) => {
     deleteCookie(c, AUTH_COOKIE.session);
     return c.body("ok");
   }).get(
-    "profile",
+    "user",
     zValidator(
       "cookie",
       z.object({ [AUTH_COOKIE.session]: z.string() }),
