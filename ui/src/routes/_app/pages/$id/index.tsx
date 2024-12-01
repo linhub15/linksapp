@@ -37,14 +37,14 @@ function RouteComponent() {
         navigationSlot={<SectionNav backButtonLabel="Pages" />}
         actionSlot={
           <div className="flex items-center gap-4">
-            {/* todo: only preview if page html exists. style: add external link logo */}
+            {/* todo(bug): only preview if page html exists. style: add external link logo */}
             <a
               className={buttonVariants({ variant: "ghost" })}
               href={`http://localhost:8000/p/${page.urlSlug}`}
             >
               Preview
             </a>
-            {/* todo: confirmation dialog */}
+            {/* todo(feat): confirmation dialog */}
             <Button
               variant="outline"
               onClick={() => deletePage.mutateAsync(id)}

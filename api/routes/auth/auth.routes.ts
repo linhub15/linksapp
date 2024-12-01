@@ -114,7 +114,7 @@ authRoutes
         httpOnly: true,
         sameSite: "Lax",
         maxAge: 14_400, // 4 hours
-        // todo: enable secure in production
+        // todo(ci): enable secure in production
       });
 
       if (login_redirect) {
