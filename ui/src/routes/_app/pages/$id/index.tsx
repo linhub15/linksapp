@@ -1,10 +1,10 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Links } from "../../../../features/manage_links/links.tsx";
-import { Heading } from "../../../../components/ui/heading.tsx";
 import { useListPages } from "../../../../features/manage_pages/queries.ts";
-import { Button } from "../../../../components/ui/button.tsx";
+import { Button, buttonVariants } from "../../../../components/ui/button.tsx";
 import { useDeletePage } from "../../../../features/manage_pages/mutations.ts";
 import { SectionNav } from "../../../../components/app/section_nav.tsx";
+import { RouteHeader } from "../../../../components/app/route_header.tsx";
 
 export const Route = createFileRoute("/_app/pages/$id/")({
   component: RouteComponent,
@@ -32,23 +32,28 @@ function RouteComponent() {
 
   return (
     <>
-      <SectionNav backButtonLabel="Pages" />
-      <div className="flex w-full flex-wrap items-end justify-between gap-4 border-b border-zinc-950/10 pb-6 dark:border-white/10">
-        <div className="flex items-center gap-4">
-          <Heading>{page.title}</Heading>
-          <a
-            className="hover:underline text-sm"
-            href={`http://localhost:8000/p/${page.urlSlug}`}
-          >
-            Preview
-          </a>
-        </div>
-        <div className="flex gap-4">
-          <Button variant="outline" onClick={() => deletePage.mutateAsync(id)}>
-            Delete page
-          </Button>
-        </div>
-      </div>
+      <RouteHeader
+        title={page.title}
+        navigationSlot={<SectionNav backButtonLabel="Pages" />}
+        actionSlot={
+          <div className="flex items-center gap-4">
+            {/* todo: only preview if page html exists. style: add external link logo */}
+            <a
+              className={buttonVariants({ variant: "ghost" })}
+              href={`http://localhost:8000/p/${page.urlSlug}`}
+            >
+              Preview
+            </a>
+            {/* todo: confirmation dialog */}
+            <Button
+              variant="outline"
+              onClick={() => deletePage.mutateAsync(id)}
+            >
+              Delete page
+            </Button>
+          </div>
+        }
+      />
       <div className="py-6">
         <Links pageId={page.id} />
       </div>

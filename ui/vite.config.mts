@@ -9,7 +9,6 @@ import "react-dom";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    // @ts-expect-error: it works
     react(),
     // @ts-expect-error: it works
     tailwindcss(),
