@@ -4,6 +4,10 @@
     "ui"
   ],
   "tasks": {
+    "dev": {
+      "command": "echo dev",
+      "dependencies": ["api", "ui"]
+    },
     "api": "deno task --cwd api dev",
     "db": "deno task --cwd api dev:db",
     "drizzle": "deno task --cwd api drizzle",

@@ -11,4 +11,4 @@ export async function createContext(options: FetchCreateContextFnOptions) {
   };
 }
 
-export type Context = ReturnType<typeof createContext>;
+export type Context = Awaited<ReturnType<typeof createContext>>;

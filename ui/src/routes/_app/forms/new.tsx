@@ -1,9 +1,9 @@
 import { createFileRoute, useRouter } from "@tanstack/react-router";
-import { CreatePageForm } from "../../../features/manage_pages/create_page_form.tsx";
-import { SectionNav } from "../../../components/app/section_nav.tsx";
 import { RouteHeader } from "../../../components/app/route_header.tsx";
+import { SectionNav } from "../../../components/app/section_nav.tsx";
+import { CreateFormForm } from "../../../features/forms/create_form_form.tsx";
 
-export const Route = createFileRoute("/_app/pages/new")({
+export const Route = createFileRoute("/_app/forms/new")({
   component: RouteComponent,
 });
 
@@ -17,10 +17,11 @@ function RouteComponent() {
   return (
     <div>
       <RouteHeader
-        title="Create new page"
-        navigationSlot={<SectionNav backButtonLabel="Pages" />}
+        title="Create new form"
+        navigationSlot={<SectionNav backButtonLabel="Forms" />}
       />
-      <CreatePageForm onSubmitSuccess={afterSubmit} />
+
+      <CreateFormForm onSubmitSuccess={afterSubmit} />
     </div>
   );
 }

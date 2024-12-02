@@ -87,7 +87,7 @@ authRoutes
 
       const profile = await fetchGoogleProfile(tokens.accessToken);
 
-      await registerUser({
+      const userId = await registerUser({
         email: profile.email,
         emailVerified: profile.verified_email,
         family_name: profile.family_name,
@@ -103,7 +103,7 @@ authRoutes
           name: profile.name,
           picture: profile.picture,
           sub: profile.id,
-          user_id: profile.id,
+          user_id: userId,
         },
       });
 

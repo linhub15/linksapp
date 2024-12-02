@@ -14,8 +14,15 @@ export async function registerUser(request: z.infer<typeof createUserRequest>) {
 
   if (user) {
     // Signin and sign up are the same operation so we do not throw an error.
-    return;
+    return user.id;
   }
 
-  await db.insert(users).values(request);
+  const inserted = await db.insert(users).values(request).returning();
+  const id = inserted.at(0)?.id;
+
+  if (!id) {
+    throw new Error("Failed to register user");
+  }
+
+  return id;
 }

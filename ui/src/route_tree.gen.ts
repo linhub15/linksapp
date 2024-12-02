@@ -18,6 +18,7 @@ import { Route as AppAboutIndexImport } from "./routes/_app/about/index.tsx";
 import { Route as authLogoutIndexImport } from "./routes/(auth)/logout.index.tsx";
 import { Route as authLoginIndexImport } from "./routes/(auth)/login.index.tsx";
 import { Route as AppPagesNewImport } from "./routes/_app/pages/new.tsx";
+import { Route as AppFormsNewImport } from "./routes/_app/forms/new.tsx";
 import { Route as AppPagesIdIndexImport } from "./routes/_app/pages/$id/index.tsx";
 
 // Create/Update Routes
@@ -75,6 +76,12 @@ const AppPagesNewRoute = AppPagesNewImport.update({
   getParentRoute: () => AppRoute,
 } as any);
 
+const AppFormsNewRoute = AppFormsNewImport.update({
+  id: "/forms/new",
+  path: "/forms/new",
+  getParentRoute: () => AppRoute,
+} as any);
+
 const AppPagesIdIndexRoute = AppPagesIdIndexImport.update({
   id: "/pages/$id/",
   path: "/pages/$id/",
@@ -98,6 +105,13 @@ declare module "@tanstack/react-router" {
       fullPath: "";
       preLoaderRoute: typeof AppImport;
       parentRoute: typeof rootRoute;
+    };
+    "/_app/forms/new": {
+      id: "/_app/forms/new";
+      path: "/forms/new";
+      fullPath: "/forms/new";
+      preLoaderRoute: typeof AppFormsNewImport;
+      parentRoute: typeof AppImport;
     };
     "/_app/pages/new": {
       id: "/_app/pages/new";
@@ -161,6 +175,7 @@ declare module "@tanstack/react-router" {
 // Create and export the route tree
 
 interface AppRouteChildren {
+  AppFormsNewRoute: typeof AppFormsNewRoute;
   AppPagesNewRoute: typeof AppPagesNewRoute;
   AppAboutIndexRoute: typeof AppAboutIndexRoute;
   AppAccountIndexRoute: typeof AppAccountIndexRoute;
@@ -170,6 +185,7 @@ interface AppRouteChildren {
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppFormsNewRoute: AppFormsNewRoute,
   AppPagesNewRoute: AppPagesNewRoute,
   AppAboutIndexRoute: AppAboutIndexRoute,
   AppAccountIndexRoute: AppAccountIndexRoute,
@@ -183,6 +199,7 @@ const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren);
 export interface FileRoutesByFullPath {
   "/": typeof IndexRoute;
   "": typeof AppRouteWithChildren;
+  "/forms/new": typeof AppFormsNewRoute;
   "/pages/new": typeof AppPagesNewRoute;
   "/login": typeof authLoginIndexRoute;
   "/logout": typeof authLogoutIndexRoute;
@@ -196,6 +213,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   "/": typeof IndexRoute;
   "": typeof AppRouteWithChildren;
+  "/forms/new": typeof AppFormsNewRoute;
   "/pages/new": typeof AppPagesNewRoute;
   "/login": typeof authLoginIndexRoute;
   "/logout": typeof authLogoutIndexRoute;
@@ -210,6 +228,7 @@ export interface FileRoutesById {
   __root__: typeof rootRoute;
   "/": typeof IndexRoute;
   "/_app": typeof AppRouteWithChildren;
+  "/_app/forms/new": typeof AppFormsNewRoute;
   "/_app/pages/new": typeof AppPagesNewRoute;
   "/(auth)/login/": typeof authLoginIndexRoute;
   "/(auth)/logout/": typeof authLogoutIndexRoute;
@@ -225,6 +244,7 @@ export interface FileRouteTypes {
   fullPaths:
     | "/"
     | ""
+    | "/forms/new"
     | "/pages/new"
     | "/login"
     | "/logout"
@@ -237,6 +257,7 @@ export interface FileRouteTypes {
   to:
     | "/"
     | ""
+    | "/forms/new"
     | "/pages/new"
     | "/login"
     | "/logout"
@@ -249,6 +270,7 @@ export interface FileRouteTypes {
     | "__root__"
     | "/"
     | "/_app"
+    | "/_app/forms/new"
     | "/_app/pages/new"
     | "/(auth)/login/"
     | "/(auth)/logout/"
@@ -296,6 +318,7 @@ export const routeTree = rootRoute
     "/_app": {
       "filePath": "_app.tsx",
       "children": [
+        "/_app/forms/new",
         "/_app/pages/new",
         "/_app/about/",
         "/_app/account/",
@@ -303,6 +326,10 @@ export const routeTree = rootRoute
         "/_app/pages/",
         "/_app/pages/$id/"
       ]
+    },
+    "/_app/forms/new": {
+      "filePath": "_app/forms/new.tsx",
+      "parent": "/_app"
     },
     "/_app/pages/new": {
       "filePath": "_app/pages/new.tsx",

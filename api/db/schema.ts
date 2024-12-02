@@ -49,3 +49,25 @@ export const files = sqliteTable("files", {
   etag: text(),
   createdAt: text().default(sql`(CURRENT_TIMESTAMP)`),
 });
+
+/// Forms
+export const forms = sqliteTable("forms", {
+  id: text().$defaultFn(() => crypto.randomUUID()).primaryKey(),
+  title: text().notNull(),
+  createdAt: integer({ mode: "timestamp_ms" }).notNull().$default(() =>
+    new Date()
+  ),
+  userId: text().notNull().references(() => users.id, { onDelete: "cascade" }),
+});
+
+export const userRelations = relations(users, ({ many }) => ({
+  pages: many(pages),
+  forms: many(forms),
+}));
+
+export const formRelations = relations(forms, ({ one }) => ({
+  user: one(users, {
+    fields: [forms.userId],
+    references: [users.id],
+  }),
+}));
