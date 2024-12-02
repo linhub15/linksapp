@@ -5,6 +5,7 @@ type Props = {
   title: string;
   actionSlot?: React.ReactNode;
   navigationSlot?: React.ReactNode;
+  navTabSlot?: React.ReactNode;
 };
 
 export function RouteHeader(props: Props) {
@@ -17,7 +18,13 @@ export function RouteHeader(props: Props) {
           {props.actionSlot}
         </div>
       </div>
-      <Divider />
+      {props.navTabSlot
+        ? (
+          <div className="border-b mt-8 mb-10 border-zinc-950/10 dark:border-white/10">
+            {props.navTabSlot}
+          </div>
+        )
+        : <Divider />}
     </>
   );
 }

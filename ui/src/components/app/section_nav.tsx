@@ -1,4 +1,4 @@
-import { Link } from "../ui/link.tsx";
+import { Link } from "@tanstack/react-router";
 
 type Props = {
   backButtonLabel: string;

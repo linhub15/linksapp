@@ -20,7 +20,7 @@ export function AppSidebar() {
           <SidebarDivider />
           <SidebarItem
             to="/pages"
-            current={pathname === "/" || pathname.startsWith("/pages")}
+            current={pathname.startsWith("/pages")}
           >
             <SidebarLabel>Pages</SidebarLabel>
           </SidebarItem>

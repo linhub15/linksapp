@@ -2,13 +2,13 @@ import clsx from "clsx";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import {
   ArrowRightEndOnRectangleIcon,
-  ChevronUpIcon,
+  ChevronUpDownIcon,
   UserCircleIcon,
 } from "@heroicons/react/16/solid";
 import { useUser } from "../../lib/auth/use_user.ts";
 import { SidebarItem } from "../ui/sidebar.tsx";
 import { useSignout } from "../../lib/auth/use_signout.ts";
-import { Link } from "../ui/link.tsx";
+import { Link } from "@tanstack/react-router";
 
 export function UserMenu() {
   const { data, isLoading } = useUser();
@@ -21,7 +21,7 @@ export function UserMenu() {
         : (
           <MenuButton as={SidebarItem}>
             <span>{data?.profile?.email}</span>
-            <ChevronUpIcon className="size-4 ml-auto" />
+            <ChevronUpDownIcon className="size-4 ml-auto" />
           </MenuButton>
         )}
 

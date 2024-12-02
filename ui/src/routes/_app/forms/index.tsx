@@ -1,7 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { RouteHeader } from "../../../components/app/route_header.tsx";
 import { buttonVariants } from "../../../components/ui/button.tsx";
-import { Link } from "../../../components/ui/link.tsx";
 import { useListForms } from "../../../features/forms/use_list_forms.tsx";
 
 export const Route = createFileRoute("/_app/forms/")({
@@ -21,7 +20,13 @@ function RouteComponent() {
         }
       />
       <ul>
-        {data?.map((item) => <li key={item.id}>{item.title}</li>)}
+        {data?.map((item) => (
+          <li key={item.id}>
+            <Link to="/forms/$id" params={{ id: item.id }}>
+              {item.title}
+            </Link>
+          </li>
+        ))}
       </ul>
     </div>
   );

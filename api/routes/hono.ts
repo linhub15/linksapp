@@ -3,9 +3,10 @@ import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { z } from "zod";
 import { viewHtml } from "../actions/html/view_html.ts";
-import { appRouter } from "./trpc/router.ts";
 import { authRoutes } from "./auth/auth.routes.ts";
+import { formRoutes } from "./form.routes.ts";
 import { createContext } from "./trpc/context.ts";
+import { appRouter } from "./trpc/router.ts";
 
 export const app = new Hono();
 
@@ -32,4 +33,5 @@ app.get(
   },
 );
 
+app.route("/forms", formRoutes);
 app.route("/", authRoutes);

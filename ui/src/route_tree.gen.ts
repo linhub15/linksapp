@@ -6,6 +6,8 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
+import { createFileRoute } from "@tanstack/react-router";
+
 // Import Routes
 
 import { Route as rootRoute } from "./routes/__root.tsx";
@@ -20,6 +22,13 @@ import { Route as authLoginIndexImport } from "./routes/(auth)/login.index.tsx";
 import { Route as AppPagesNewImport } from "./routes/_app/pages/new.tsx";
 import { Route as AppFormsNewImport } from "./routes/_app/forms/new.tsx";
 import { Route as AppPagesIdIndexImport } from "./routes/_app/pages/$id/index.tsx";
+import { Route as AppFormsIdFormImport } from "./routes/_app/forms/$id/_form.tsx";
+import { Route as AppFormsIdFormIndexImport } from "./routes/_app/forms/$id/_form.index.tsx";
+import { Route as AppFormsIdFormSettingsImport } from "./routes/_app/forms/$id/_form.settings.tsx";
+
+// Create Virtual Routes
+
+const AppFormsIdImport = createFileRoute("/_app/forms/$id")();
 
 // Create/Update Routes
 
@@ -32,6 +41,12 @@ const IndexRoute = IndexImport.update({
   id: "/",
   path: "/",
   getParentRoute: () => rootRoute,
+} as any);
+
+const AppFormsIdRoute = AppFormsIdImport.update({
+  id: "/forms/$id",
+  path: "/forms/$id",
+  getParentRoute: () => AppRoute,
 } as any);
 
 const AppPagesIndexRoute = AppPagesIndexImport.update({
@@ -86,6 +101,23 @@ const AppPagesIdIndexRoute = AppPagesIdIndexImport.update({
   id: "/pages/$id/",
   path: "/pages/$id/",
   getParentRoute: () => AppRoute,
+} as any);
+
+const AppFormsIdFormRoute = AppFormsIdFormImport.update({
+  id: "/_form",
+  getParentRoute: () => AppFormsIdRoute,
+} as any);
+
+const AppFormsIdFormIndexRoute = AppFormsIdFormIndexImport.update({
+  id: "/",
+  path: "/",
+  getParentRoute: () => AppFormsIdFormRoute,
+} as any);
+
+const AppFormsIdFormSettingsRoute = AppFormsIdFormSettingsImport.update({
+  id: "/settings",
+  path: "/settings",
+  getParentRoute: () => AppFormsIdFormRoute,
 } as any);
 
 // Populate the FileRoutesByPath interface
@@ -162,6 +194,20 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof AppPagesIndexImport;
       parentRoute: typeof AppImport;
     };
+    "/_app/forms/$id": {
+      id: "/_app/forms/$id";
+      path: "/forms/$id";
+      fullPath: "/forms/$id";
+      preLoaderRoute: typeof AppFormsIdImport;
+      parentRoute: typeof AppImport;
+    };
+    "/_app/forms/$id/_form": {
+      id: "/_app/forms/$id/_form";
+      path: "/forms/$id";
+      fullPath: "/forms/$id";
+      preLoaderRoute: typeof AppFormsIdFormImport;
+      parentRoute: typeof AppFormsIdRoute;
+    };
     "/_app/pages/$id/": {
       id: "/_app/pages/$id/";
       path: "/pages/$id";
@@ -169,10 +215,50 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof AppPagesIdIndexImport;
       parentRoute: typeof AppImport;
     };
+    "/_app/forms/$id/_form/settings": {
+      id: "/_app/forms/$id/_form/settings";
+      path: "/settings";
+      fullPath: "/forms/$id/settings";
+      preLoaderRoute: typeof AppFormsIdFormSettingsImport;
+      parentRoute: typeof AppFormsIdFormImport;
+    };
+    "/_app/forms/$id/_form/": {
+      id: "/_app/forms/$id/_form/";
+      path: "/";
+      fullPath: "/forms/$id/";
+      preLoaderRoute: typeof AppFormsIdFormIndexImport;
+      parentRoute: typeof AppFormsIdFormImport;
+    };
   }
 }
 
 // Create and export the route tree
+
+interface AppFormsIdFormRouteChildren {
+  AppFormsIdFormSettingsRoute: typeof AppFormsIdFormSettingsRoute;
+  AppFormsIdFormIndexRoute: typeof AppFormsIdFormIndexRoute;
+}
+
+const AppFormsIdFormRouteChildren: AppFormsIdFormRouteChildren = {
+  AppFormsIdFormSettingsRoute: AppFormsIdFormSettingsRoute,
+  AppFormsIdFormIndexRoute: AppFormsIdFormIndexRoute,
+};
+
+const AppFormsIdFormRouteWithChildren = AppFormsIdFormRoute._addFileChildren(
+  AppFormsIdFormRouteChildren,
+);
+
+interface AppFormsIdRouteChildren {
+  AppFormsIdFormRoute: typeof AppFormsIdFormRouteWithChildren;
+}
+
+const AppFormsIdRouteChildren: AppFormsIdRouteChildren = {
+  AppFormsIdFormRoute: AppFormsIdFormRouteWithChildren,
+};
+
+const AppFormsIdRouteWithChildren = AppFormsIdRoute._addFileChildren(
+  AppFormsIdRouteChildren,
+);
 
 interface AppRouteChildren {
   AppFormsNewRoute: typeof AppFormsNewRoute;
@@ -181,6 +267,7 @@ interface AppRouteChildren {
   AppAccountIndexRoute: typeof AppAccountIndexRoute;
   AppFormsIndexRoute: typeof AppFormsIndexRoute;
   AppPagesIndexRoute: typeof AppPagesIndexRoute;
+  AppFormsIdRoute: typeof AppFormsIdRouteWithChildren;
   AppPagesIdIndexRoute: typeof AppPagesIdIndexRoute;
 }
 
@@ -191,6 +278,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppAccountIndexRoute: AppAccountIndexRoute,
   AppFormsIndexRoute: AppFormsIndexRoute,
   AppPagesIndexRoute: AppPagesIndexRoute,
+  AppFormsIdRoute: AppFormsIdRouteWithChildren,
   AppPagesIdIndexRoute: AppPagesIdIndexRoute,
 };
 
@@ -207,7 +295,10 @@ export interface FileRoutesByFullPath {
   "/account": typeof AppAccountIndexRoute;
   "/forms": typeof AppFormsIndexRoute;
   "/pages": typeof AppPagesIndexRoute;
+  "/forms/$id": typeof AppFormsIdFormRouteWithChildren;
   "/pages/$id": typeof AppPagesIdIndexRoute;
+  "/forms/$id/settings": typeof AppFormsIdFormSettingsRoute;
+  "/forms/$id/": typeof AppFormsIdFormIndexRoute;
 }
 
 export interface FileRoutesByTo {
@@ -221,7 +312,9 @@ export interface FileRoutesByTo {
   "/account": typeof AppAccountIndexRoute;
   "/forms": typeof AppFormsIndexRoute;
   "/pages": typeof AppPagesIndexRoute;
+  "/forms/$id": typeof AppFormsIdFormIndexRoute;
   "/pages/$id": typeof AppPagesIdIndexRoute;
+  "/forms/$id/settings": typeof AppFormsIdFormSettingsRoute;
 }
 
 export interface FileRoutesById {
@@ -236,7 +329,11 @@ export interface FileRoutesById {
   "/_app/account/": typeof AppAccountIndexRoute;
   "/_app/forms/": typeof AppFormsIndexRoute;
   "/_app/pages/": typeof AppPagesIndexRoute;
+  "/_app/forms/$id": typeof AppFormsIdRouteWithChildren;
+  "/_app/forms/$id/_form": typeof AppFormsIdFormRouteWithChildren;
   "/_app/pages/$id/": typeof AppPagesIdIndexRoute;
+  "/_app/forms/$id/_form/settings": typeof AppFormsIdFormSettingsRoute;
+  "/_app/forms/$id/_form/": typeof AppFormsIdFormIndexRoute;
 }
 
 export interface FileRouteTypes {
@@ -252,7 +349,10 @@ export interface FileRouteTypes {
     | "/account"
     | "/forms"
     | "/pages"
-    | "/pages/$id";
+    | "/forms/$id"
+    | "/pages/$id"
+    | "/forms/$id/settings"
+    | "/forms/$id/";
   fileRoutesByTo: FileRoutesByTo;
   to:
     | "/"
@@ -265,7 +365,9 @@ export interface FileRouteTypes {
     | "/account"
     | "/forms"
     | "/pages"
-    | "/pages/$id";
+    | "/forms/$id"
+    | "/pages/$id"
+    | "/forms/$id/settings";
   id:
     | "__root__"
     | "/"
@@ -278,7 +380,11 @@ export interface FileRouteTypes {
     | "/_app/account/"
     | "/_app/forms/"
     | "/_app/pages/"
-    | "/_app/pages/$id/";
+    | "/_app/forms/$id"
+    | "/_app/forms/$id/_form"
+    | "/_app/pages/$id/"
+    | "/_app/forms/$id/_form/settings"
+    | "/_app/forms/$id/_form/";
   fileRoutesById: FileRoutesById;
 }
 
@@ -324,6 +430,7 @@ export const routeTree = rootRoute
         "/_app/account/",
         "/_app/forms/",
         "/_app/pages/",
+        "/_app/forms/$id",
         "/_app/pages/$id/"
       ]
     },
@@ -357,9 +464,32 @@ export const routeTree = rootRoute
       "filePath": "_app/pages/index.tsx",
       "parent": "/_app"
     },
+    "/_app/forms/$id": {
+      "filePath": "_app/forms/$id",
+      "parent": "/_app",
+      "children": [
+        "/_app/forms/$id/_form"
+      ]
+    },
+    "/_app/forms/$id/_form": {
+      "filePath": "_app/forms/$id/_form.tsx",
+      "parent": "/_app/forms/$id",
+      "children": [
+        "/_app/forms/$id/_form/settings",
+        "/_app/forms/$id/_form/"
+      ]
+    },
     "/_app/pages/$id/": {
       "filePath": "_app/pages/$id/index.tsx",
       "parent": "/_app"
+    },
+    "/_app/forms/$id/_form/settings": {
+      "filePath": "_app/forms/$id/_form.settings.tsx",
+      "parent": "/_app/forms/$id/_form"
+    },
+    "/_app/forms/$id/_form/": {
+      "filePath": "_app/forms/$id/_form.index.tsx",
+      "parent": "/_app/forms/$id/_form"
     }
   }
 }

@@ -1,3 +1,4 @@
+import { z } from "zod";
 import {
   createForm,
   createFormRequest,
@@ -15,6 +16,15 @@ export const formsRouter = router({
       });
     },
   ),
+  get: authedProcedure
+    .input(z.object({ form_id: z.string().uuid() }))
+    .query(async ({ input, ctx }) => {
+      return await db.query.forms.findFirst({
+        with: { submissions: true },
+        where: (form, { eq, and }) =>
+          and(eq(form.id, input.form_id), eq(form.userId, ctx.user.user_id)),
+      });
+    }),
   create: authedProcedure
     .input(createFormRequest.pick({ title: true }))
     .mutation(async ({ input, ctx }) => {

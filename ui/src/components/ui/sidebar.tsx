@@ -8,7 +8,7 @@ import {
   useId,
 } from "react";
 import { TouchTarget } from "./button.tsx";
-import { Link } from "./link.tsx";
+import { Link } from "@tanstack/react-router";
 
 export function Sidebar(
   { className, ...props }: ComponentPropsWithoutRef<"nav">,
