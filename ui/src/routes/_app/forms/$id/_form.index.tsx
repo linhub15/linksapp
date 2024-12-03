@@ -1,6 +1,11 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useGetForm } from "../../../../features/forms/use_get_form.tsx";
 import { useState } from "react";
+
+import { CodeBlock, Text } from "../../../../components/ui/text.tsx";
+import { Cog6ToothIcon } from "@heroicons/react/24/outline";
+import { Subheading } from "../../../../components/ui/heading.tsx";
+import { Button, buttonVariants } from "../../../../components/ui/button.tsx";
 
 export const Route = createFileRoute("/_app/forms/$id/_form/")({
   component: RouteComponent,
@@ -14,21 +19,33 @@ function RouteComponent() {
 
   if (!data?.submissions || data?.submissions.length === 0) {
     return (
-      <div>
-        no submissions yet, setup your form
-        <div>Form submission URL</div>
-        <div>Example</div>
+      <div className="flex flex-col items-center gap-4">
+        <Cog6ToothIcon className="size-12 text-zinc-500 dark:text-zinc-400" />
+        <div className="text-center">
+          <Subheading>No submissions</Subheading>
+          <Text>Add your form to your site to get started</Text>
+        </div>
+        <div>
+          <Link
+            className={buttonVariants({ variant: "outline" })}
+            to="/forms/$id/settings"
+            params={{ id }}
+          >
+            Setup instructions
+          </Link>
+        </div>
       </div>
     );
   }
 
   return (
     <div className="flex gap-8">
-      <div className="w-56 space-y-4">
+      <div className="w-84 space-y-4 px-2 overflow-y-scroll">
         {data.submissions.map((submission, idx) => (
           <div key={submission.id}>
-            <button
-              className="w-full space-x-4 px-4 py-2 hover:bg-zinc-800 rounded data-[current=true]:bg-zinc-700"
+            <Button
+              variant="outline"
+              className="w-full space-x-4 dark:data-[current=true]:bg-zinc-700 data-[current=true]:bg-zinc-200"
               type="button"
               onClick={() => setIndex(idx)}
               data-current={index === idx}
@@ -39,13 +56,13 @@ function RouteComponent() {
               <span>
                 {submission.ip}
               </span>
-            </button>
+            </Button>
           </div>
         ))}
       </div>
-      <div className="rounded-2xl bg-gray-700 w-full h-100 p-6">
+      <CodeBlock className="rounded-2xl bg-gray-700 w-full h-100 p-6">
         {JSON.stringify(data.submissions[index].data, null, 2)}
-      </div>
+      </CodeBlock>
     </div>
   );
 }

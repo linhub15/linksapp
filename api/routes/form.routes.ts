@@ -9,12 +9,14 @@ export const formRoutes = new Hono();
 formRoutes
   .post(
     "/:formId",
+    zValidator("header", z.object({ referer: z.string().url() })),
     zValidator(
       "param",
       z.object({
         formId: z.string().uuid(),
       }),
     ),
+    zValidator("query", z.object({ return_to: z.string().optional() })),
     zValidator(
       "form",
       z.record(z.string(), z.any()),
@@ -37,8 +39,10 @@ formRoutes
         return ctx.text("500 error", 500);
       }
 
-      // todo(feat): add a success page or redirect somewhere after form submission
-
-      return ctx.text("ok");
+      // default redirect to referer
+      // optional: redirect to a custom success page
+      const { referer } = ctx.req.valid("header");
+      const { return_to } = ctx.req.valid("query");
+      return ctx.redirect(new URL(return_to ?? "", referer));
     },
   );

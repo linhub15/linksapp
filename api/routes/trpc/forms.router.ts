@@ -20,7 +20,11 @@ export const formsRouter = router({
     .input(z.object({ form_id: z.string().uuid() }))
     .query(async ({ input, ctx }) => {
       return await db.query.forms.findFirst({
-        with: { submissions: true },
+        with: {
+          submissions: {
+            orderBy: ({ createdAt }, { desc }) => [desc(createdAt)],
+          },
+        },
         where: (form, { eq, and }) =>
           and(eq(form.id, input.form_id), eq(form.userId, ctx.user.user_id)),
       });
