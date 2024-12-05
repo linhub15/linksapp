@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api, type ApiRequest } from "../../lib/trpc/client.ts";
-import { formKeys } from "./query_keys.ts";
+import { formKeys } from "./form.keys.ts";
 
 export function useUpdateForm() {
   const queryClient = useQueryClient();

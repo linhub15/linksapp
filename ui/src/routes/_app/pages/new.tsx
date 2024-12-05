@@ -1,5 +1,5 @@
 import { createFileRoute, useRouter } from "@tanstack/react-router";
-import { CreatePageForm } from "../../../features/manage_pages/create_page_form.tsx";
+import { CreatePageForm } from "../../../features/link_in_bio/create_page_form.tsx";
 import { SectionNav } from "../../../components/app/section_nav.tsx";
 import { RouteHeader } from "../../../components/app/route_header.tsx";
 

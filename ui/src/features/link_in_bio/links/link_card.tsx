@@ -1,23 +1,22 @@
 import { useForm } from "@tanstack/react-form";
 import { type FormEvent, useState } from "react";
 
-import { Button } from "../../components/ui/button.tsx";
+import { Button } from "../../../components/ui/button.tsx";
 import { useDeleteLink, useUpdateLink } from "./mutations.ts";
-import { Switch } from "../../components/ui/switch.tsx";
-import { useGetLink } from "./queries.ts";
+import { Switch } from "../../../components/ui/switch.tsx";
+import type { ApiResponse } from "../../../lib/trpc/client.ts";
 
 type Props = {
-  linkId: string;
-  pageId: string;
+  link: ApiResponse["pageLinks"]["list"][0];
 };
 
-export function LinkCard(props: Props) {
-  const link = useGetLink({ pageId: props.pageId, linkId: props.linkId });
+export function LinkCard({ link }: Props) {
   const [editing, setEditing] = useState(false);
   const deleteLink = useDeleteLink();
   const updateLink = useUpdateLink();
 
   const form = useForm({
+    // todo(bug): fieldstate.value does not update when state is refreshed
     defaultValues: {
       label: link?.label ?? "",
       href: link?.href ?? "",
@@ -26,8 +25,8 @@ export function LinkCard(props: Props) {
     onSubmit: async ({ value }) => {
       await updateLink.mutateAsync({
         target: {
-          page_id: props.pageId,
-          link_id: props.linkId,
+          page_id: link.pageId,
+          link_id: link.id,
         },
         values: value,
       });
@@ -67,6 +66,8 @@ export function LinkCard(props: Props) {
             )}
           </form.Field>
 
+          {/* For debugging */}
+          {link.href}
           <form.Field name="href">
             {(field) => (
               <input
@@ -126,8 +127,8 @@ export function LinkCard(props: Props) {
                 type="button"
                 onClick={() =>
                   deleteLink.mutateAsync({
-                    pageId: props.pageId,
-                    id: props.linkId,
+                    pageId: link.pageId,
+                    linkId: link.id,
                   })}
               >
                 Delete

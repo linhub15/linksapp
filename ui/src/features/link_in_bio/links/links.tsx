@@ -1,10 +1,10 @@
 import { useListLinks } from "./queries.ts";
-import { usePublishPage } from "../manage_pages/mutations.ts";
+import { usePublishPage } from "../use_publish_page.ts";
 import { LinkCard } from "./link_card.tsx";
-import { Heading } from "../../components/ui/heading.tsx";
+import { Heading } from "../../../components/ui/heading.tsx";
 import { AddLinkForm } from "./add_link_form.tsx";
-import { Button } from "../../components/ui/button.tsx";
-import { useGetPage } from "../manage_pages/queries.ts";
+import { Button } from "../../../components/ui/button.tsx";
+import { useGetPage } from "../queries.ts";
 
 type Props = {
   pageId: string;
@@ -26,7 +26,7 @@ export function Links(props: Props) {
     <div className="space-y-6">
       {query.data?.map((link) => (
         <div className="space-x-4" key={link.id}>
-          <LinkCard linkId={link.id} pageId={link.pageId} />
+          <LinkCard link={link} />
         </div>
       ))}
       <>

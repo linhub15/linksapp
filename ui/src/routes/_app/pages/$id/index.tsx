@@ -1,8 +1,8 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { Links } from "../../../../features/manage_links/links.tsx";
-import { useListPages } from "../../../../features/manage_pages/queries.ts";
+import { Links } from "../../../../features/link_in_bio/links/links.tsx";
+import { useListPages } from "../../../../features/link_in_bio/queries.ts";
 import { Button, buttonVariants } from "../../../../components/ui/button.tsx";
-import { useDeletePage } from "../../../../features/manage_pages/mutations.ts";
+import { useDeletePage } from "../../../../features/link_in_bio/use_delete_page.ts";
 import { SectionNav } from "../../../../components/app/section_nav.tsx";
 import { RouteHeader } from "../../../../components/app/route_header.tsx";
 

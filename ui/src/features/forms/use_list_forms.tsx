@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../../lib/trpc/client.ts";
-import { formKeys } from "./query_keys.ts";
+import { formKeys } from "./form.keys.ts";
 
 export function useListForms() {
   return useQuery({

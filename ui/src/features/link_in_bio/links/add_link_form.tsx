@@ -2,7 +2,7 @@ import { type FormEvent, useState } from "react";
 import clsx from "clsx";
 import { useForm } from "@tanstack/react-form";
 import { useCreateLink } from "./mutations.ts";
-import { Button } from "../../components/ui/button.tsx";
+import { Button } from "../../../components/ui/button.tsx";
 
 type Props = {
   pageId: string;

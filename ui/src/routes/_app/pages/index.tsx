@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useListPages } from "../../../features/manage_pages/queries.ts";
+import { useListPages } from "../../../features/link_in_bio/queries.ts";
 import { buttonVariants } from "../../../components/ui/button.tsx";
 import { RouteHeader } from "../../../components/app/route_header.tsx";
 

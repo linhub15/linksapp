@@ -3,7 +3,7 @@ import type { FormEvent } from "react";
 import { Button } from "../../components/ui/button.tsx";
 import { Field, Legend } from "../../components/ui/fieldset.tsx";
 import { Input } from "../../components/ui/input.tsx";
-import { useCreatePage } from "./mutations.ts";
+import { useCreatePage } from "./use_create_page.ts";
 
 type Props = {
   onSubmitSuccess: () => void;
