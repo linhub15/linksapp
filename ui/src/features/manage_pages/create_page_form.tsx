@@ -1,7 +1,7 @@
 import { useForm } from "@tanstack/react-form";
 import type { FormEvent } from "react";
 import { Button } from "../../components/ui/button.tsx";
-import { Field, Label } from "../../components/ui/fieldset.tsx";
+import { Field, Legend } from "../../components/ui/fieldset.tsx";
 import { Input } from "../../components/ui/input.tsx";
 import { useCreatePage } from "./mutations.ts";
 
@@ -35,7 +35,7 @@ export function CreatePageForm(props: Props) {
         <form.Field name="title">
           {(field) => (
             <Field>
-              <Label>Give your page a name</Label>
+              <Legend>Give your page a name</Legend>
               <Input
                 className="max-w-[20rem]"
                 name={field.name}

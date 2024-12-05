@@ -1,25 +1,36 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Subheading } from "../../../../components/ui/heading.tsx";
 import { useState } from "react";
-import { Field } from "../../../../components/ui/fieldset.tsx";
-import { Label } from "../../../../components/ui/fieldset.tsx";
-import { Input } from "../../../../components/ui/input.tsx";
-import { Description } from "../../../../components/ui/fieldset.tsx";
-import { Code, CodeBlock, Text } from "../../../../components/ui/text.tsx";
-import { Switch } from "../../../../components/ui/switch.tsx";
 import { Badge } from "../../../../components/ui/badge.tsx";
 import { Divider } from "../../../../components/ui/divider.tsx";
+import {
+  Description,
+  Field,
+  Label,
+  Legend,
+} from "../../../../components/ui/fieldset.tsx";
+import { Subheading } from "../../../../components/ui/heading.tsx";
+import { Input } from "../../../../components/ui/input.tsx";
+import { Switch } from "../../../../components/ui/switch.tsx";
+import { Code, CodeBlock, Text } from "../../../../components/ui/text.tsx";
+import { useGetForm } from "../../../../features/forms/use_get_form.tsx";
+import { useUpdateForm } from "../../../../features/forms/use_update_form.tsx";
+import { FieldGroup } from "../../../../components/ui/fieldset.tsx";
 
 export const Route = createFileRoute("/_app/forms/$id/_form/settings")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { id } = Route.useParams();
-
-  const [enabled, setEnabled] = useState(false);
+  const id = Route.useParams().id;
+  const { data: form } = useGetForm(id);
+  const updateForm = useUpdateForm();
   const [returnTo, setReturnTo] = useState("");
-  const url = new URL(`http://127.0.0.1:8000/forms/${id}`);
+
+  if (!form) {
+    return null;
+  }
+
+  const url = new URL(`${import.meta.env.VITE_API_URL}/forms/${form.id}`);
 
   if (returnTo) {
     url.searchParams.set("return_to", returnTo);
@@ -31,22 +42,68 @@ function RouteComponent() {
   <button type="submit">Submit</button>
 </form>`;
 
+  const handleToggleEnabled = async (enabled: boolean) => {
+    await updateForm.mutateAsync({
+      id: form.id,
+      enabled: enabled,
+    });
+  };
+
   return (
     <div className="space-y-12 *:space-y-8">
-      <section className="max-w-2xl">
-        {/* todo(feat): implement this feature in api */}
-        <Field className="flex justify-between">
-          <div>
-            <Label>Accept submissions</Label>
-            <Description>
-              This form will return 404 when not accepting submissions.
-            </Description>
+      <section>
+        <Field>
+          <Legend>Allow submissions</Legend>
+          <div className="grid grid-cols-2 gap-12">
+            <Text>
+              Submissions will not be collected when disabled. Users will still
+              be redirected to your success URL.
+            </Text>
+
+            <div>
+              <div className="flex items-center gap-2">
+                <Badge>
+                  {form.enabled ? "Enabled" : "Disabled"}
+                </Badge>
+                <Switch
+                  checked={form.enabled}
+                  onChange={(value) => handleToggleEnabled(value)}
+                />
+              </div>
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <Badge>
-              {enabled ? "Accepting submissions" : "Returns 404"}
-            </Badge>
-            <Switch checked={enabled} onChange={(value) => setEnabled(value)} />
+        </Field>
+      </section>
+
+      <Divider />
+
+      <section>
+        <Field>
+          <Legend>Discord webhook</Legend>
+          <div className="grid grid-cols-2 gap-12">
+            <Text>
+              Webhooks allow Discord to be notified when the form is submitted.
+              This is a free alternative to emails.
+            </Text>
+            <div>
+              <FieldGroup>
+                <Field>
+                  <Label>
+                    Discord webhook URL <Badge>Coming soon</Badge>
+                  </Label>
+                  <Input
+                    type="text"
+                    placeholder="https://discord.com/api/webhooks/..."
+                    disabled
+                  />
+                </Field>
+
+                <Field className="flex items-center gap-2">
+                  <Badge>Disabled</Badge>
+                  <Switch disabled />
+                </Field>
+              </FieldGroup>
+            </div>
           </div>
         </Field>
       </section>

@@ -5,6 +5,10 @@ import {
 } from "../../actions/forms/create_form.ts";
 import { db } from "../../db/db.client.ts";
 import { authedProcedure, router } from "./trpc.ts";
+import {
+  updateForm,
+  updateFormRequest,
+} from "../../actions/forms/update_form.ts";
 
 export const formsRouter = router({
   list: authedProcedure.query(
@@ -33,5 +37,10 @@ export const formsRouter = router({
     .input(createFormRequest.pick({ title: true }))
     .mutation(async ({ input, ctx }) => {
       await createForm({ ...input, userId: ctx.user.user_id });
+    }),
+  update: authedProcedure
+    .input(updateFormRequest)
+    .mutation(async ({ input }) => {
+      await updateForm(input);
     }),
 });

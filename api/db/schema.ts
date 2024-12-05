@@ -1,7 +1,7 @@
 import { relations } from "drizzle-orm";
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
-/// Auth
+// Auth
 export const users = sqliteTable("users", {
   id: text().$defaultFn(() => crypto.randomUUID()).primaryKey(),
   email: text().notNull().unique(),
@@ -18,7 +18,7 @@ export const userRelations = relations(users, ({ many }) => ({
   forms: many(forms),
 }));
 
-/// Pages
+// Pages
 export const pages = sqliteTable("pages", {
   id: text().$defaultFn(() => crypto.randomUUID()).primaryKey(),
   title: text().notNull(),
@@ -61,7 +61,7 @@ export const files = sqliteTable("files", {
     .$default(() => new Date()),
 });
 
-/// Forms
+// Forms
 export const forms = sqliteTable("forms", {
   id: text().$defaultFn(() => crypto.randomUUID()).primaryKey(),
   title: text().notNull(),
@@ -69,6 +69,7 @@ export const forms = sqliteTable("forms", {
     .notNull()
     .$default(() => new Date()),
   userId: text().notNull().references(() => users.id, { onDelete: "cascade" }),
+  enabled: integer({ mode: "boolean" }).notNull().default(false),
 });
 
 export const formRelations = relations(forms, ({ one, many }) => ({

@@ -31,7 +31,11 @@ formRoutes
       const data = ctx.req.valid("form");
 
       try {
-        await createFormSubmission({ ip: ip, data: data, formId: formId });
+        await createFormSubmission({
+          ip: ip,
+          data: data,
+          formId: formId,
+        });
       } catch (e) {
         if (e instanceof Error) {
           console.error({ ip: ip, error: e.message });

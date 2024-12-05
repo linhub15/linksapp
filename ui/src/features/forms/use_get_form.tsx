@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../../lib/trpc/client.ts";
+import { formKeys } from "./query_keys.ts";
 
 export function useGetForm(formId: string) {
   return useQuery({
-    queryKey: ["form", formId],
+    queryKey: formKeys.single(formId),
     queryFn: async () => {
       return await api.forms.get.query({ form_id: formId });
     },
