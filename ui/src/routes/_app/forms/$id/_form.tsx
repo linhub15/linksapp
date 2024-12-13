@@ -46,6 +46,20 @@ function RouteComponent() {
                 className="pb-1 data-[current=true]:border-b-2"
                 data-current={childMatches
                   .at(0)
+                  ?.fullPath.startsWith("/forms/$id/quickstart")}
+              >
+                <Link
+                  className={buttonVariants({ variant: "ghost" })}
+                  to="/forms/$id/quickstart"
+                  params={{ id }}
+                >
+                  Quick start
+                </Link>
+              </li>
+              <li
+                className="pb-1 data-[current=true]:border-b-2"
+                data-current={childMatches
+                  .at(0)
                   ?.fullPath.startsWith("/forms/$id/settings")}
               >
                 <Link

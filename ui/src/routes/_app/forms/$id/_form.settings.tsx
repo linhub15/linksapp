@@ -1,49 +1,36 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
 import { Badge } from "../../../../components/ui/badge.tsx";
 import { Divider } from "../../../../components/ui/divider.tsx";
-import {
-  Description,
-  Field,
-  Label,
-  Legend,
-} from "../../../../components/ui/fieldset.tsx";
-import { Subheading } from "../../../../components/ui/heading.tsx";
+import { Field, Label, Legend } from "../../../../components/ui/fieldset.tsx";
 import { Input } from "../../../../components/ui/input.tsx";
 import { Switch } from "../../../../components/ui/switch.tsx";
-import { Code, CodeBlock, Text } from "../../../../components/ui/text.tsx";
+import { Strong, Text } from "../../../../components/ui/text.tsx";
 import { useGetForm } from "../../../../features/forms/use_get_form.tsx";
-import { useUpdateForm } from "../../../../features/forms/use_update_form.tsx";
 import { FieldGroup } from "../../../../components/ui/fieldset.tsx";
+import { useSetEnabled } from "../../../../features/forms/use_set_enabled.tsx";
+import {
+  useManageEmail,
+} from "../../../../features/forms/use_set_target_email.tsx";
+import { Button } from "../../../../components/ui/button.tsx";
+import { useUser } from "../../../../lib/auth/use_user.ts";
 
 export const Route = createFileRoute("/_app/forms/$id/_form/settings")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
+  const { data: user } = useUser();
   const id = Route.useParams().id;
   const { data: form } = useGetForm(id);
-  const updateForm = useUpdateForm();
-  const [returnTo, setReturnTo] = useState("");
+  const setEnabled = useSetEnabled(id);
+  const manageEmail = useManageEmail(id);
 
   if (!form) {
     return null;
   }
 
-  const url = new URL(`${import.meta.env.VITE_API_URL}/forms/${form.id}`);
-
-  if (returnTo) {
-    url.searchParams.set("return_to", returnTo);
-  }
-
-  const example = html`<form method="post" action="${url.toJSON()}">
-  <label for="email">Email</label>
-  <input type="email" name="email" id="email"/>
-  <button type="submit">Submit</button>
-</form>`;
-
   const handleToggleEnabled = async (enabled: boolean) => {
-    await updateForm.mutateAsync({
+    await setEnabled.mutateAsync({
       id: form.id,
       enabled: enabled,
     });
@@ -69,6 +56,76 @@ function RouteComponent() {
                   checked={form.enabled}
                   onChange={(value) => handleToggleEnabled(value)}
                 />
+              </div>
+            </div>
+          </div>
+        </Field>
+      </section>
+
+      <Divider />
+
+      <section>
+        <Field>
+          <Legend>Target email</Legend>
+          <div className="grid grid-cols-2 gap-12">
+            <div className="space-y-4">
+              <Text>
+                Form submissions will be sent to this email. When using an email
+                other than your account email, you will need to verify it before
+                receiving submissions.
+              </Text>
+              <Text>
+                Defaults to your account email{" "}
+                <Strong>{user?.profile.email}</Strong> when left blank.
+              </Text>
+            </div>
+
+            <div>
+              <div className="flex items-center gap-2">
+                <Field className="w-full">
+                  <div className="flex gap-4">
+                    <div className="w-full">
+                      <Input
+                        type="email"
+                        placeholder={user?.profile.email}
+                        value={manageEmail.value}
+                        onChange={(e) => manageEmail.setValue(e.target.value)}
+                        disabled={manageEmail.mode === "view" ||
+                          manageEmail.mutation.isPending}
+                      />
+                    </div>
+                    <div
+                      className="hidden data-[mode=view]:block"
+                      data-mode={manageEmail.mode}
+                    >
+                      <Button
+                        variant="outline"
+                        onClick={manageEmail.edit}
+                      >
+                        Edit
+                      </Button>
+                    </div>
+                    <div
+                      className="hidden gap-2 data-[mode=edit]:flex"
+                      data-mode={manageEmail.mode}
+                    >
+                      <Button
+                        variant="outline"
+                        onClick={manageEmail.cancel}
+                      >
+                        Cancel
+                      </Button>
+                      <Button
+                        variant="outline"
+                        onClick={manageEmail.save}
+                        pending={manageEmail.mutation.isPending}
+                        disabled={!manageEmail.canSave}
+                      >
+                        Save
+                      </Button>
+                    </div>
+                  </div>
+                </Field>
               </div>
             </div>
           </div>
@@ -107,45 +164,6 @@ function RouteComponent() {
           </div>
         </Field>
       </section>
-
-      <Divider />
-
-      <section>
-        <div>
-          <Subheading>Get started</Subheading>
-          <Text>Add this form snippet to your website to get started.</Text>
-        </div>
-
-        <div className="grid grid-cols-2 gap-8">
-          <CodeBlock className="rounded-xl overflow-x-scroll">
-            {example}
-          </CodeBlock>
-
-          <Field>
-            <Label>
-              Success URL&nbsp;<Code>return_to={returnTo}</Code>
-            </Label>
-            <Description>
-              Redirects to this path after the form is submitted. Origin is set
-              by the <Code>referer</Code> header of the form request.
-            </Description>
-            <Input
-              type="text"
-              value={returnTo}
-              placeholder="/thank-you-page"
-              onChange={(e) => setReturnTo(e.target.value)}
-            />
-          </Field>
-        </div>
-      </section>
-
-      <div>
-        <Subheading>Test submission</Subheading>
-        {/* biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation> */}
-        <div dangerouslySetInnerHTML={{ __html: example }} />
-      </div>
     </div>
   );
 }
-const html = (strings: TemplateStringsArray, ...values: string[]) =>
-  String.raw({ raw: strings }, ...values);

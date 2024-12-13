@@ -45,6 +45,7 @@
     "drizzle-zod": "npm:drizzle-zod@^0.5.1",
     "hono": "npm:hono@^4.6.12",
     "jose": "npm:jose@^5.9.6",
+    "nodemailer": "npm:nodemailer@^6.9.16",
     "react": "npm:react@^18.3.1",
     "react-dom": "npm:react-dom@^18.3.1",
     "superjson": "npm:superjson@^2.2.1",

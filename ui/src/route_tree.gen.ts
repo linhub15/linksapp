@@ -25,6 +25,7 @@ import { Route as AppPagesIdIndexImport } from "./routes/_app/pages/$id/index.ts
 import { Route as AppFormsIdFormImport } from "./routes/_app/forms/$id/_form.tsx";
 import { Route as AppFormsIdFormIndexImport } from "./routes/_app/forms/$id/_form.index.tsx";
 import { Route as AppFormsIdFormSettingsImport } from "./routes/_app/forms/$id/_form.settings.tsx";
+import { Route as AppFormsIdFormQuickstartImport } from "./routes/_app/forms/$id/_form.quickstart.tsx";
 
 // Create Virtual Routes
 
@@ -117,6 +118,12 @@ const AppFormsIdFormIndexRoute = AppFormsIdFormIndexImport.update({
 const AppFormsIdFormSettingsRoute = AppFormsIdFormSettingsImport.update({
   id: "/settings",
   path: "/settings",
+  getParentRoute: () => AppFormsIdFormRoute,
+} as any);
+
+const AppFormsIdFormQuickstartRoute = AppFormsIdFormQuickstartImport.update({
+  id: "/quickstart",
+  path: "/quickstart",
   getParentRoute: () => AppFormsIdFormRoute,
 } as any);
 
@@ -215,6 +222,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof AppPagesIdIndexImport;
       parentRoute: typeof AppImport;
     };
+    "/_app/forms/$id/_form/quickstart": {
+      id: "/_app/forms/$id/_form/quickstart";
+      path: "/quickstart";
+      fullPath: "/forms/$id/quickstart";
+      preLoaderRoute: typeof AppFormsIdFormQuickstartImport;
+      parentRoute: typeof AppFormsIdFormImport;
+    };
     "/_app/forms/$id/_form/settings": {
       id: "/_app/forms/$id/_form/settings";
       path: "/settings";
@@ -235,11 +249,13 @@ declare module "@tanstack/react-router" {
 // Create and export the route tree
 
 interface AppFormsIdFormRouteChildren {
+  AppFormsIdFormQuickstartRoute: typeof AppFormsIdFormQuickstartRoute;
   AppFormsIdFormSettingsRoute: typeof AppFormsIdFormSettingsRoute;
   AppFormsIdFormIndexRoute: typeof AppFormsIdFormIndexRoute;
 }
 
 const AppFormsIdFormRouteChildren: AppFormsIdFormRouteChildren = {
+  AppFormsIdFormQuickstartRoute: AppFormsIdFormQuickstartRoute,
   AppFormsIdFormSettingsRoute: AppFormsIdFormSettingsRoute,
   AppFormsIdFormIndexRoute: AppFormsIdFormIndexRoute,
 };
@@ -297,6 +313,7 @@ export interface FileRoutesByFullPath {
   "/pages": typeof AppPagesIndexRoute;
   "/forms/$id": typeof AppFormsIdFormRouteWithChildren;
   "/pages/$id": typeof AppPagesIdIndexRoute;
+  "/forms/$id/quickstart": typeof AppFormsIdFormQuickstartRoute;
   "/forms/$id/settings": typeof AppFormsIdFormSettingsRoute;
   "/forms/$id/": typeof AppFormsIdFormIndexRoute;
 }
@@ -314,6 +331,7 @@ export interface FileRoutesByTo {
   "/pages": typeof AppPagesIndexRoute;
   "/forms/$id": typeof AppFormsIdFormIndexRoute;
   "/pages/$id": typeof AppPagesIdIndexRoute;
+  "/forms/$id/quickstart": typeof AppFormsIdFormQuickstartRoute;
   "/forms/$id/settings": typeof AppFormsIdFormSettingsRoute;
 }
 
@@ -332,6 +350,7 @@ export interface FileRoutesById {
   "/_app/forms/$id": typeof AppFormsIdRouteWithChildren;
   "/_app/forms/$id/_form": typeof AppFormsIdFormRouteWithChildren;
   "/_app/pages/$id/": typeof AppPagesIdIndexRoute;
+  "/_app/forms/$id/_form/quickstart": typeof AppFormsIdFormQuickstartRoute;
   "/_app/forms/$id/_form/settings": typeof AppFormsIdFormSettingsRoute;
   "/_app/forms/$id/_form/": typeof AppFormsIdFormIndexRoute;
 }
@@ -351,6 +370,7 @@ export interface FileRouteTypes {
     | "/pages"
     | "/forms/$id"
     | "/pages/$id"
+    | "/forms/$id/quickstart"
     | "/forms/$id/settings"
     | "/forms/$id/";
   fileRoutesByTo: FileRoutesByTo;
@@ -367,6 +387,7 @@ export interface FileRouteTypes {
     | "/pages"
     | "/forms/$id"
     | "/pages/$id"
+    | "/forms/$id/quickstart"
     | "/forms/$id/settings";
   id:
     | "__root__"
@@ -383,6 +404,7 @@ export interface FileRouteTypes {
     | "/_app/forms/$id"
     | "/_app/forms/$id/_form"
     | "/_app/pages/$id/"
+    | "/_app/forms/$id/_form/quickstart"
     | "/_app/forms/$id/_form/settings"
     | "/_app/forms/$id/_form/";
   fileRoutesById: FileRoutesById;
@@ -475,6 +497,7 @@ export const routeTree = rootRoute
       "filePath": "_app/forms/$id/_form.tsx",
       "parent": "/_app/forms/$id",
       "children": [
+        "/_app/forms/$id/_form/quickstart",
         "/_app/forms/$id/_form/settings",
         "/_app/forms/$id/_form/"
       ]
@@ -482,6 +505,10 @@ export const routeTree = rootRoute
     "/_app/pages/$id/": {
       "filePath": "_app/pages/$id/index.tsx",
       "parent": "/_app"
+    },
+    "/_app/forms/$id/_form/quickstart": {
+      "filePath": "_app/forms/$id/_form.quickstart.tsx",
+      "parent": "/_app/forms/$id/_form"
     },
     "/_app/forms/$id/_form/settings": {
       "filePath": "_app/forms/$id/_form.settings.tsx",

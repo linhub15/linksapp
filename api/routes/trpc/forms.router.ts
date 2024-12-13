@@ -9,6 +9,14 @@ import {
   updateForm,
   updateFormRequest,
 } from "../../actions/forms/update_form.ts";
+import {
+  setTargetEmail,
+  setTargetEmailRequest,
+} from "../../actions/forms/set_target_email.ts";
+import {
+  setEnabled,
+  setEnabledRequest,
+} from "../../actions/forms/set_enabled.ts";
 
 export const formsRouter = router({
   list: authedProcedure.query(
@@ -42,5 +50,15 @@ export const formsRouter = router({
     .input(updateFormRequest)
     .mutation(async ({ input }) => {
       await updateForm(input);
+    }),
+  setEnabled: authedProcedure
+    .input(setEnabledRequest)
+    .mutation(async ({ input }) => {
+      await setEnabled(input);
+    }),
+  setTargetEmail: authedProcedure
+    .input(setTargetEmailRequest)
+    .mutation(async ({ input }) => {
+      await setTargetEmail(input);
     }),
 });

@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "dev": "deno run --allow-net --allow-read --allow-write --allow-env --watch main.ts",
+    "dev": "deno run --allow-net --allow-read --allow-write --allow-env --allow-sys --watch main.ts",
     "dev:db": "turso dev --db-file=./db/db.sqlite",
     "drizzle": "deno run --env-file --node-modules-dir -A npm:drizzle-kit"
   }

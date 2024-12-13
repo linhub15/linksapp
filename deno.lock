@@ -30,6 +30,7 @@
     "npm:@trpc/client@^10.45.2": "10.45.2_@trpc+server@10.45.2",
     "npm:@trpc/server@^10.45.2": "10.45.2",
     "npm:@types/node@*": "22.5.4",
+    "npm:@types/nodemailer@*": "6.4.17",
     "npm:@types/react@*": "18.3.12",
     "npm:@vitejs/plugin-react@^4.3.4": "4.3.4_vite@6.0.1_@babel+core@7.26.0",
     "npm:clsx@^2.1.1": "2.1.1",
@@ -41,6 +42,7 @@
     "npm:hono@^4.6.12": "4.6.12",
     "npm:jose@*": "5.9.6",
     "npm:jose@^5.9.6": "5.9.6",
+    "npm:nodemailer@^6.9.16": "6.9.16",
     "npm:react-dom@^18.3.1": "18.3.1_react@18.3.1",
     "npm:react@^18.3.1": "18.3.1",
     "npm:superjson@^2.2.1": "2.2.1",
@@ -1201,6 +1203,12 @@
         "undici-types"
       ]
     },
+    "@types/nodemailer@6.4.17": {
+      "integrity": "sha512-I9CCaIp6DTldEg7vyUTZi8+9Vo0hi1/T8gv3C89yk1rSAAzoKQ8H8ki/jBYJSFoH/BisgLP8tkZMlQ91CIquww==",
+      "dependencies": [
+        "@types/node"
+      ]
+    },
     "@types/prop-types@15.7.13": {
       "integrity": "sha512-hCZTSvwbzWGvhqxp/RqVqwU999pBf2vp7hzIjiYOsl8wqOmUxkQ6ddw1cV3l8811+kdUFus/q4d1Y3E3SyEifA=="
     },
@@ -1858,6 +1866,9 @@
     "node-releases@2.0.18": {
       "integrity": "sha512-d9VeXT4SJ7ZeOqGX6R5EM022wpL+eWPooLI+5UpWn2jCT1aosUQEhQP214x33Wkwx3JQMvIm+tIoVOdodFS40g=="
     },
+    "nodemailer@6.9.16": {
+      "integrity": "sha512-psAuZdTIRN08HKVd/E8ObdV6NO7NTBY3KsC30F7M4H1OnmLCUNaS56FpYxyb26zWLSyYF9Ozch9KYHhHegsiOQ=="
+    },
     "normalize-path@3.0.0": {
       "integrity": "sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA=="
     },
@@ -2163,6 +2174,7 @@
       "npm:drizzle-zod@~0.5.1",
       "npm:hono@^4.6.12",
       "npm:jose@^5.9.6",
+      "npm:nodemailer@^6.9.16",
       "npm:react-dom@^18.3.1",
       "npm:react@^18.3.1",
       "npm:superjson@^2.2.1",

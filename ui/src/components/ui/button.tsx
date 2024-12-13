@@ -2,11 +2,12 @@ import { cva, type VariantProps } from "cva";
 import * as Headless from "@headlessui/react";
 import clsx from "clsx";
 import { forwardRef, Fragment, type ReactNode } from "react";
+import { ArrowPathIcon } from "@heroicons/react/16/solid";
 
 export const buttonVariants = cva({
   base: [
     // Base
-    "relative isolate inline-flex items-center justify-center gap-x-2 rounded-lg border text-base/6 font-semibold",
+    "relative isolate inline-flex items-center justify-center gap-x-2 rounded-lg border text-base/6 font-medium",
     // Sizing
     "px-[calc(theme(spacing[3.5])-1px)] py-[calc(theme(spacing[2.5])-1px)] sm:px-[calc(theme(spacing.3)-1px)] sm:py-[calc(theme(spacing[1.5])-1px)] sm:text-sm/6",
     // Focus
@@ -79,7 +80,7 @@ export const buttonVariants = cva({
 type ButtonProps =
   & React.ButtonHTMLAttributes<HTMLButtonElement>
   & VariantProps<typeof buttonVariants>
-  & { asChild?: boolean };
+  & { asChild?: boolean; pending?: boolean };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
   className,
@@ -96,9 +97,15 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
         buttonVariants({ variant }),
         className,
       )}
+      data-pending={props.pending}
+      disabled={props.pending}
       {...props}
     >
-      <TouchTarget>{children}</TouchTarget>
+      <TouchTarget>
+        {props.pending
+          ? <ArrowPathIcon className="animate-spin size-2" />
+          : children}
+      </TouchTarget>
     </Headless.Button>
   );
 });

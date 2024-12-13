@@ -4,15 +4,17 @@ import type { z } from "zod";
 import { forms } from "../../db/schema.ts";
 import { db } from "../../db/db.client.ts";
 
-export const updateFormRequest = createInsertSchema(forms)
+export const setEnabledRequest = createInsertSchema(forms)
   .required({ id: true })
   .pick({
     id: true,
-    title: true,
+    enabled: true,
   });
 
-export async function updateForm(request: z.infer<typeof updateFormRequest>) {
+export async function setEnabled(
+  request: z.infer<typeof setEnabledRequest>,
+) {
   await db.update(forms)
-    .set({ title: request.title })
+    .set({ enabled: request.enabled })
     .where(eq(forms.id, request.id));
 }

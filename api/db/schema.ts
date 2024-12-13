@@ -68,8 +68,10 @@ export const forms = sqliteTable("forms", {
   createdAt: integer({ mode: "timestamp_ms" })
     .notNull()
     .$default(() => new Date()),
-  userId: text().notNull().references(() => users.id, { onDelete: "cascade" }),
+  targetEmail: text(),
+  targetEmailIsVerified: integer({ mode: "boolean" }),
   enabled: integer({ mode: "boolean" }).notNull().default(false),
+  userId: text().notNull().references(() => users.id, { onDelete: "cascade" }),
 });
 
 export const formRelations = relations(forms, ({ one, many }) => ({

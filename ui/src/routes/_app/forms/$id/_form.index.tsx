@@ -17,7 +17,7 @@ function RouteComponent() {
   const [index, setIndex] = useState(0);
 
   if (!form) {
-    // todo(feat): notify not found, redirecting
+    // todo(feat): notify not found, before redirecting
     return <Navigate to=".." />;
   }
 
@@ -34,7 +34,7 @@ function RouteComponent() {
         <div>
           <Link
             className={buttonVariants({ variant: "outline" })}
-            to="/forms/$id/settings"
+            to="/forms/$id/quickstart"
             params={{ id }}
           >
             Setup instructions

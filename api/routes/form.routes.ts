@@ -2,7 +2,7 @@ import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { getConnInfo } from "hono/deno";
 import { z } from "zod";
-import { createFormSubmission } from "../actions/forms/create_form_submission.ts";
+import { submitForm } from "../actions/forms/submit_form.ts";
 
 export const formRoutes = new Hono();
 
@@ -31,7 +31,7 @@ formRoutes
       const data = ctx.req.valid("form");
 
       try {
-        await createFormSubmission({
+        await submitForm({
           ip: ip,
           data: data,
           formId: formId,
