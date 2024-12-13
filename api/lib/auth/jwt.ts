@@ -1,7 +1,7 @@
 import { SignJWT } from "jose/jwt/sign";
 import { jwtVerify } from "jose/jwt/verify";
 import type { JWTPayload } from "jose";
-import { AUTH_ENV } from "./options.ts";
+import { ENV } from "../env.ts";
 
 export type OAuthProfile = {
   user_id: string;
@@ -18,7 +18,7 @@ type Payload = JWTPayload & {
   profile: OAuthProfile;
 };
 
-const secret = new TextEncoder().encode(AUTH_ENV.AUTH_SECRET);
+const secret = new TextEncoder().encode(ENV.AUTH_SECRET);
 const alg = "HS256";
 
 export async function decodeJwt(

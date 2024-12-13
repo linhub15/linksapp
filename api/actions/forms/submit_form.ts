@@ -3,6 +3,9 @@ import { createInsertSchema } from "drizzle-zod";
 import { db } from "../../db/db.client.ts";
 import { formSubmissions } from "../../db/schema.ts";
 import { mailer } from "../../lib/smtp/mailer.ts";
+import type { Json } from "../../lib/types.ts";
+import { ENV } from "../../lib/env.ts";
+import { html } from "../../lib/raw_html.ts";
 
 type Response = "ok" | "disabled";
 
@@ -17,7 +20,12 @@ export async function submitForm(
   request: z.infer<typeof submitFormRequest>,
 ): Promise<Response> {
   const form = await db.query.forms.findFirst({
-    columns: { id: true, targetEmail: true, targetEmailIsVerified: true },
+    columns: {
+      id: true,
+      title: true,
+      targetEmail: true,
+      targetEmailIsVerified: true,
+    },
     where: ({ id, enabled }, { and, eq }) =>
       and(eq(id, request.formId), eq(enabled, true)),
     with: {
@@ -38,12 +46,32 @@ export async function submitForm(
     ? form.targetEmail
     : form.user.email;
 
-  // todo(feat): show formatted HTML email of the submission
   await mailer.send({
+    fromAlias: "Birdy Forms",
+    from: "form@birdy.dev",
     to: toEmail,
-    subject: "Form submission",
+    subject: `${form.title} - New form submission`,
     text: JSON.stringify(request.data),
+    html: maskToHtml(form.id, request.data),
   });
 
   return "ok";
+}
+
+function maskToHtml(formId: string, obj: Json) {
+  const entries = Object.entries(obj as Record<string, object>);
+  const formUrl = `${ENV.APP_URL}/forms/${formId}`;
+  return html`<div>
+  <dl>
+    ${
+    entries.map(([key, value]) =>
+      html`<dt>${key}</dt><dd>${value.toString()}</dd>`
+    ).join(
+      "",
+    )
+  }
+  </dl>
+  <hr />
+  <p>View form submissions <a href="${formUrl}">${formUrl}</a></p>
+</div>`;
 }

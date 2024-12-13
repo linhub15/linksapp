@@ -79,7 +79,7 @@ function RouteComponent() {
 
         <section>
           <Field>
-            <Label>Target email</Label>
+            <Label>Destination email</Label>
             <div className="grid grid-cols-2 gap-12">
               <div className="space-y-4">
                 <Text>
@@ -183,7 +183,7 @@ function RouteComponent() {
         <section className="border border-red-500 rounded-lg p-8">
           <Heading level={2}>Danger Zone</Heading>
           <Field>
-            <Label>Permanently delete form</Label>
+            <Label>Delete this form</Label>
             <div className="grid grid-cols-2 gap-12">
               <Text>
                 Deleting this form will permantently remove the form and all
@@ -196,7 +196,7 @@ function RouteComponent() {
                   onClick={handleDeleteForm}
                   pending={deleteForm.isPending}
                 >
-                  Permanently delete form
+                  Delete this form
                 </Button>
               </div>
             </div>

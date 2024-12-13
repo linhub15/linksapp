@@ -12,21 +12,22 @@ const transportSchema = z.object({
 });
 
 const sendSchema = z.object({
+  fromAlias: z.string().optional(),
   from: z.string().email().optional(),
   to: z.string().email(),
   subject: z.string(),
   text: z.string(),
-  // todo(feat): support html emails
+  html: z.string().optional(),
 }).transform((data) => {
   if (!data.from) {
-    return {
-      to: data.to,
-      subject: data.subject,
-      text: data.text,
-    };
+    // biome-ignore lint/performance/noDelete: <explanation>
+    delete data.from;
   }
 
-  return data;
+  return {
+    ...data,
+    from: data.fromAlias ? `${data.fromAlias} <${data.from}>` : data.from,
+  };
 });
 
 export class SmtpClient {

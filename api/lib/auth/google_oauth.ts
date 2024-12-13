@@ -1,5 +1,5 @@
 import { OAuth2Client } from "@cmd-johnson/oauth2-client";
-import { AUTH_ENV } from "./options.ts";
+import { ENV } from "../env.ts";
 
 const google = {
   authorizationEndpointUri: "https://accounts.google.com/o/oauth2/v2/auth",
@@ -8,8 +8,8 @@ const google = {
 };
 
 export const googleOAuth = new OAuth2Client({
-  clientId: AUTH_ENV.AUTH_GOOGLE_CLIENT_ID,
-  clientSecret: AUTH_ENV.AUTH_GOOGLE_CLIENT_SECRET,
+  clientId: ENV.AUTH_GOOGLE_CLIENT_ID,
+  clientSecret: ENV.AUTH_GOOGLE_CLIENT_SECRET,
   authorizationEndpointUri: google.authorizationEndpointUri,
   tokenUri: google.tokenUri,
   defaults: {

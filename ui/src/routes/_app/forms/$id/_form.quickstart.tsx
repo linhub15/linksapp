@@ -32,6 +32,9 @@ function RouteComponent() {
   const example = html`<form method="post" action="${url.toJSON()}">
   <label for="email">Email</label>
   <input type="email" name="email" id="email"/>
+
+  <label for="message">Message</label>
+  <textarea name="message" id="message"></textarea>
   <button type="submit">Submit</button>
 </form>`;
 

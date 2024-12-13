@@ -7,13 +7,20 @@ import { Subheading } from "../../../../components/ui/heading.tsx";
 import { Button, buttonVariants } from "../../../../components/ui/button.tsx";
 import { api } from "../../../../lib/trpc/client.ts";
 import { toast } from "sonner";
+import z from "zod";
+
+const searchSchema = z.object({
+  view: z.union([z.literal("preview"), z.literal("json")]).optional(),
+});
 
 export const Route = createFileRoute("/_app/forms/$id/_form/")({
   loader: ({ params: { id } }) => api.forms.get.query({ form_id: id }),
   component: RouteComponent,
+  validateSearch: searchSchema,
 });
 
 function RouteComponent() {
+  const search = Route.useSearch();
   const form = Route.useLoaderData();
   const [index, setIndex] = useState(0);
 
@@ -67,9 +74,57 @@ function RouteComponent() {
           </div>
         ))}
       </div>
-      <CodeBlock className="rounded-2xl bg-gray-700 w-full h-100 p-6">
-        {JSON.stringify(form.submissions[index].data, null, 2)}
-      </CodeBlock>
+      <section className="w-full h-100 space-y-2">
+        <div>
+          <Link
+            className="inline-block rounded-xl p-2 size-fit bg-zinc-950/[2.5%] data-[active=true]:dark:bg-white/5"
+            to="."
+            search={{ view: "preview" }}
+            data-active={!search.view || search.view === "preview"}
+          >
+            Preview
+          </Link>
+          <Link
+            className="inline-block rounded-xl p-2 size-fit bg-zinc-950/[2.5%] data-[active=true]:dark:bg-white/5"
+            to="."
+            search={{ view: "json" }}
+            data-active={search.view === "json"}
+          >
+            JSON
+          </Link>
+        </div>
+        {(!search.view || search.view === "preview") && (
+          <CodeBlock className="rounded-2xl">
+            <dl className="divide-y divide-gray-700 dark:divide-gray-500">
+              {Object.entries(
+                form.submissions.at(index)?.data as Record<
+                  string,
+                  string
+                >,
+              ).map((
+                [key, value],
+              ) => (
+                <div
+                  className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0"
+                  key={key}
+                >
+                  <dt className="">
+                    {key}
+                  </dt>
+                  <dd className="mt-1 text-sm/6 sm:col-span-2 sm:mt-0">
+                    {value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </CodeBlock>
+        )}
+        {search.view === "json" && (
+          <CodeBlock className="rounded-2xl p-6">
+            {JSON.stringify(form.submissions[index].data, null, 2)}
+          </CodeBlock>
+        )}
+      </section>
     </div>
   );
 }
