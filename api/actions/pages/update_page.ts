@@ -1,7 +1,7 @@
+import { eq } from "drizzle-orm/expressions";
 import { z } from "zod";
-import { eq } from "drizzle-orm";
-import { pages } from "../../db/schema.ts";
 import { db } from "../../db/db.client.ts";
+import { pages } from "../../db/schema.ts";
 import { slugify } from "../../lib/slugify.ts";
 
 export const updatePageRequest = z.object({

@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { eq } from "drizzle-orm/expressions";
 import { z } from "zod";
 import {
   createPage,

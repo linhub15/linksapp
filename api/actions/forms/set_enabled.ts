@@ -1,8 +1,8 @@
+import { eq } from "drizzle-orm/expressions";
 import { createInsertSchema } from "drizzle-zod";
-import { eq } from "drizzle-orm";
 import type { z } from "zod";
-import { forms } from "../../db/schema.ts";
 import { db } from "../../db/db.client.ts";
+import { forms } from "../../db/schema.ts";
 
 export const setEnabledRequest = createInsertSchema(forms)
   .required({ id: true })

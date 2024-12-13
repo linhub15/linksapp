@@ -8,6 +8,7 @@ import { Button, buttonVariants } from "../../../../components/ui/button.tsx";
 import { api } from "../../../../lib/trpc/client.ts";
 import { toast } from "sonner";
 import z from "zod";
+import { maskDate } from "../../../../lib/masks/mask_date.ts";
 
 const searchSchema = z.object({
   view: z.union([z.literal("preview"), z.literal("json")]).optional(),
@@ -54,7 +55,7 @@ function RouteComponent() {
 
   return (
     <div className="flex gap-8">
-      <div className="w-84 space-y-4 px-2 overflow-y-scroll">
+      <div className="w-84 space-y-4 pr-4 overflow-y-auto max-h-150">
         {form.submissions.map((submission, idx) => (
           <div key={submission.id}>
             <Button
@@ -64,17 +65,12 @@ function RouteComponent() {
               onClick={() => setIndex(idx)}
               data-current={index === idx}
             >
-              <span>
-                {submission.createdAt.toLocaleDateString()}
-              </span>
-              <span>
-                {submission.ip}
-              </span>
+              {maskDate(submission.createdAt)}
             </Button>
           </div>
         ))}
       </div>
-      <section className="w-full h-100 space-y-2">
+      <section className="w-full space-y-2">
         <div>
           <Link
             className="inline-block rounded-xl p-2 size-fit bg-zinc-950/[2.5%] data-[active=true]:dark:bg-white/5"

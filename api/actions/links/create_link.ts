@@ -1,8 +1,8 @@
+import { eq } from "drizzle-orm/expressions";
 import { createInsertSchema } from "drizzle-zod";
-import { eq } from "drizzle-orm";
 import type { z } from "zod";
-import { links, pages } from "../../db/schema.ts";
 import { db } from "../../db/db.client.ts";
+import { links, pages } from "../../db/schema.ts";
 
 export const createLinkRequest = createInsertSchema(links);
 
