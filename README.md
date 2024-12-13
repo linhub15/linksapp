@@ -44,9 +44,8 @@ View the db with https://libsqlstudio.com
 
 #### Features
 
-- User management
-- Confirmation dialogs
-- Toast notifications
+- POST endpoint to submit forms
+- email notification
 
 ### Devops, CI/CD
 

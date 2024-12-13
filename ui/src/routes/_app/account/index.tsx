@@ -26,8 +26,6 @@ function RouteComponent() {
           <Input type="email" value={data?.profile.email} disabled />
         </div>
       </section>
-
-      {/* todo(feat): user preferences */}
     </div>
   );
 }

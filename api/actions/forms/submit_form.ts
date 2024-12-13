@@ -41,7 +41,6 @@ export async function submitForm(
 
   await db.insert(formSubmissions).values(request);
 
-  // todo(feat): configure their own SMTP server
   const toEmail = form.targetEmailIsVerified && form.targetEmail
     ? form.targetEmail
     : form.user.email;

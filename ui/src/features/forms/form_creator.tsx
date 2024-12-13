@@ -10,8 +10,7 @@ type Props = {
   onSubmitSuccess: (id: string) => void;
 };
 
-// todo(refactor): find a better name
-export function CreateFormForm(props: Props) {
+export function FormCreator(props: Props) {
   const createForm = useCreateForm();
 
   const form = useForm({

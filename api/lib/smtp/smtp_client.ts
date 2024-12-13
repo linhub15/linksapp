@@ -27,7 +27,7 @@ const sendSchema = z.object({
   return {
     ...data,
     from: data.fromAlias ? `${data.fromAlias} <${data.from}>` : data.from,
-  };
+  } as typeof data;
 });
 
 export class SmtpClient {
