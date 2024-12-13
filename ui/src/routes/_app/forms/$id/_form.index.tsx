@@ -6,6 +6,7 @@ import { Cog6ToothIcon } from "@heroicons/react/24/outline";
 import { Subheading } from "../../../../components/ui/heading.tsx";
 import { Button, buttonVariants } from "../../../../components/ui/button.tsx";
 import { api } from "../../../../lib/trpc/client.ts";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/_app/forms/$id/_form/")({
   loader: ({ params: { id } }) => api.forms.get.query({ form_id: id }),
@@ -17,7 +18,7 @@ function RouteComponent() {
   const [index, setIndex] = useState(0);
 
   if (!form) {
-    // todo(feat): notify not found, before redirecting
+    toast("Form not found");
     return <Navigate to=".." />;
   }
 

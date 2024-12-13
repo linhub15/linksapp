@@ -48,6 +48,7 @@
     "nodemailer": "npm:nodemailer@^6.9.16",
     "react": "npm:react@^18.3.1",
     "react-dom": "npm:react-dom@^18.3.1",
+    "sonner": "npm:sonner@^1.7.1",
     "superjson": "npm:superjson@^2.2.1",
     "tailwindcss": "npm:tailwindcss@^4.0.0-beta.2",
     "vite": "npm:vite@^6.0.1",

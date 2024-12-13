@@ -17,6 +17,8 @@ import {
   setEnabled,
   setEnabledRequest,
 } from "../../actions/forms/set_enabled.ts";
+import { forms } from "../../db/schema.ts";
+import { eq } from "drizzle-orm";
 
 export const formsRouter = router({
   list: authedProcedure.query(
@@ -44,7 +46,12 @@ export const formsRouter = router({
   create: authedProcedure
     .input(createFormRequest.pick({ title: true }))
     .mutation(async ({ input, ctx }) => {
-      await createForm({ ...input, userId: ctx.user.user_id });
+      return await createForm({ ...input, userId: ctx.user.user_id });
+    }),
+  delete: authedProcedure
+    .input(z.object({ form_id: z.string().uuid() }))
+    .mutation(async ({ input }) => {
+      await db.delete(forms).where(eq(forms.id, input.form_id));
     }),
   update: authedProcedure
     .input(updateFormRequest)

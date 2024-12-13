@@ -1,13 +1,13 @@
 import { useForm } from "@tanstack/react-form";
 import type { FormEvent } from "react";
 import { Button } from "../../components/ui/button.tsx";
-import { Field, Legend } from "../../components/ui/fieldset.tsx";
+import { Field, Label } from "../../components/ui/fieldset.tsx";
 import { Input } from "../../components/ui/input.tsx";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api, type ApiRequest } from "../../lib/trpc/client.ts";
 
 type Props = {
-  onSubmitSuccess: () => void;
+  onSubmitSuccess: (id: string) => void;
 };
 
 // todo(refactor): find a better name
@@ -19,9 +19,9 @@ export function CreateFormForm(props: Props) {
       title: "",
     },
     onSubmit: async ({ value }) => {
-      await createForm.mutateAsync({ title: value.title });
+      const [inserted] = await createForm.mutateAsync({ title: value.title });
       form.reset();
-      props.onSubmitSuccess();
+      props.onSubmitSuccess(inserted.id);
     },
   });
 
@@ -37,7 +37,7 @@ export function CreateFormForm(props: Props) {
         <form.Field name="title">
           {(field) => (
             <Field>
-              <Legend>Give your form a name</Legend>
+              <Label>Give your form a name</Label>
               <Input
                 className="max-w-[20rem]"
                 name={field.name}

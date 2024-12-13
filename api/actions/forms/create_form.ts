@@ -9,7 +9,7 @@ export const createFormRequest = createInsertSchema(forms).pick({
 });
 
 export async function createForm(request: z.infer<typeof createFormRequest>) {
-  await db.insert(forms).values({
+  return await db.insert(forms).values({
     ...request,
-  });
+  }).returning({ id: forms.id });
 }

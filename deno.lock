@@ -45,6 +45,7 @@
     "npm:nodemailer@^6.9.16": "6.9.16",
     "npm:react-dom@^18.3.1": "18.3.1_react@18.3.1",
     "npm:react@^18.3.1": "18.3.1",
+    "npm:sonner@^1.7.1": "1.7.1_react@18.3.1_react-dom@18.3.1__react@18.3.1",
     "npm:superjson@^2.2.1": "2.2.1",
     "npm:tailwindcss@^4.0.0-beta.2": "4.0.0-beta.3",
     "npm:vite@*": "6.0.1",
@@ -1969,6 +1970,13 @@
         "has-property-descriptors"
       ]
     },
+    "sonner@1.7.1_react@18.3.1_react-dom@18.3.1__react@18.3.1": {
+      "integrity": "sha512-b6LHBfH32SoVasRFECrdY8p8s7hXPDn3OHUFbZZbiB1ctLS9Gdh6rpX2dVrpQA0kiL5jcRzDDldwwLkSKk3+QQ==",
+      "dependencies": [
+        "react",
+        "react-dom"
+      ]
+    },
     "source-map-js@1.2.1": {
       "integrity": "sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA=="
     },
@@ -2177,6 +2185,7 @@
       "npm:nodemailer@^6.9.16",
       "npm:react-dom@^18.3.1",
       "npm:react@^18.3.1",
+      "npm:sonner@^1.7.1",
       "npm:superjson@^2.2.1",
       "npm:tailwindcss@^4.0.0-beta.2",
       "npm:vite@^6.0.1",

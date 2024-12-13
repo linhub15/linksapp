@@ -10,8 +10,8 @@ export const Route = createFileRoute("/_app/forms/new")({
 function RouteComponent() {
   const router = useRouter();
 
-  const afterSubmit = () => {
-    router.navigate({ to: ".." });
+  const afterSubmit = (id: string) => {
+    router.navigate({ to: "/forms/$id/quickstart", params: { id: id } });
   };
 
   return (
