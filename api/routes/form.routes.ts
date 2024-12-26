@@ -9,7 +9,13 @@ export const formRoutes = new Hono();
 formRoutes
   .post(
     "/:formId",
-    zValidator("header", z.object({ referer: z.string().url() })),
+    zValidator(
+      "header",
+      z.object({
+        referer: z.string().url(),
+        "CF-Connecting-IP": z.string().ip().optional(),
+      }),
+    ),
     zValidator(
       "param",
       z.object({
@@ -29,13 +35,24 @@ formRoutes
 
       const { formId } = ctx.req.valid("param");
       const data = ctx.req.valid("form");
+      const cfTurnstileToken = data["cf-turnstile-response"];
+      data["cf-turnstile-response"] = undefined;
+
+      if (!cfTurnstileToken) {
+        console.warn("Missing cf-turnstile-response");
+        return ctx.text("403 Forbidden", 403);
+      }
 
       try {
-        await submitForm({
+        const result = await submitForm({
           ip: ip,
           data: data,
           formId: formId,
-        });
+        }, { cfTurnstileToken: cfTurnstileToken });
+
+        if (result !== "ok") {
+          console.error({ ip: ip, result: result });
+        }
       } catch (e) {
         if (e instanceof Error) {
           console.error({ ip: ip, error: e.message });

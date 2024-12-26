@@ -149,6 +149,57 @@ function RouteComponent() {
 
         <section>
           <Field>
+            <Label>Cloudflare Turnstile</Label>
+            <div className="grid grid-cols-2 gap-12">
+              <div className="space-y-4">
+                <Text>
+                  Form submissions are protected by Cloudflare Turnstile to
+                  prevent bots from submitting spam.
+                </Text>
+                <Text>
+                  Read more about how to set this up here{"  "}
+                  <a
+                    className="underline hover:text-current/80"
+                    href="https://developers.cloudflare.com/turnstile/get-started/"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Cloudflare Turnstile
+                  </a>
+                </Text>
+              </div>
+
+              <div className="space-y-4 w-full">
+                <Field>
+                  <Label>Site Key</Label>
+                  <Input
+                    type="text"
+                    placeholder="0x4AAAAAAAN..."
+                    defaultValue={form.cfTurnstileSiteKey ?? ""}
+                    disabled
+                  />
+                </Field>
+
+                <Field>
+                  <Label>Secret Key</Label>
+                  <Input
+                    type="password"
+                    placeholder="0x4AAAAAAAN..."
+                    autoComplete="off"
+                    defaultValue={form.cfTurnstileSecretKey ?? ""}
+                    data-1p-ignore
+                    disabled
+                  />
+                </Field>
+              </div>
+            </div>
+          </Field>
+        </section>
+
+        <Divider />
+
+        <section>
+          <Field>
             <Label>Discord webhook</Label>
             <div className="grid grid-cols-2 gap-12">
               <Text>

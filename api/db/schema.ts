@@ -68,9 +68,12 @@ export const forms = sqliteTable("forms", {
   createdAt: integer({ mode: "timestamp_ms" })
     .notNull()
     .$default(() => new Date()),
+  forwardToEmail: integer({ mode: "boolean" }).notNull().default(false),
   targetEmail: text(),
   targetEmailIsVerified: integer({ mode: "boolean" }),
   enabled: integer({ mode: "boolean" }).notNull().default(false),
+  cfTurnstileSiteKey: text(),
+  cfTurnstileSecretKey: text(),
   userId: text().notNull().references(() => users.id, { onDelete: "cascade" }),
 });
 

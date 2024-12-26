@@ -6,8 +6,9 @@ import { mailer } from "../../lib/smtp/mailer.ts";
 import type { Json } from "../../lib/types.ts";
 import { ENV } from "../../lib/env.ts";
 import { html } from "../../lib/raw_html.ts";
+import { siteVerify } from "../../lib/cf_turnstile/siteverify.ts";
 
-type Response = "ok" | "disabled";
+type Result = "ok" | "disabled" | "turnstile-fail";
 
 export const submitFormRequest = createInsertSchema(formSubmissions)
   .pick({
@@ -18,13 +19,20 @@ export const submitFormRequest = createInsertSchema(formSubmissions)
 
 export async function submitForm(
   request: z.infer<typeof submitFormRequest>,
-): Promise<Response> {
+  options?: { cfTurnstileToken: string },
+): Promise<Result> {
+  if (!options?.cfTurnstileToken) {
+    return "turnstile-fail";
+  }
+
   const form = await db.query.forms.findFirst({
     columns: {
       id: true,
       title: true,
+      forwardToEmail: true,
       targetEmail: true,
       targetEmailIsVerified: true,
+      cfTurnstileSecretKey: true,
     },
     where: ({ id, enabled }, { and, eq }) =>
       and(eq(id, request.formId), eq(enabled, true)),
@@ -39,20 +47,32 @@ export async function submitForm(
     return "disabled";
   }
 
+  if (!form.cfTurnstileSecretKey) {
+    console.error(`Form ${form.id} has no secret key`);
+    return "turnstile-fail";
+  }
+  const ok = await siteVerify({
+    token: options?.cfTurnstileToken,
+    ip: request.ip,
+    secretKey: form.cfTurnstileSecretKey,
+  });
+  if (!ok) return "turnstile-fail";
   await db.insert(formSubmissions).values(request);
 
-  const toEmail = form.targetEmailIsVerified && form.targetEmail
-    ? form.targetEmail
-    : form.user.email;
+  if (form.forwardToEmail) {
+    const toEmail = form.targetEmailIsVerified && form.targetEmail
+      ? form.targetEmail
+      : form.user.email;
 
-  await mailer.send({
-    fromAlias: "Birdy Forms",
-    from: "form@birdy.dev",
-    to: toEmail,
-    subject: `${form.title} - New form submission`,
-    text: JSON.stringify(request.data),
-    html: maskToHtml(form.id, request.data),
-  });
+    await mailer.send({
+      fromAlias: "Birdy Forms",
+      from: "form@birdy.dev",
+      to: toEmail,
+      subject: `${form.title} - New form submission`,
+      text: JSON.stringify(request.data),
+      html: maskToHtml(form.id, request.data),
+    });
+  }
 
   return "ok";
 }

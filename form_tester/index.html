@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test Form</title>
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <script
+      src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+      async
+      defer
+    ></script>
+  </head>
+
+  <body
+    class="text-zinc-950 antialiased lg:bg-zinc-100 dark:bg-zinc-900 dark:text-white dark:lg:bg-zinc-950"
+  >
+    <h1>Test form</h1>
+    <form
+      method="post"
+      action="http://localhost:8000/forms/7dd11b56-3b3b-4fe8-89ef-d3e7007837c3"
+    >
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email" />
+
+      <label for="message">Message</label>
+      <textarea name="message" id="message"></textarea>
+      <div class="cf-turnstile" data-sitekey="0x4AAAAAAANYkea6QUqhduSc"></div>
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>
