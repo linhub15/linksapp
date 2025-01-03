@@ -1,5 +1,20 @@
 import { Link } from "@tanstack/react-router";
+import { cva } from "cva";
 import clsx from "clsx";
+
+// todo(style): add text variants
+export const textVariants = cva({
+  base: [],
+  variants: {
+    variant: {
+      default: [""],
+      muted: [""],
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+});
 
 export function Text(
   { className, ...props }: React.ComponentPropsWithoutRef<"p">,
@@ -63,7 +78,7 @@ export function CodeBlock(
       {...props}
       className={clsx(
         className,
-        "rounded-xl border border-zinc-950/10 bg-zinc-950/[2.5%] p-4 text-sm font-medium text-zinc-950 sm:text-[0.8125rem] dark:border-white/20 dark:bg-white/5 dark:text-white",
+        "overflow-auto rounded-xl border border-zinc-950/10 bg-zinc-950/[2.5%] p-4 text-sm font-medium text-zinc-950 sm:text-[0.8125rem] dark:border-white/20 dark:bg-white/5 dark:text-white",
       )}
     />
   );

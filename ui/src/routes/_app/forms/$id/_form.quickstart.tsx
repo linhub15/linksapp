@@ -29,7 +29,10 @@ function RouteComponent() {
     url.searchParams.set("return_to", returnTo);
   }
 
-  const example = html`<form method="post" action="${url.toJSON()}">
+  const example = html`<form
+  method="post"
+  action="${url.toJSON()}"
+>
   <label for="email">Email</label>
   <input type="email" name="email" id="email"/>
 
@@ -42,31 +45,58 @@ function RouteComponent() {
   return (
     <div className="space-y-12">
       <section>
-        <div>
-          <Subheading>Get started</Subheading>
-          <Text>Add this form snippet to your website to get started.</Text>
-        </div>
-
-        <div className="grid grid-cols-2 gap-8">
-          <CodeBlock className="rounded-xl overflow-x-scroll">
-            {example}
-          </CodeBlock>
-
-          <Field>
-            <Label>
-              Success URL&nbsp;<Code>return_to={returnTo}</Code>
-            </Label>
+        <Field>
+          <Label>
+            Set the form method and action
+          </Label>
+          <div className="grid grid-cols-2 gap-12">
             <Description>
-              Redirects to this path after the form is submitted. Origin is set
-              by the <Code>referer</Code> header of the form request.
+              Provide a success page URL with the query parameter{" "}
+              <Code>return_to</Code>.{" "}
+              This must be a relative URL on the same domain that the form is
+              submitted from.
             </Description>
+
+            <div className="space-y-4">
+              <CodeBlock>method="post"</CodeBlock>
+              <CodeBlock>action="{url.toJSON()}"</CodeBlock>
+            </div>
+          </div>
+        </Field>
+      </section>
+
+      <section>
+        <Field>
+          <Label>
+            Success URL <span>(Optional)</span>
+          </Label>
+          <div className="grid grid-cols-2 gap-12">
+            <Description>
+              Provide a success page URL with the query parameter{" "}
+              <Code>return_to</Code>.{" "}
+              This must be a relative URL on the same domain that the form is
+              submitted from.
+            </Description>
+
             <Input
               type="text"
               value={returnTo}
               placeholder="/thank-you-page"
               onChange={(e) => setReturnTo(e.target.value)}
             />
-          </Field>
+          </div>
+        </Field>
+      </section>
+
+      <section>
+        <div className="space-y-4">
+          <div>
+            <Subheading>Example</Subheading>
+            <Text>Add this form snippet to your website to get started.</Text>
+          </div>
+          <CodeBlock className="rounded-xl overflow-x-scroll">
+            {example}
+          </CodeBlock>
         </div>
       </section>
 
