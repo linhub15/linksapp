@@ -55,42 +55,45 @@ function RouteComponent() {
 
   return (
     <div className="flex gap-8">
-      <div className="w-84 space-y-4 pr-4 overflow-y-auto max-h-150">
+      <div className="max-h-150 w-60 shrink-0 space-y-4 overflow-y-auto pr-4">
         {form.submissions.map((submission, idx) => (
           <div key={submission.id}>
             <Button
               variant="outline"
-              className="w-full space-x-4 dark:data-[current=true]:bg-zinc-700 data-[current=true]:bg-zinc-200"
+              className={buttonVariants({
+                variant: "ghost",
+                className: "w-full",
+              })}
               type="button"
               onClick={() => setIndex(idx)}
-              data-current={index === idx}
+              data-active={index === idx || null}
             >
               {maskDate(submission.createdAt)}
             </Button>
           </div>
         ))}
       </div>
-      <section className="w-full space-y-2">
-        <div>
+      <section className="space-y-4 flex-auto min-w-0">
+        <div className="space-x-2">
           <Link
-            className="inline-block rounded-xl p-2 size-fit bg-zinc-950/[2.5%] data-[active=true]:dark:bg-white/5"
+            className={buttonVariants({ variant: "ghost" })}
             to="."
             search={{ view: "preview" }}
-            data-active={!search.view || search.view === "preview"}
+            data-active={(!search.view || search.view === "preview") || null}
           >
             Preview
           </Link>
           <Link
-            className="inline-block rounded-xl p-2 size-fit bg-zinc-950/[2.5%] data-[active=true]:dark:bg-white/5"
+            className={buttonVariants({ variant: "ghost" })}
             to="."
             search={{ view: "json" }}
-            data-active={search.view === "json"}
+            data-active={search.view === "json" || null}
           >
             JSON
           </Link>
         </div>
-        {(!search.view || search.view === "preview") && (
-          <CodeBlock className="rounded-2xl">
+        <CodeBlock className="overflow-x-auto">
+          {(!search.view || search.view === "preview") && (
             <dl className="divide-y divide-gray-700 dark:divide-gray-500">
               {Object.entries(
                 form.submissions.at(index)?.data as Record<
@@ -104,22 +107,18 @@ function RouteComponent() {
                   className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0"
                   key={key}
                 >
-                  <dt className="">
-                    {key}
-                  </dt>
+                  <dt>{key}</dt>
                   <dd className="mt-1 text-sm/6 sm:col-span-2 sm:mt-0">
                     {value}
                   </dd>
                 </div>
               ))}
             </dl>
-          </CodeBlock>
-        )}
-        {search.view === "json" && (
-          <CodeBlock className="rounded-2xl p-6">
-            {JSON.stringify(form.submissions[index].data, null, 2)}
-          </CodeBlock>
-        )}
+          )}
+          {search.view === "json" && (
+            JSON.stringify(form.submissions[index].data, null, 2)
+          )}
+        </CodeBlock>
       </section>
     </div>
   );
