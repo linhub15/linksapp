@@ -66,8 +66,6 @@ export function LinkCard({ link }: Props) {
             )}
           </form.Field>
 
-          {/* For debugging */}
-          {link.href}
           <form.Field name="href">
             {(field) => (
               <input
