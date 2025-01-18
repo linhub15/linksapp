@@ -1,14 +1,14 @@
 import { zValidator } from "@hono/zod-validator";
-import { deleteCookie, setCookie } from "hono/cookie";
 import { Hono } from "hono";
+import { deleteCookie, setCookie } from "hono/cookie";
 import { z } from "zod";
+import { registerUser } from "../../actions/auth/register_user.ts";
 import {
   fetchGoogleProfile,
   googleOAuth,
 } from "../../lib/auth/google_oauth.ts";
 import { decodeJwt, signJwt } from "../../lib/auth/jwt.ts";
 import { AUTH_COOKIE } from "../../lib/auth/options.ts";
-import { registerUser } from "../../actions/auth/register_user.ts";
 
 export const authRoutes = new Hono().basePath("/auth");
 
