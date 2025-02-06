@@ -6,7 +6,10 @@
   "tasks": {
     "dev": {
       "command": "echo dev",
-      "dependencies": ["api", "ui"]
+      "dependencies": [
+        "api",
+        "ui"
+      ]
     },
     "api": "deno task --cwd api dev",
     "db": "deno task --cwd api dev:db",
@@ -16,7 +19,10 @@
     "ui:build": "deno task --cwd ui build",
     "ui:serve": "deno task --cwd ui serve"
   },
-  "exclude": ["node_modules", "ui/.vite"],
+  "exclude": [
+    "node_modules",
+    "ui/.vite"
+  ],
   "imports": {
     "@cmd-johnson/oauth2-client": "jsr:@cmd-johnson/oauth2-client@^2.0.0",
     "@headlessui/react": "npm:@headlessui/react@^2.2.0",
@@ -29,7 +35,6 @@
     "@std/dotenv": "jsr:@std/dotenv@^0.225.3",
     "@std/fs": "jsr:@std/fs@^1.0.9",
     "@std/http": "jsr:@std/http@^1.0.12",
-    "@tailwindcss/vite": "npm:@tailwindcss/vite@^4.0.0-beta.9",
     "@tanstack/react-form": "npm:@tanstack/react-form@^0.40.4",
     "@tanstack/react-query": "npm:@tanstack/react-query@^5.64.1",
     "@tanstack/react-query-devtools": "npm:@tanstack/react-query-devtools@^5.64.1",
@@ -50,7 +55,7 @@
     "react-dom": "npm:react-dom@^18.3.1",
     "sonner": "npm:sonner@^1.7.2",
     "superjson": "npm:superjson@^2.2.2",
-    "tailwindcss": "npm:tailwindcss@^4.0.0-beta.9",
+    "tailwindcss": "npm:tailwindcss@^3.4.17",
     "vite": "npm:vite@^6.0.7",
     "zod": "npm:zod@^3.24.1"
   },
