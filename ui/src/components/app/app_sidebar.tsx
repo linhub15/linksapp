@@ -28,13 +28,13 @@ export function AppSidebar() {
             current={pathname.startsWith("/pages")}
           >
             <SidebarLabel className="flex gap-x-2.5 items-center">
-              <QueueListIcon className="inline size-6 stroke-white/70" />
+              <QueueListIcon className="inline size-5 stroke-white/80" />
               Pages
             </SidebarLabel>
           </SidebarItem>
           <SidebarItem to="/forms" current={pathname.startsWith("/forms")}>
             <SidebarLabel className="flex gap-x-2.5 items-center">
-              <DocumentTextIcon className="inline size-6 stroke-white/70" />
+              <DocumentTextIcon className="inline size-5 stroke-white/80" />
               Forms
             </SidebarLabel>
           </SidebarItem>
@@ -43,7 +43,7 @@ export function AppSidebar() {
             current={pathname.startsWith("/about")}
           >
             <SidebarLabel className="flex gap-x-2.5 items-center">
-              <InformationCircleIcon className="inline size-6 stroke-white/70" />
+              <InformationCircleIcon className="inline size-5 stroke-white/80" />
               About
             </SidebarLabel>
           </SidebarItem>

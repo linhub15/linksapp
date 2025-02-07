@@ -17,6 +17,9 @@ import { Heading } from "../../../../components/ui/heading.tsx";
 import { useDeleteForm } from "../../../../features/forms/use_delete_form.ts";
 import { toast } from "sonner";
 import { useSetCloudflareTurnstile } from "../../../../features/forms/use_set_cloudflare_turnstile.ts";
+import { useSetTitle } from "../../../../features/forms/use_set_title.ts";
+import { ArrowPathIcon, CheckIcon } from "@heroicons/react/16/solid";
+import { PencilIcon } from "@heroicons/react/24/outline";
 
 export const Route = createFileRoute("/_app/forms/$id/_form/settings")({
   component: RouteComponent,
@@ -27,6 +30,7 @@ function RouteComponent() {
   const { data: user } = useUser();
   const id = Route.useParams().id;
   const { data: form } = useGetForm(id);
+  const setTitle = useSetTitle(id);
   const setEnabled = useSetEnabled(id);
   const manageEmail = useManageEmail(id);
   const setCloudflareTurnstile = useSetCloudflareTurnstile(id);
@@ -55,6 +59,56 @@ function RouteComponent() {
       <div className="space-y-12 *:space-y-8">
         <section>
           <Field>
+            <Label>Form Title</Label>
+            <div className="grid grid-cols-2 gap-12">
+              <Text>
+                The display name for this form.
+              </Text>
+
+              <div>
+                <div className="flex items-center gap-2">
+                  <Field className="w-full">
+                    <div className="space-y-2">
+                      <div className="flex w-full items-center gap-4">
+                        <Input
+                          value={setTitle.value}
+                          onChange={(e) => setTitle.change(e.target.value)}
+                          onBlur={() => setTitle.save()}
+                          disabled={setTitle.mutation.isPending}
+                        />
+                        <span className="flex items-center">
+                          {setTitle.mutation.isPending
+                            ? (
+                              <ArrowPathIcon className="size-4 fill-zinc-400 animate-spin" />
+                            )
+                            : (
+                              <>
+                                <CheckIcon
+                                  className="size-4 fill-green-600 data-[dirty=true]:hidden"
+                                  data-dirty={setTitle.dirty ? "true" : "false"}
+                                />
+                                <PencilIcon
+                                  className="size-4 data-[dirty=false]:hidden animate-pulse"
+                                  data-dirty={setTitle.dirty ? "true" : "false"}
+                                />
+                              </>
+                            )}
+                        </span>
+                      </div>
+                      <div className="text-red-500 text-sm">
+                        {setTitle.error}
+                      </div>
+                    </div>
+                  </Field>
+                </div>
+              </div>
+            </div>
+          </Field>
+        </section>
+
+        <Divider />
+        <section>
+          <Field>
             <Label>Allow submissions</Label>
             <div className="grid grid-cols-2 gap-12">
               <Text>
@@ -64,9 +118,9 @@ function RouteComponent() {
 
               <div>
                 <div className="flex items-center gap-2">
-                  <Badge>
-                    {form.enabled ? "Enabled" : "Disabled"}
-                  </Badge>
+                  {form.enabled
+                    ? <Badge color="green">Enabled</Badge>
+                    : <Badge color="red">Disabled</Badge>}
                   <Switch
                     checked={form.enabled}
                     onChange={(value) => handleToggleEnabled(value)}
