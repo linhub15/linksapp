@@ -2,9 +2,8 @@ import * as Headless from "@headlessui/react";
 import clsx from "clsx";
 import {
   type ComponentPropsWithoutRef,
-  type ForwardedRef,
-  forwardRef,
   type ReactNode,
+  type Ref,
   useId,
 } from "react";
 import { TouchTarget } from "./button.tsx";
@@ -59,19 +58,24 @@ export function NavbarSpacer(
   );
 }
 
-export const NavbarItem = forwardRef(function NavbarItem(
+export const NavbarItem = function NavbarItem(
   {
     current,
     className,
     children,
+    ref,
     ...props
   }:
-    & { current?: boolean; className?: string; children: ReactNode }
+    & {
+      current?: boolean;
+      className?: string;
+      ref?: Ref<HTMLAnchorElement | HTMLButtonElement>;
+      children: ReactNode;
+    }
     & (
       | Omit<Headless.ButtonProps, "as" | "className">
       | Omit<ComponentPropsWithoutRef<typeof Link>, "className">
     ),
-  ref: ForwardedRef<HTMLAnchorElement | HTMLButtonElement>,
 ) {
   const classes = clsx(
     // Base
@@ -102,9 +106,10 @@ export const NavbarItem = forwardRef(function NavbarItem(
         ? (
           <Link
             {...props}
+            to={props.to}
             className={classes}
             data-current={current ? "true" : undefined}
-            ref={ref as ForwardedRef<HTMLAnchorElement>}
+            ref={ref as Ref<HTMLAnchorElement>}
           >
             <TouchTarget>{children}</TouchTarget>
           </Link>
@@ -121,7 +126,7 @@ export const NavbarItem = forwardRef(function NavbarItem(
         )}
     </span>
   );
-});
+};
 
 export function NavbarLabel(
   { className, ...props }: ComponentPropsWithoutRef<"span">,

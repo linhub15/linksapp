@@ -1,14 +1,18 @@
 import clsx from "clsx";
 import type { ComponentPropsWithoutRef } from "react";
 
+type H = ComponentPropsWithoutRef<
+  "h1" | "h2" | "h3" | "h4" | "h5" | "h6"
+>;
+
 type HeadingProps =
   & { level?: 1 | 2 | 3 | 4 | 5 | 6 }
-  & ComponentPropsWithoutRef<
-    "h1" | "h2" | "h3" | "h4" | "h5" | "h6"
-  >;
+  & H;
 
-export function Heading({ className, level = 1, ...props }: HeadingProps) {
-  const Element: `h${typeof level}` = `h${level}`;
+export function Heading(
+  { className, level = 1, ...props }: HeadingProps,
+) {
+  const Element: H = `h${level}`;
 
   return (
     <Element
@@ -22,7 +26,7 @@ export function Heading({ className, level = 1, ...props }: HeadingProps) {
 }
 
 export function Subheading({ className, level = 2, ...props }: HeadingProps) {
-  const Element: `h${typeof level}` = `h${level}`;
+  const Element: H = `h${level}`;
 
   return (
     <Element
