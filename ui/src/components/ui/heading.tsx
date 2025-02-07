@@ -1,7 +1,7 @@
 import clsx from "clsx";
-import type { ComponentPropsWithoutRef } from "react";
+import type { ComponentProps, JSX } from "react";
 
-type H = ComponentPropsWithoutRef<
+type H = ComponentProps<
   "h1" | "h2" | "h3" | "h4" | "h5" | "h6"
 >;
 
@@ -12,7 +12,7 @@ type HeadingProps =
 export function Heading(
   { className, level = 1, ...props }: HeadingProps,
 ) {
-  const Element: H = `h${level}`;
+  const Element: keyof JSX.IntrinsicElements = `h${level}`;
 
   return (
     <Element
@@ -26,7 +26,7 @@ export function Heading(
 }
 
 export function Subheading({ className, level = 2, ...props }: HeadingProps) {
-  const Element: H = `h${level}`;
+  const Element: keyof JSX.IntrinsicElements = `h${level}`;
 
   return (
     <Element

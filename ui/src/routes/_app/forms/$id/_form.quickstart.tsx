@@ -38,7 +38,11 @@ function RouteComponent() {
 
   <label for="message">Message</label>
   <textarea name="message" id="message"></textarea>
-  <div class="cf-turnstile" data-sitekey="0x4AAAAAAANYkea6QUqhduSc"></div>
+  ${
+    form.cfTurnstileSiteKey
+      ? html`<div class="cf-turnstile" data-sitekey="${form.cfTurnstileSiteKey}"></div>`
+      : ""
+  }
   <button type="submit">Submit</button>
 </form>`;
 

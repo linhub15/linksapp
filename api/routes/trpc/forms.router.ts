@@ -19,6 +19,10 @@ import {
 import { db } from "../../db/db.client.ts";
 import { forms } from "../../db/schema.ts";
 import { authedProcedure, router } from "./trpc.ts";
+import {
+  setCloudflareTurnstile,
+  setCloudflareTurnstileRequest,
+} from "../../actions/forms/set_cloudflare_turnstile.ts";
 
 export const formsRouter = router({
   list: authedProcedure.query(
@@ -67,5 +71,10 @@ export const formsRouter = router({
     .input(setTargetEmailRequest)
     .mutation(async ({ input }) => {
       await setTargetEmail(input);
+    }),
+  setCloudflareTurnstile: authedProcedure
+    .input(setCloudflareTurnstileRequest)
+    .mutation(async ({ input }) => {
+      await setCloudflareTurnstile(input);
     }),
 });

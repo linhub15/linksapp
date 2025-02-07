@@ -73,7 +73,7 @@ export function SidebarSection(
       {...props}
       id={id}
       data-slot="section"
-      className={clsx(className, "flex flex-col gap-0.5")}
+      className={clsx(className, "flex flex-col gap-1")}
     />
   );
 }

@@ -4,6 +4,7 @@ import { formKeys } from "./form.keys.ts";
 
 export function useSetEnabled(id: string) {
   const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: async (request: ApiRequest["forms"]["setEnabled"]) => {
       await api.forms.setEnabled.mutate(request);

@@ -7,7 +7,7 @@ import { Switch } from "../../../../components/ui/switch.tsx";
 import { Strong, Text } from "../../../../components/ui/text.tsx";
 import { useGetForm } from "../../../../features/forms/use_get_form.tsx";
 import { FieldGroup } from "../../../../components/ui/fieldset.tsx";
-import { useSetEnabled } from "../../../../features/forms/use_set_enabled.tsx";
+import { useSetEnabled } from "../../../../features/forms/use_set_enabled.ts";
 import {
   useManageEmail,
 } from "../../../../features/forms/use_set_target_email.tsx";
@@ -16,6 +16,7 @@ import { useUser } from "../../../../lib/auth/use_user.ts";
 import { Heading } from "../../../../components/ui/heading.tsx";
 import { useDeleteForm } from "../../../../features/forms/use_delete_form.tsx";
 import { toast } from "sonner";
+import { useSetCloudflareTurnstile } from "../../../../features/forms/use_set_cloudflare_turnstile.ts";
 
 export const Route = createFileRoute("/_app/forms/$id/_form/settings")({
   component: RouteComponent,
@@ -28,6 +29,7 @@ function RouteComponent() {
   const { data: form } = useGetForm(id);
   const setEnabled = useSetEnabled(id);
   const manageEmail = useManageEmail(id);
+  const setCloudflareTurnstile = useSetCloudflareTurnstile(id);
   const deleteForm = useDeleteForm();
 
   if (!form) {
@@ -175,8 +177,10 @@ function RouteComponent() {
                   <Input
                     type="text"
                     placeholder="0x4AAAAAAAN..."
-                    defaultValue={form.cfTurnstileSiteKey ?? ""}
-                    disabled
+                    disabled={setCloudflareTurnstile.mode === "view"}
+                    value={setCloudflareTurnstile.value.siteKey}
+                    onChange={(e) =>
+                      setCloudflareTurnstile.setSiteKey(e.target.value)}
                   />
                 </Field>
 
@@ -186,11 +190,48 @@ function RouteComponent() {
                     type="password"
                     placeholder="0x4AAAAAAAN..."
                     autoComplete="off"
-                    defaultValue={form.cfTurnstileSecretKey ?? ""}
+                    disabled={setCloudflareTurnstile.mode === "view"}
+                    value={setCloudflareTurnstile.value.secretKey}
+                    onChange={(e) =>
+                      setCloudflareTurnstile.setSecret(e.target.value)}
                     data-1p-ignore
-                    disabled
                   />
                 </Field>
+
+                <div>
+                  <div
+                    className="hidden data-[mode=view]:block"
+                    data-mode={setCloudflareTurnstile.mode}
+                  >
+                    <Button
+                      variant="outline"
+                      onClick={setCloudflareTurnstile.edit}
+                    >
+                      Edit
+                    </Button>
+                  </div>
+
+                  <div
+                    className="hidden data-[mode=edit]:flex gap-2"
+                    data-mode={setCloudflareTurnstile.mode}
+                  >
+                    <Button
+                      variant="outline"
+                      onClick={setCloudflareTurnstile.cancel}
+                    >
+                      Cancel
+                    </Button>
+
+                    <Button
+                      variant="outline"
+                      onClick={() => setCloudflareTurnstile.save()}
+                      pending={setCloudflareTurnstile.mutation.isPending}
+                      disabled={!setCloudflareTurnstile.canSave}
+                    >
+                      Save
+                    </Button>
+                  </div>
+                </div>
               </div>
             </div>
           </Field>

@@ -64,7 +64,6 @@
   "nodeModulesDir": "auto",
   "compilerOptions": {
     "jsx": "react-jsx",
-    "jsxImportSource": "react",
-    "jsxImportSourceTypes": "@types/react"
+    "jsxImportSource": "react"
   }
 }

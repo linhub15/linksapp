@@ -8,6 +8,11 @@ import {
   SidebarSection,
 } from "../ui/sidebar.tsx";
 import { UserMenu } from "./user_menu.tsx";
+import {
+  DocumentTextIcon,
+  InformationCircleIcon,
+  QueueListIcon,
+} from "@heroicons/react/24/outline";
 
 export function AppSidebar() {
   const { pathname } = useLocation();
@@ -22,16 +27,25 @@ export function AppSidebar() {
             to="/pages"
             current={pathname.startsWith("/pages")}
           >
-            <SidebarLabel>Pages</SidebarLabel>
+            <SidebarLabel className="flex gap-x-2.5 items-center">
+              <QueueListIcon className="inline size-6 stroke-white/70" />
+              Pages
+            </SidebarLabel>
           </SidebarItem>
           <SidebarItem to="/forms" current={pathname.startsWith("/forms")}>
-            <SidebarLabel>Forms</SidebarLabel>
+            <SidebarLabel className="flex gap-x-2.5 items-center">
+              <DocumentTextIcon className="inline size-6 stroke-white/70" />
+              Forms
+            </SidebarLabel>
           </SidebarItem>
           <SidebarItem
             to="/about"
             current={pathname.startsWith("/about")}
           >
-            <SidebarLabel>About</SidebarLabel>
+            <SidebarLabel className="flex gap-x-2.5 items-center">
+              <InformationCircleIcon className="inline size-6 stroke-white/70" />
+              About
+            </SidebarLabel>
           </SidebarItem>
         </SidebarSection>
         <div className="flex-1" />
