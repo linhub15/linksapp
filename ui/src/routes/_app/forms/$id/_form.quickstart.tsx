@@ -8,7 +8,7 @@ import {
   Label,
 } from "../../../../components/ui/fieldset.tsx";
 import { useState } from "react";
-import { useGetForm } from "../../../../features/forms/use_get_form.tsx";
+import { useGetForm } from "../../../../features/forms/use_get_form.ts";
 
 export const Route = createFileRoute("/_app/forms/$id/_form/quickstart")({
   component: RouteComponent,
@@ -82,12 +82,14 @@ function RouteComponent() {
               submitted from.
             </Description>
 
-            <Input
-              type="text"
-              value={returnTo}
-              placeholder="/thank-you-page"
-              onChange={(e) => setReturnTo(e.target.value)}
-            />
+            <div>
+              <Input
+                type="text"
+                value={returnTo}
+                placeholder="/thank-you-page"
+                onChange={(e) => setReturnTo(e.target.value)}
+              />
+            </div>
           </div>
         </Field>
       </section>

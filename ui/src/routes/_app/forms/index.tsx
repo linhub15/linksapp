@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { RouteHeader } from "../../../components/app/route_header.tsx";
 import { buttonVariants } from "../../../components/ui/button.tsx";
-import { useListForms } from "../../../features/forms/use_list_forms.tsx";
+import { useListForms } from "../../../features/forms/use_list_forms.ts";
 import { useUser } from "../../../lib/auth/use_user.ts";
 
 export const Route = createFileRoute("/_app/forms/")({

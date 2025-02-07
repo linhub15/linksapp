@@ -5,16 +5,16 @@ import { Field, Label } from "../../../../components/ui/fieldset.tsx";
 import { Input } from "../../../../components/ui/input.tsx";
 import { Switch } from "../../../../components/ui/switch.tsx";
 import { Strong, Text } from "../../../../components/ui/text.tsx";
-import { useGetForm } from "../../../../features/forms/use_get_form.tsx";
+import { useGetForm } from "../../../../features/forms/use_get_form.ts";
 import { FieldGroup } from "../../../../components/ui/fieldset.tsx";
 import { useSetEnabled } from "../../../../features/forms/use_set_enabled.ts";
 import {
   useManageEmail,
-} from "../../../../features/forms/use_set_target_email.tsx";
+} from "../../../../features/forms/use_set_target_email.ts";
 import { Button } from "../../../../components/ui/button.tsx";
 import { useUser } from "../../../../lib/auth/use_user.ts";
 import { Heading } from "../../../../components/ui/heading.tsx";
-import { useDeleteForm } from "../../../../features/forms/use_delete_form.tsx";
+import { useDeleteForm } from "../../../../features/forms/use_delete_form.ts";
 import { toast } from "sonner";
 import { useSetCloudflareTurnstile } from "../../../../features/forms/use_set_cloudflare_turnstile.ts";
 

@@ -7,7 +7,7 @@ import {
 import { RouteHeader } from "../../../../components/app/route_header.tsx";
 import { SectionNav } from "../../../../components/app/section_nav.tsx";
 import { buttonVariants } from "../../../../components/ui/button.tsx";
-import { useGetForm } from "../../../../features/forms/use_get_form.tsx";
+import { useGetForm } from "../../../../features/forms/use_get_form.ts";
 
 export const Route = createFileRoute("/_app/forms/$id/_form")({
   component: RouteComponent,

@@ -3,7 +3,7 @@ import { api, type ApiRequest } from "../../lib/trpc/client.ts";
 import { formKeys } from "./form.keys.ts";
 import { useState } from "react";
 import { toast } from "sonner";
-import { useGetForm } from "./use_get_form.tsx";
+import { useGetForm } from "./use_get_form.ts";
 
 export function useSetCloudflareTurnstile(id: string) {
   const { data: form } = useGetForm(id);

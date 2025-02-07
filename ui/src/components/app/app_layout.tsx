@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from "react";
 import { Navbar, NavbarSection, NavbarSpacer } from "../ui/navbar.tsx";
-import { SidebarLayout } from "../ui/sidebar-layout.tsx";
+import { SidebarLayout } from "../ui/sidebar_layout.tsx";
 import { AppSidebar } from "./app_sidebar.tsx";
 
 export function AppLayout({ children }: PropsWithChildren) {

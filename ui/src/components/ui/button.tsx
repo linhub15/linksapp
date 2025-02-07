@@ -177,6 +177,7 @@ export const Button = ({
   color,
   children,
   asChild = false,
+  pending,
   ref,
   ...props
 }: ButtonProps) => {
@@ -188,14 +189,12 @@ export const Button = ({
         buttonVariants({ variant, color }),
         className,
       )}
-      data-pending={props.pending}
-      disabled={props.pending}
+      data-pending={pending}
+      disabled={pending}
       {...props}
     >
       <TouchTarget>
-        {props.pending
-          ? <ArrowPathIcon className="animate-spin size-2" />
-          : children}
+        {pending ? <ArrowPathIcon className="animate-spin size-2" /> : children}
       </TouchTarget>
     </Headless.Button>
   );

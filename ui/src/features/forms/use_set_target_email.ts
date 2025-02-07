@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api, type ApiRequest } from "../../lib/trpc/client.ts";
 import { formKeys } from "./form.keys.ts";
 import { useState } from "react";
-import { useGetForm } from "./use_get_form.tsx";
+import { useGetForm } from "./use_get_form.ts";
 import { toast } from "sonner";
 
 export function useManageEmail(id: string) {
