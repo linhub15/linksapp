@@ -45,7 +45,7 @@ export function AddLinkForm(props: Props) {
             {(field) => (
               <input
                 className={clsx("block rounded-lg p-4 min-w-sm", {
-                  "aniamte-pulse": submitting,
+                  "animate-pulse": submitting,
                 })}
                 name={field.name}
                 type="text"

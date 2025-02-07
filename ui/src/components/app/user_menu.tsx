@@ -27,7 +27,7 @@ export function UserMenu() {
 
       <MenuItems
         className={clsx([
-          "w-(--button-width) origin-top-right rounded-xl p-1 text-sm/6 transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-closed:scale-95 data-closed:opacity-0 ",
+          "w-(--button-width) origin-top-right rounded-xl p-1 text-sm/6 transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-closed:scale-95 data-closed:opacity-0",
           "border border-black/10 bg-white/75 dark:border-white/5 dark:text-white dark:bg-zinc-900 dark:ring-inset",
           "shadow-lg outline outline-transparent backdrop-blur",
         ])}

@@ -14,7 +14,7 @@ const queryClient = new QueryClient();
 /** Tanstack Router */
 import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { routeTree } from "./route_tree.gen.ts";
-export const router = createRouter({ routeTree });
+export const router = createRouter({ routeTree, scrollRestoration: true });
 
 // Register the router instance for type safety
 declare module "@tanstack/react-router" {

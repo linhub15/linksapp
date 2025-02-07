@@ -1,8 +1,4 @@
-import {
-  createRootRoute,
-  Outlet,
-  ScrollRestoration,
-} from "@tanstack/react-router";
+import { createRootRoute, Outlet } from "@tanstack/react-router";
 import { Toaster } from "../components/ui/toaster.tsx";
 
 export const Route = createRootRoute({
@@ -12,7 +8,6 @@ export const Route = createRootRoute({
 function RootComponent() {
   return (
     <>
-      <ScrollRestoration />
       <Outlet />
       <Toaster />
     </>
