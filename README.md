@@ -49,8 +49,12 @@ View the db with https://libsqlstudio.com
 
 ### Devops, CI/CD
 
+- Docker
+
 ## Setup
 
 - Install deno
 - Install turso cli
 - Setup environment variables for `api` with `cp ./api/.env/example ./api/.env`
+
+- `docker build -t linksapp -f api.dockerfile .`
