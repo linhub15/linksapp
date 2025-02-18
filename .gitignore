@@ -1,4 +1,11 @@
 **/.env
+
+# deno nodeModulesDir: "true"
 node_modules
+
+# database
 drizzle
 *.sqlite*
+
+# sst
+.sst
