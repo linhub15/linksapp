@@ -13,6 +13,7 @@ export default defineConfig({
     react(),
     // @ts-expect-error: it works
     tailwindcss(),
+    // @ts-expect-error: it works
     TanStackRouterVite({
       addExtensions: true,
       semicolons: true,
