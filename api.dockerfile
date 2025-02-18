@@ -1,10 +1,12 @@
 FROM denoland/deno:alpine-2.1.10
 
+# Required for Coolify healthcheck  
+RUN apk add --no-cache wget
+
 # The port that your application listens to.
 EXPOSE 8000
 
 WORKDIR /
-
 
 # These steps will be re-run upon each file change in your working directory:
 COPY . .
