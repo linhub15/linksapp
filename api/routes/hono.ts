@@ -12,6 +12,7 @@ import { ENV } from "../lib/env.ts";
 
 export const app = new Hono();
 
+app.get("/health", (c) => c.json({ status: "ok" }));
 app
   .use("*", cors({ origin: ENV.APP_URL, credentials: true }))
   .use(
